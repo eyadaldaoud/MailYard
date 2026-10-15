@@ -188,7 +188,7 @@ export function UnsubscriberTab({
       </div>
 
       {/* Search Bar */}
-      <div className="flex items-center justify-between gap-4 rounded-xl border border-slate-800 bg-slate-900/60 p-3">
+      <div className="flex flex-col items-stretch justify-between gap-3 rounded-xl border border-slate-800 bg-slate-900/60 p-3 sm:flex-row sm:items-center sm:gap-4">
         <div className="relative flex-1 max-w-md">
           <Search className="absolute left-3 top-2.5 h-4 w-4 text-slate-500" />
           <input
@@ -199,7 +199,7 @@ export function UnsubscriberTab({
             className="w-full rounded-lg border border-slate-700 bg-slate-800/80 pl-9 pr-3 py-1.5 text-xs text-white placeholder-slate-500 focus:border-indigo-500 focus:outline-none"
           />
         </div>
-        <div className="text-xs text-slate-400">
+        <div className="text-xs text-slate-400 sm:text-right">
           Showing <span className="font-semibold text-white">{subscriptionGroups.length}</span> sender domains
         </div>
       </div>

@@ -193,23 +193,23 @@ SESSION_SECRET="mc_sec_${Math.random().toString(36).substring(2, 15)}${Math.rand
   ];
 
   return (
-    <div className="min-h-[calc(100vh-3.5rem)] bg-radial from-slate-900 via-[#070b14] to-[#04060a] text-slate-100 py-10 px-4 sm:px-6 lg:px-8">
-      <div className="mx-auto max-w-5xl space-y-8">
+    <div className="min-h-[calc(100vh-3.5rem)] bg-radial from-slate-900 via-[#070b14] to-[#04060a] text-slate-100 px-3 py-5 sm:px-6 sm:py-10 lg:px-8">
+      <div className="mx-auto max-w-5xl space-y-5 sm:space-y-8">
         
         {/* Hero Banner */}
-        <div className="relative overflow-hidden rounded-3xl border border-slate-800 bg-gradient-to-b from-slate-900/90 to-slate-950/90 p-6 sm:p-10 shadow-2xl backdrop-blur-xl">
+        <div className="relative overflow-hidden rounded-2xl border border-slate-800 bg-gradient-to-b from-slate-900/90 to-slate-950/90 p-5 sm:rounded-3xl sm:p-10 shadow-2xl backdrop-blur-xl">
           {/* Subtle background glow */}
           <div className="pointer-events-none absolute -top-24 -right-24 h-96 w-96 rounded-full bg-indigo-600/15 blur-3xl" />
           <div className="pointer-events-none absolute -bottom-24 -left-24 h-96 w-96 rounded-full bg-cyan-600/15 blur-3xl" />
 
           <div className="relative z-10 space-y-5">
             <div className="flex flex-wrap items-center justify-between gap-3">
-              <div className="flex items-center gap-3">
+              <div className="flex items-start sm:items-center gap-3">
                 <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-gradient-to-tr from-indigo-600 via-indigo-500 to-cyan-400 text-white shadow-lg shadow-indigo-600/30">
                   <Mail className="h-5 w-5" />
                 </div>
                 <div>
-                  <div className="flex items-center gap-2">
+                  <div className="flex flex-wrap items-center gap-2">
                     <h1 className="text-xl sm:text-2xl font-extrabold tracking-tight text-white">
                       Mail<span className="text-cyan-400">Cleaner</span> Setup Wizard
                     </h1>
@@ -224,7 +224,7 @@ SESSION_SECRET="mc_sec_${Math.random().toString(36).substring(2, 15)}${Math.rand
               </div>
 
               {/* Action buttons */}
-              <div className="flex items-center gap-2.5">
+              <div className="flex flex-wrap items-center gap-2.5">
                 <a
                   href="https://github.com/eyadaldaoud/mail-cleaner"
                   target="_blank"

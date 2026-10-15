@@ -104,7 +104,7 @@ export function KpiMetrics({
   ];
 
   return (
-    <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-6">
+    <div className="grid grid-cols-2 gap-2.5 sm:gap-3 sm:grid-cols-3 lg:grid-cols-6">
       {cards.map((c) => {
         const Icon = c.icon;
         const isSelected = activeFilter === c.id;
@@ -114,7 +114,7 @@ export function KpiMetrics({
             key={c.id}
             onClick={() => !coming && onSelectFilter(c.id)}
             disabled={coming}
-            className={`text-left rounded-xl p-3.5 transition-all relative overflow-hidden group ${
+            className={`min-h-28 text-left rounded-xl p-3 sm:p-3.5 transition-all relative overflow-hidden group ${
               coming
                 ? 'cursor-not-allowed opacity-50 bg-slate-900/40 border border-slate-800'
                 : isSelected

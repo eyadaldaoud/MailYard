@@ -551,7 +551,7 @@ export default function DashboardPage() {
           onEnableDemo={handleEnableDemo}
         />
       ) : (
-        <main className="flex-1 mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8 py-6 space-y-6">
+        <main className="flex-1 mx-auto w-full max-w-7xl px-3 py-4 space-y-4 sm:px-6 sm:py-6 sm:space-y-6 lg:px-8">
           {/* Demo Mode Notice Banner */}
           {session.isDemoMode && (
             <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 rounded-2xl border border-amber-500/30 bg-amber-950/30 p-4 text-xs backdrop-blur-md shadow-lg shadow-amber-950/20 animate-in fade-in">

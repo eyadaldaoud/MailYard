@@ -243,7 +243,7 @@ export function InboxCleanerTab({
             </div>
           </div>
 
-          <div className="flex items-center gap-2 w-full sm:w-auto justify-end shrink-0">
+          <div className="flex flex-wrap items-center gap-2 w-full sm:w-auto justify-start sm:justify-end shrink-0">
             {onOpenAutoRules && (
               <button
                 onClick={onOpenAutoRules}
@@ -290,9 +290,9 @@ export function InboxCleanerTab({
 
       {/* Controls Bar: Filters & Sub-toggles */}
       <div className="flex flex-col gap-3 rounded-2xl border border-slate-800 bg-slate-900/60 p-4 backdrop-blur-md">
-        <div className="flex flex-wrap items-center justify-between gap-3">
+        <div className="flex flex-col items-stretch justify-between gap-3 lg:flex-row lg:items-center">
           {/* Main Filter Chips */}
-          <div className="flex flex-wrap items-center gap-1.5">
+          <div className="flex max-w-full gap-1.5 overflow-x-auto pb-1 scrollbar-none lg:flex-wrap lg:overflow-visible lg:pb-0">
             <button
               onClick={() => {
                 setActiveFilter('all');
@@ -389,7 +389,7 @@ export function InboxCleanerTab({
           </div>
 
           {/* Sub-threshold selectors */}
-          <div className="flex items-center gap-2">
+          <div className="flex flex-wrap items-center gap-2">
             {(activeFilter === 'heavy' || activeFilter === 'heavy_5mb') && (
               <div className="flex items-center rounded-lg border border-slate-700 bg-slate-800 p-0.5 text-xs font-medium text-slate-300">
                 <button
@@ -519,8 +519,8 @@ export function InboxCleanerTab({
 
       {/* Floating / Sticky Bulk Action Bar */}
       {selectedIds.size > 0 && (
-        <div className="sticky top-20 z-30 flex items-center justify-between rounded-xl border border-rose-500/30 bg-rose-950/70 p-3 backdrop-blur-md shadow-xl shadow-rose-950/40 animate-in fade-in slide-in-from-top-2 duration-200">
-          <div className="flex items-center gap-2">
+        <div className="sticky top-20 z-30 flex flex-col items-stretch gap-3 rounded-xl border border-rose-500/30 bg-rose-950/70 p-3 backdrop-blur-md shadow-xl shadow-rose-950/40 animate-in fade-in slide-in-from-top-2 duration-200 sm:flex-row sm:items-center sm:justify-between">
+          <div className="flex items-center justify-end gap-2">
             <CheckSquare className="h-4 w-4 text-rose-400" />
             <span className="text-xs font-semibold text-rose-200">
               {selectedIds.size} email{selectedIds.size > 1 ? 's' : ''} selected

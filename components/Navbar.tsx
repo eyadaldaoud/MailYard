@@ -65,8 +65,8 @@ export function Navbar({
       {/* Top ambient highlight line */}
       <div className="h-[2px] w-full bg-gradient-to-r from-transparent via-indigo-500/80 to-cyan-400/80" />
 
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="flex h-14 items-center justify-between gap-3">
+      <div className="mx-auto max-w-7xl px-3 sm:px-6 lg:px-8">
+        <div className="flex min-h-14 items-center justify-between gap-2 py-2 md:h-14 md:py-0 md:gap-3">
 
           {/* Left: Brand */}
           <div className="flex items-center gap-2.5 shrink-0">
@@ -76,7 +76,7 @@ export function Navbar({
             <span className="text-sm font-bold tracking-tight text-white">
               Mail<span className="text-cyan-400">Cleaner</span>
             </span>
-            <span className="hidden sm:inline rounded-md border border-indigo-500/30 bg-indigo-500/10 px-1.5 py-0.5 text-[9px] font-bold tracking-wider text-indigo-300 uppercase">
+            <span className="hidden lg:inline rounded-md border border-indigo-500/30 bg-indigo-500/10 px-1.5 py-0.5 text-[9px] font-bold tracking-wider text-indigo-300 uppercase">
               SECURITY
             </span>
           </div>
@@ -114,10 +114,10 @@ export function Navbar({
           </nav>
 
           {/* Right: Actions */}
-          <div className="flex items-center gap-2 shrink-0">
+          <div className="flex items-center gap-1.5 sm:gap-2 shrink-0">
 
             {/* Fetch Limit Selector */}
-            <div className="relative">
+            <div className="relative hidden sm:block">
               <button
                 onClick={() => setLimitOpen((v) => !v)}
                 className="flex items-center gap-1 rounded-lg border border-slate-700 bg-slate-900/70 hover:bg-slate-800 px-2.5 py-1.5 text-xs font-medium text-slate-300 transition"
@@ -155,7 +155,7 @@ export function Navbar({
             {onOpenWizard && (
               <button
                 onClick={onOpenWizard}
-                className="flex items-center gap-1.5 rounded-lg border border-indigo-500/40 bg-gradient-to-r from-amber-500/20 via-rose-500/20 to-indigo-600/30 px-2.5 py-1.5 text-xs font-bold text-white shadow-sm shadow-indigo-600/20 hover:brightness-110 transition"
+                className="hidden sm:flex items-center gap-1.5 rounded-lg border border-indigo-500/40 bg-gradient-to-r from-amber-500/20 via-rose-500/20 to-indigo-600/30 px-2.5 py-1.5 text-xs font-bold text-white shadow-sm shadow-indigo-600/20 hover:brightness-110 transition"
                 title="Launch step-by-step cleaning wizard"
               >
                 <Sparkles className="h-3.5 w-3.5 text-amber-300 animate-pulse" />
@@ -185,7 +185,7 @@ export function Navbar({
 
             {/* Account / Connect */}
             {session.isAuthenticated ? (
-              <div className="flex items-center gap-1.5 rounded-lg border border-emerald-500/20 bg-emerald-500/10 pl-2 pr-1.5 py-1 text-xs">
+              <div className="flex items-center gap-1.5 rounded-lg border border-emerald-500/20 bg-emerald-500/10 px-1.5 sm:pl-2 sm:pr-1.5 py-1 text-xs">
                 {session.userPicture ? (
                   <img
                     src={session.userPicture}
@@ -198,7 +198,7 @@ export function Navbar({
                     <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
                   </span>
                 )}
-                <span className="max-w-[110px] truncate font-medium text-slate-200 text-[11px]">
+                <span className="hidden sm:block max-w-[110px] truncate font-medium text-slate-200 text-[11px]">
                   {session.userName || session.userEmail}
                 </span>
                 <a
@@ -217,13 +217,14 @@ export function Navbar({
                   title="Exit demo mode"
                 >
                   <Sparkles className="h-3 w-3 text-amber-400" />
-                  <span>Demo (Exit)</span>
+                  <span className="hidden sm:inline">Demo (Exit)</span>
                 </button>
                 <a
                   href="/api/auth/google"
                   className="flex items-center gap-1.5 rounded-lg bg-gradient-to-r from-indigo-600 to-cyan-600 px-3 py-1.5 text-xs font-bold text-white shadow-sm shadow-indigo-600/30 hover:brightness-110 transition"
                 >
-                  <span>Connect Gmail</span>
+                  <Mail className="h-3.5 w-3.5 sm:hidden" />
+                  <span className="hidden sm:inline">Connect Gmail</span>
                 </a>
               </div>
             ) : (
@@ -234,13 +235,14 @@ export function Navbar({
                   title="Explore with sample demo data"
                 >
                   <Sparkles className="h-3 w-3 text-amber-400" />
-                  <span>Try Demo</span>
+                  <span className="hidden sm:inline">Try Demo</span>
                 </button>
                 <a
                   href="/api/auth/google"
                   className="flex items-center gap-1.5 rounded-lg bg-gradient-to-r from-indigo-600 to-cyan-600 px-3 py-1.5 text-xs font-bold text-white shadow-sm shadow-indigo-600/30 hover:brightness-110 transition"
                 >
-                  <span>Connect Gmail</span>
+                  <Mail className="h-3.5 w-3.5 sm:hidden" />
+                  <span className="hidden sm:inline">Connect Gmail</span>
                 </a>
               </div>
             )}
@@ -248,7 +250,7 @@ export function Navbar({
         </div>
 
         {/* Mobile Tabs */}
-        <div className="flex md:hidden overflow-x-auto py-2 gap-1 border-t border-slate-800/80">
+        <div className="flex md:hidden -mx-1 overflow-x-auto px-1 py-2 gap-1 border-t border-slate-800/80 scrollbar-none">
           {tabs.map((tab) => {
             const Icon = tab.icon;
             const isActive = activeTab === tab.id;

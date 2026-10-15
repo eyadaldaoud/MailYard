@@ -137,7 +137,7 @@ export function BlocklistTab({
 
       {/* Blocked Senders Table */}
       <div className="rounded-2xl border border-slate-800 bg-slate-900/60 p-5 backdrop-blur-md">
-        <div className="flex items-center justify-between mb-4">
+        <div className="flex flex-col gap-1 mb-4 sm:flex-row sm:items-center sm:justify-between">
           <h3 className="text-sm font-bold text-white">
             Active Blocked Senders ({blockedSenders.length})
           </h3>
@@ -154,8 +154,8 @@ export function BlocklistTab({
             </p>
           </div>
         ) : (
-          <div className="overflow-x-auto">
-            <table className="w-full text-left text-xs text-slate-300">
+          <div className="overflow-x-auto rounded-xl border border-slate-800/60">
+            <table className="min-w-[680px] w-full text-left text-xs text-slate-300">
               <thead className="border-b border-slate-800 text-[10px] uppercase tracking-wider text-slate-400 bg-slate-950/40">
                 <tr>
                   <th className="py-2.5 px-3">Domain</th>
