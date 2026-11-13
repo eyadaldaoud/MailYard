@@ -190,7 +190,7 @@ export function CategoryExplorerWidget({
       {/* Top Banner Header */}
       <div className="flex flex-wrap items-center justify-between gap-3 border-b border-linen px-4 py-3 bg-sheet">
         <div className="flex items-center gap-2.5">
-          <div className="flex h-7 w-7 items-center justify-center rounded-lg  stream-unload text-paper shadow-sm">
+          <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-unload text-paper shadow-sm">
             <Layers className="h-4 w-4" />
           </div>
           <div>
@@ -249,12 +249,12 @@ export function CategoryExplorerWidget({
               {selectedCategory !== 'all' && (
                 <span className="inline-flex items-center gap-1.5 rounded-lg bg-unload border border-unload px-2.5 py-0.5 font-semibold text-paper">
                   <span>{activeCategoryDef.label}</span>
-                  <span className="text-[10px] text-unload font-mono">
+                  <span className="text-[10px] text-paper/80 font-mono">
                     ({categoryEmails.length})
                   </span>
                   <button
                     onClick={() => onSelectCategory('all')}
-                    className="hover:text-ink ml-0.5"
+                    className="ml-0.5 transition hover:opacity-70"
                     title="Remove category filter"
                   >
                     <X className="h-3 w-3" />
@@ -267,12 +267,12 @@ export function CategoryExplorerWidget({
                   <span className="truncate max-w-[200px]">
                     Sender: {activeSender?.senderName || selectedSenderEmail}
                   </span>
-                  <span className="text-[10px] text-unload font-mono">
+                  <span className="text-[10px] text-paper/80 font-mono">
                     ({activeSender?.count || 0})
                   </span>
                   <button
                     onClick={() => onSelectSenderEmail(null)}
-                    className="hover:text-ink ml-0.5"
+                    className="ml-0.5 transition hover:opacity-70"
                     title="Remove sender filter"
                   >
                     <X className="h-3 w-3" />

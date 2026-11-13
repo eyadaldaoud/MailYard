@@ -62,7 +62,7 @@ export function AutoRulesModal({ isOpen, onClose, onRulesChanged }: AutoRulesMod
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-ink/60 backdrop-blur-sm">
       <div className="relative flex flex-col w-full max-w-2xl max-h-[85vh] overflow-hidden rounded-2xl border border-warn bg-paper shadow-sm">
-        <div className="h-1.5 w-full stream-warn" />
+        <div className="h-1.5 w-full bg-warn" />
 
         {/* Modal Header */}
         <div className="flex items-center justify-between border-b border-linen px-6 py-4 bg-sheet">
@@ -78,7 +78,7 @@ export function AutoRulesModal({ isOpen, onClose, onRulesChanged }: AutoRulesMod
                 </span>
               </h2>
               <p className="text-[11px] text-ink-soft">
-                Whenever you sync new batches of emails, MailCleaner automatically trashes matching messages.
+                Whenever you sync new batches of emails, Mailyard automatically trashes matching messages.
               </p>
             </div>
           </div>

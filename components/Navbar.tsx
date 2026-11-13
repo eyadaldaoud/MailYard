@@ -69,7 +69,7 @@ export function Navbar({
               <Box className="h-4 w-4" strokeWidth={2.5} />
             </div>
             <span className="hidden sm:block text-sm font-bold tracking-tight text-paper lowercase whitespace-nowrap">
-              mail<span className="text-signal">cleaner</span>
+              mail<span className="text-signal">yard</span>
             </span>
           </div>
 

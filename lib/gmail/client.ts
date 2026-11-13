@@ -307,7 +307,7 @@ export async function executeUnsubscribe(options: UnsubscribeOptions): Promise<{
           method: 'POST',
           headers: {
             'Content-Type': 'application/x-www-form-urlencoded',
-            'User-Agent': 'MailCleaner-Agent/1.0 (+https://github.com/eyad/mail-cleaner)',
+            'User-Agent': 'Mailyard-Agent/1.0 (+https://github.com/eyad/mail-cleaner)',
           },
           body: 'List-Unsubscribe=One-Click',
         });

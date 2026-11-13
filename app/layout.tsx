@@ -14,7 +14,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "MailCleaner — Smart Gmail Inbox Cleaner",
+  title: "Mailyard — Smart Gmail Inbox Cleaner",
   description:
     "Bulk clean your Gmail inbox in seconds. Auto-unsubscribe from mailing lists, trash heavy and old emails by category, and set auto-delete rules. Fast, private, and free to try.",
 };

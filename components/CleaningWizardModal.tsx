@@ -410,12 +410,12 @@ export function CleaningWizardModal({
     <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-ink/60 backdrop-blur-sm">
       <div className="relative flex flex-col w-full max-w-3xl max-h-[90vh] overflow-hidden rounded-2xl border border-unload bg-paper shadow-sm">
         {/* Glow Header Accent Bar */}
-        <div className="h-1.5 w-full stream-signal" />
+        <div className="h-1.5 w-full bg-signal" />
 
         {/* Modal Header */}
         <div className="flex items-center justify-between border-b border-linen px-6 py-4 bg-sheet">
           <div className="flex items-center gap-3">
-            <div className="flex h-9 w-9 items-center justify-center rounded-xl  stream-signal text-ink shadow-md">
+            <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-signal text-ink shadow-md">
               <Sparkles className="h-4 w-4" />
             </div>
             <div>
@@ -735,7 +735,7 @@ export function CleaningWizardModal({
                     <span>Auto-Delete Rules to Register ({toAutoDeleteRules.length})</span>
                   </div>
                   <p className="text-xs text-ink-soft">
-                    On future syncs, MailCleaner will automatically move incoming emails from these senders to Trash:
+                    On future syncs, Mailyard will automatically move incoming emails from these senders to Trash:
                   </p>
                   <div className="flex flex-wrap gap-1.5 max-h-32 overflow-y-auto pt-1">
                     {toAutoDeleteRules.map((r) => (

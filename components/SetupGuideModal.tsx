@@ -39,7 +39,7 @@ CREATE TABLE IF NOT EXISTS public.blocked_senders (
     user_email TEXT NOT NULL,
     domain TEXT NOT NULL,
     sender_email TEXT,
-    reason TEXT DEFAULT 'Unsubscribed / Blocked via MailCleaner',
+    reason TEXT DEFAULT 'Unsubscribed / Blocked via Mailyard',
     auto_trash BOOLEAN DEFAULT true,
     created_at TIMESTAMPTZ NOT NULL DEFAULT timezone('utc'::text, now()),
     updated_at TIMESTAMPTZ NOT NULL DEFAULT timezone('utc'::text, now())
@@ -117,7 +117,7 @@ SESSION_SECRET="super-secret-key-at-least-32-characters"`;
         {/* Header */}
         <div className="flex items-center justify-between pb-4 border-b border-linen">
           <div className="flex items-center gap-3">
-            <div className="flex h-10 w-10 items-center justify-center rounded-xl  stream-keep text-paper">
+            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-keep text-paper">
               <Sparkles className="h-5 w-5" />
             </div>
             <div>

@@ -1,4 +1,4 @@
-# MailCleaner — Smart Gmail Inbox Cleaner
+# Mailyard — Smart Gmail Inbox Cleaner
 
 > Bulk-clean your Gmail inbox in seconds. Unsubscribe, trash by category, and set auto-delete rules — all from a fast, private dashboard.
 

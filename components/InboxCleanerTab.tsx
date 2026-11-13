@@ -388,7 +388,7 @@ export function InboxCleanerTab({
                 <button
                   onClick={() => setHeavyFilterSize('5mb')}
                   className={`rounded-md px-2 py-1 ${
-                    heavyFilterSize === '5mb' ? 'bg-warn text-ink' : 'text-ink-soft hover:text-ink'
+                    heavyFilterSize === '5mb' ? 'bg-warn text-paper' : 'text-ink-soft hover:text-ink'
                   }`}
                 >
                   &gt; 5 MB
@@ -396,7 +396,7 @@ export function InboxCleanerTab({
                 <button
                   onClick={() => setHeavyFilterSize('10mb')}
                   className={`rounded-md px-2 py-1 ${
-                    heavyFilterSize === '10mb' ? 'bg-warn text-ink' : 'text-ink-soft hover:text-ink'
+                    heavyFilterSize === '10mb' ? 'bg-warn text-paper' : 'text-ink-soft hover:text-ink'
                   }`}
                 >
                   &gt; 10 MB
@@ -409,7 +409,7 @@ export function InboxCleanerTab({
                 <button
                   onClick={() => setAncientFilterYears('1yr')}
                   className={`rounded-md px-2 py-1 ${
-                    ancientFilterYears === '1yr' ? 'bg-ink text-ink' : 'text-ink-soft hover:text-ink'
+                    ancientFilterYears === '1yr' ? 'bg-ink text-paper' : 'text-ink-soft hover:text-ink'
                   }`}
                 >
                   &gt; 1 Year
@@ -417,7 +417,7 @@ export function InboxCleanerTab({
                 <button
                   onClick={() => setAncientFilterYears('2yrs')}
                   className={`rounded-md px-2 py-1 ${
-                    ancientFilterYears === '2yrs' ? 'bg-ink text-ink' : 'text-ink-soft hover:text-ink'
+                    ancientFilterYears === '2yrs' ? 'bg-ink text-paper' : 'text-ink-soft hover:text-ink'
                   }`}
                 >
                   &gt; 2 Years
@@ -597,14 +597,14 @@ export function InboxCleanerTab({
 
                   {/* Sender Avatar Initials */}
                   <div
-                    className={`hidden sm:flex h-8 w-8 shrink-0 items-center justify-center rounded-lg text-xs font-bold text-ink shadow-sm ${
+                    className={`hidden sm:flex h-8 w-8 shrink-0 items-center justify-center rounded-lg text-xs font-bold text-paper shadow-sm ${
                       item.isHeavy5MB
                         ? 'bg-warn'
                         : item.isMassNotification
                         ? 'bg-ink/80'
                         : isBlocked
                         ? 'bg-trash/80'
-                        : 'bg-ink/80'
+                        : 'bg-ink-soft'
                     }`}
                   >
                     {item.senderName.slice(0, 1).toUpperCase() || 'M'}
