@@ -68,8 +68,8 @@ export function Navbar({
             <div className="flex h-8 w-8 items-center justify-center rounded-sm bg-signal text-ink">
               <Box className="h-4 w-4" strokeWidth={2.5} />
             </div>
-            <span className="hidden sm:block text-sm font-bold tracking-tight text-paper lowercase whitespace-nowrap">
-              mail<span className="text-signal">yard</span>
+            <span className="hidden sm:block text-[15px] font-extrabold tracking-tight text-paper whitespace-nowrap">
+              MailYard
             </span>
           </div>
 

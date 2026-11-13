@@ -74,7 +74,7 @@ export function SetupWizard({
   };
 
   const sqlSchema = `-- =========================================================
--- Mailyard Supabase Schema (Run in Supabase SQL Editor)
+-- MailYard Supabase Schema (Run in Supabase SQL Editor)
 -- =========================================================
 
 -- 1. Blocked Senders Table
@@ -83,7 +83,7 @@ CREATE TABLE IF NOT EXISTS public.blocked_senders (
     user_email TEXT NOT NULL,
     domain TEXT NOT NULL,
     sender_email TEXT,
-    reason TEXT DEFAULT 'Unsubscribed / Blocked via Mailyard',
+    reason TEXT DEFAULT 'Unsubscribed / Blocked via MailYard',
     auto_trash BOOLEAN DEFAULT true,
     created_at TIMESTAMPTZ NOT NULL DEFAULT timezone('utc'::text, now()),
     updated_at TIMESTAMPTZ NOT NULL DEFAULT timezone('utc'::text, now())
@@ -209,7 +209,7 @@ SESSION_SECRET="mc_sec_${Math.random().toString(36).substring(2, 15)}${Math.rand
                 <div>
                   <div className="flex flex-wrap items-center gap-2">
                     <h1 className="text-xl sm:text-2xl font-extrabold tracking-tight text-ink">
-                      Mailyard Setup Wizard
+                      MailYard Setup Wizard
                     </h1>
                   </div>
                   <p className="text-xs sm:text-sm text-ink-soft">
@@ -434,7 +434,7 @@ SESSION_SECRET="mc_sec_${Math.random().toString(36).substring(2, 15)}${Math.rand
                     Clone the Repository & Install Dependencies
                   </h2>
                   <p className="text-xs text-ink-soft">
-                    Mailyard runs locally on Node.js 18+ or can be deployed to Vercel/Fly/Docker.
+                    MailYard runs locally on Node.js 18+ or can be deployed to Vercel/Fly/Docker.
                   </p>
                 </div>
                 <div className="hidden sm:flex h-10 w-10 items-center justify-center rounded-2xl bg-unload border border-unload text-paper">
@@ -511,7 +511,7 @@ SESSION_SECRET="mc_sec_${Math.random().toString(36).substring(2, 15)}${Math.rand
                     <span>Privacy Architecture</span>
                   </h4>
                   <p className="text-xs text-ink-soft leading-relaxed">
-                    Mailyard communicates <strong>directly with your Gmail API</strong>. Your tokens and emails are never shared or sent to any 3rd party backend.
+                    MailYard communicates <strong>directly with your Gmail API</strong>. Your tokens and emails are never shared or sent to any 3rd party backend.
                   </p>
                 </div>
               </div>
@@ -568,7 +568,7 @@ SESSION_SECRET="mc_sec_${Math.random().toString(36).substring(2, 15)}${Math.rand
                     >
                       Google Cloud Console <ExternalLink className="h-2.5 w-2.5 inline" />
                     </a>
-                    , click the project selector at the top, and click <strong>New Project</strong> (e.g. name it <em>Mailyard</em>).
+                    , click the project selector at the top, and click <strong>New Project</strong> (e.g. name it <em>MailYard</em>).
                   </p>
                   <div className="pl-7 pt-1">
                     <a
@@ -597,7 +597,7 @@ SESSION_SECRET="mc_sec_${Math.random().toString(36).substring(2, 15)}${Math.rand
                     <p>Under <strong>APIs & Services</strong> → <strong>OAuth consent screen</strong>:</p>
                     <ul className="list-disc list-inside space-y-1 text-ink">
                       <li>Choose <strong>External</strong> User Type.</li>
-                      <li>Fill App Name (e.g., <em>Mailyard</em>) and your email.</li>
+                      <li>Fill App Name (e.g., <em>MailYard</em>) and your email.</li>
                       <li>
                         <strong>Add Scopes:</strong> Add{' '}
                         <code className="text-unload bg-sheet px-1 py-0.5 rounded font-mono text-[11px]">
@@ -716,7 +716,7 @@ SESSION_SECRET="mc_sec_${Math.random().toString(36).substring(2, 15)}${Math.rand
               <div className="rounded-2xl border border-unload bg-unload/10 p-3.5 flex items-start gap-3">
                 <Zap className="h-4 w-4 text-unload shrink-0 mt-0.5" />
                 <p className="text-xs text-ink">
-                  <strong className="text-ink">Optional but Recommended:</strong> If you skip Supabase, Mailyard continues to work with an in-memory session and cache store. Adding Supabase allows your rules and blocked senders to persist permanently.
+                  <strong className="text-ink">Optional but Recommended:</strong> If you skip Supabase, MailYard continues to work with an in-memory session and cache store. Adding Supabase allows your rules and blocked senders to persist permanently.
                 </p>
               </div>
 
@@ -968,7 +968,7 @@ SESSION_SECRET="mc_sec_${Math.random().toString(36).substring(2, 15)}${Math.rand
             <div>
               <h4 className="text-xs font-bold text-ink">Just browsing and want to test drive?</h4>
               <p className="text-[11px] text-ink-soft">
-                You can explore the complete Mailyard interface with realistic simulated emails right now without setting up API keys.
+                You can explore the complete MailYard interface with realistic simulated emails right now without setting up API keys.
               </p>
             </div>
           </div>

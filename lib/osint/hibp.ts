@@ -101,7 +101,7 @@ export async function checkEmailBreaches(email: string): Promise<{
         method: 'GET',
         headers: {
           'hibp-api-key': HIBP_API_KEY,
-          'user-agent': 'Mailyard-OSINT/1.0 (+https://github.com/eyad/mail-cleaner)',
+          'user-agent': 'MailYard-OSINT/1.0 (+https://github.com/eyad/mail-cleaner)',
         },
       });
 

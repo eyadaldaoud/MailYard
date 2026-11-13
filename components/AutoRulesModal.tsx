@@ -78,7 +78,7 @@ export function AutoRulesModal({ isOpen, onClose, onRulesChanged }: AutoRulesMod
                 </span>
               </h2>
               <p className="text-[11px] text-ink-soft">
-                Whenever you sync new batches of emails, Mailyard automatically trashes matching messages.
+                Whenever you sync new batches of emails, MailYard automatically trashes matching messages.
               </p>
             </div>
           </div>
@@ -130,7 +130,7 @@ export function AutoRulesModal({ isOpen, onClose, onRulesChanged }: AutoRulesMod
                     <span className="text-xs font-bold text-ink truncate">
                       {rule.senderName || rule.pattern}
                     </span>
-                    <span className="text-[10px] font-mono text-warn/80 rounded bg-warn px-1.5 py-0.2 border border-warn">
+                    <span className="text-[10px] font-mono text-paper/90 rounded bg-warn px-1.5 py-0.2 border border-warn">
                       {rule.pattern}
                     </span>
                     {rule.category && (

@@ -90,7 +90,7 @@ export async function addBlockedSender(
             user_email: userEmail,
             domain: cleanDomain,
             sender_email: senderEmail,
-            reason: reason || 'Blocked via Mailyard',
+            reason: reason || 'Blocked via MailYard',
             auto_trash: autoTrash,
             updated_at: new Date().toISOString(),
           },
@@ -110,7 +110,7 @@ export async function addBlockedSender(
     user_email: userEmail,
     domain: cleanDomain,
     sender_email: senderEmail,
-    reason: reason || 'Blocked via Mailyard',
+    reason: reason || 'Blocked via MailYard',
     auto_trash: autoTrash,
     created_at: new Date().toISOString(),
   };

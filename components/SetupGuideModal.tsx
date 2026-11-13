@@ -39,7 +39,7 @@ CREATE TABLE IF NOT EXISTS public.blocked_senders (
     user_email TEXT NOT NULL,
     domain TEXT NOT NULL,
     sender_email TEXT,
-    reason TEXT DEFAULT 'Unsubscribed / Blocked via Mailyard',
+    reason TEXT DEFAULT 'Unsubscribed / Blocked via MailYard',
     auto_trash BOOLEAN DEFAULT true,
     created_at TIMESTAMPTZ NOT NULL DEFAULT timezone('utc'::text, now()),
     updated_at TIMESTAMPTZ NOT NULL DEFAULT timezone('utc'::text, now())

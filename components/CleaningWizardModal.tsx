@@ -715,7 +715,7 @@ export function CleaningWizardModal({
                   <div className="text-2xl font-bold text-keep">{toUnsubSendersCount}</div>
                   <div className="text-xs text-ink-soft mt-0.5">Unsubscribes</div>
                 </div>
-                <div className="rounded-xl border border-warn bg-warn p-4 text-center">
+                <div className="rounded-xl border border-warn/30 bg-warn/20 p-4 text-center">
                   <div className="text-2xl font-bold text-warn">{toAutoDeleteRules.length}</div>
                   <div className="text-xs text-ink-soft mt-0.5">Auto-Clean Rules</div>
                 </div>
@@ -735,7 +735,7 @@ export function CleaningWizardModal({
                     <span>Auto-Delete Rules to Register ({toAutoDeleteRules.length})</span>
                   </div>
                   <p className="text-xs text-ink-soft">
-                    On future syncs, Mailyard will automatically move incoming emails from these senders to Trash:
+                    On future syncs, MailYard will automatically move incoming emails from these senders to Trash:
                   </p>
                   <div className="flex flex-wrap gap-1.5 max-h-32 overflow-y-auto pt-1">
                     {toAutoDeleteRules.map((r) => (

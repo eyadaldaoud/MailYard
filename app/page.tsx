@@ -334,7 +334,7 @@ export default function DashboardPage() {
         body: JSON.stringify({
           domain,
           senderEmail,
-          reason: 'Blocked via Mailyard UI',
+          reason: 'Blocked via MailYard UI',
           autoTrash: true,
         }),
       });
