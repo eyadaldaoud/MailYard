@@ -2,12 +2,13 @@
 
 import React from 'react';
 import {
-  Inbox,
+  Trash2,
+  ArrowRightLeft,
+  CheckCircle2,
   HardDrive,
   BellRing,
   History,
-  CheckCircle2,
-  AlertTriangle,
+  Footprints,
 } from 'lucide-react';
 import { EmailMetadata, UserAccountRecord } from '@/lib/types';
 import { formatBytes } from '@/lib/gmail/parser';
@@ -19,6 +20,7 @@ interface KpiMetricsProps {
   activeFilter: string;
 }
 
+/** Intake bins: the three streams a cleanup weighs into, plus granular stream chips. */
 export function KpiMetrics({
   emails,
   accounts,
@@ -30,126 +32,124 @@ export function KpiMetrics({
   const totalSizeFormatted = formatBytes(totalSizeBytes);
 
   const heavyEmails = emails.filter((e) => e.isHeavy5MB);
-  const heavySizeBytes = heavyEmails.reduce((acc, e) => acc + (e.sizeBytes || 0), 0);
-  const heavySizeFormatted = formatBytes(heavySizeBytes);
-
+  const heavySizeFormatted = formatBytes(heavyEmails.reduce((acc, e) => acc + (e.sizeBytes || 0), 0));
   const massNotifications = emails.filter((e) => e.isMassNotification);
   const ancientEmails = emails.filter((e) => e.isAncient1Year);
   const unsubscribable = emails.filter((e) => e.hasUnsubscribe);
+  const breachedCount = accounts.filter((a) => a.breach_count > 0).length;
 
-  const totalBreached = accounts.filter((a) => a.breach_count > 0).length;
+  // The trash stream: union of mass notifications, heavy files and ancient mail
+  const trashableIds = new Set<string>();
+  for (const e of [...massNotifications, ...heavyEmails, ...ancientEmails]) trashableIds.add(e.id);
+  const unsubIds = new Set(unsubscribable.map((e) => e.id));
+  const claimedIds = new Set<string>([...trashableIds, ...unsubIds]);
+  const keepCount = emails.filter((e) => !claimedIds.has(e.id)).length;
+  const trashableSizeFormatted = formatBytes(
+    emails.filter((e) => trashableIds.has(e.id)).reduce((acc, e) => acc + (e.sizeBytes || 0), 0)
+  );
 
-  const cards = [
+  const bins = [
     {
-      id: 'all',
-      title: 'Inbox Analyzed',
-      value: totalCount.toLocaleString(),
-      subtext: `${totalSizeFormatted} total storage`,
-      icon: Inbox,
-      gradient: 'from-blue-500/20 to-indigo-500/10',
-      border: 'border-blue-500/20',
-      iconColor: 'text-blue-400',
+      id: 'trash',
+      streamColor: 'var(--color-trash)',
+      glyphBg: 'bg-trash',
+      icon: Trash2,
+      n: trashableIds.size.toLocaleString(),
+      label: 'Trash candidates',
+      note: `${trashableSizeFormatted} recoverable`,
+      filter: 'mass_notifications',
     },
     {
-      id: 'heavy_5mb',
-      title: 'Heavy Files (>5MB)',
-      value: heavyEmails.length.toLocaleString(),
-      subtext: `${heavySizeFormatted} recoverable`,
-      icon: HardDrive,
-      gradient: 'from-amber-500/20 to-rose-500/10',
-      border: 'border-amber-500/30',
-      iconColor: 'text-amber-400',
+      id: 'unsub',
+      streamColor: 'var(--color-unload)',
+      glyphBg: 'bg-unload',
+      icon: ArrowRightLeft,
+      n: unsubscribable.length.toLocaleString(),
+      label: 'Unsubscribe queue',
+      note: 'lists with one-click headers',
+      filter: 'unsubscribable',
     },
     {
-      id: 'mass_notifications',
-      title: 'Mass Notifications',
-      value: massNotifications.length.toLocaleString(),
-      subtext: 'noreply & automated alerts',
-      icon: BellRing,
-      gradient: 'from-purple-500/20 to-pink-500/10',
-      border: 'border-purple-500/30',
-      iconColor: 'text-purple-400',
-    },
-    {
-      id: 'ancient_1yr',
-      title: 'Ancient History',
-      value: ancientEmails.length.toLocaleString(),
-      subtext: 'Older than 1–2 years',
-      icon: History,
-      gradient: 'from-cyan-500/20 to-blue-500/10',
-      border: 'border-cyan-500/30',
-      iconColor: 'text-cyan-400',
-    },
-    {
-      id: 'unsubscribable',
-      title: '1-Click Unsubscribes',
-      value: unsubscribable.length.toLocaleString(),
-      subtext: 'Detected mailing lists',
+      id: 'keep',
+      streamColor: 'var(--color-keep)',
+      glyphBg: 'bg-keep',
       icon: CheckCircle2,
-      gradient: 'from-emerald-500/20 to-teal-500/10',
-      border: 'border-emerald-500/30',
-      iconColor: 'text-emerald-400',
-    },
-    {
-      id: 'osint_breached',
-      title: 'Digital Footprint',
-      value: 'Soon',
-      subtext: 'Feature coming soon',
-      icon: AlertTriangle,
-      gradient: 'from-rose-500/20 to-red-500/10',
-      border: 'border-rose-500/30',
-      iconColor: 'text-rose-400',
-      comingSoon: true,
+      n: keepCount.toLocaleString(),
+      label: 'Keeping',
+      note: `${totalSizeFormatted} total weighed in`,
+      filter: 'all',
     },
   ];
 
+  const chips = [
+    { id: 'heavy_5mb', label: 'Heavy files', icon: HardDrive, count: heavyEmails.length, meta: heavySizeFormatted },
+    { id: 'mass_notifications', label: 'Mass notifications', icon: BellRing, count: massNotifications.length },
+    { id: 'ancient_1yr', label: 'Ancient mail', icon: History, count: ancientEmails.length },
+    { id: 'osint_breached', label: 'Breached accounts', icon: Footprints, count: breachedCount, meta: 'in footprint' },
+  ];
+
   return (
-    <div className="grid grid-cols-2 gap-2.5 sm:gap-3 sm:grid-cols-3 lg:grid-cols-6">
-      {cards.map((c) => {
-        const Icon = c.icon;
-        const isSelected = activeFilter === c.id;
-        const coming = (c as { comingSoon?: boolean }).comingSoon;
-        return (
-          <button
-            key={c.id}
-            onClick={() => !coming && onSelectFilter(c.id)}
-            disabled={coming}
-            className={`min-h-28 text-left rounded-xl p-3 sm:p-3.5 transition-all relative overflow-hidden group ${
-              coming
-                ? 'cursor-not-allowed opacity-50 bg-slate-900/40 border border-slate-800'
-                : isSelected
-                ? 'cursor-pointer bg-slate-800/90 ring-2 ring-indigo-500 shadow-lg shadow-indigo-500/10'
-                : 'cursor-pointer bg-slate-900/40 hover:bg-slate-800/60 border border-slate-800 hover:border-slate-700'
-            }`}
-          >
-            {/* Ambient subtle glow background */}
-            <div
-              className={`absolute -right-4 -bottom-4 w-16 h-16 rounded-full blur-xl opacity-30 bg-gradient-to-br ${c.gradient}`}
-            />
+    <section aria-label="Intake overview" className="space-y-2.5">
+      <div className="grid grid-cols-1 gap-2.5 sm:grid-cols-3">
+        {bins.map((bin) => {
+          const Icon = bin.icon;
+          const isSelected =
+            (bin.id === 'trash' && activeFilter === 'mass_notifications') ||
+            (bin.id === 'unsub' && activeFilter === 'unsubscribable');
+          return (
+            <button
+              key={bin.id}
+              onClick={() => onSelectFilter(bin.filter)}
+              className={`sheet group relative overflow-hidden text-left transition-colors ${
+                isSelected ? 'ring-2 ring-ink ring-offset-2 ring-offset-paper' : 'hover:border-ink-mute'
+              }`}
+            >
+              <div className="stream-band" style={{ ['--stream-color' as string]: bin.streamColor }} />
+              <div className="flex items-center gap-3.5 p-4">
+                <div className={`flex h-11 w-11 shrink-0 items-center justify-center text-paper ${bin.glyphBg}`}>
+                  <Icon className="h-5 w-5" />
+                </div>
+                <div className="min-w-0">
+                  <div className="tnum text-3xl font-extrabold tracking-tighter leading-none">
+                    {bin.n}
+                  </div>
+                  <div className="mt-1.5 text-[11px] font-bold uppercase tracking-[0.14em] text-ink-soft">
+                    {bin.label}
+                  </div>
+                  <div className="tnum truncate text-[11px] text-ink-mute">{bin.note}</div>
+                </div>
+              </div>
+            </button>
+          );
+        })}
+      </div>
 
-            <div className="flex items-center justify-between mb-2">
-              <span className="text-[11px] font-medium tracking-tight text-slate-400 truncate">
-                {c.title}
-              </span>
-              <Icon className={`h-4 w-4 ${c.iconColor}`} />
-            </div>
-
-            <div className="text-xl font-bold tracking-tight text-white mb-0.5">
-              {c.value}
-            </div>
-
-            <div className="text-[11px] text-slate-400 truncate">
-              {c.subtext}
-            </div>
-
-            {coming && (
-              <span className="absolute top-2 right-2 rounded-md bg-slate-700/80 px-1 py-0.5 text-[8px] font-bold tracking-wider text-slate-400 uppercase">
-                Soon
-              </span>
-            )}
-          </button>
-        );
-      })}
-    </div>
+      {/* Granular stream chips */}
+      <div className="flex flex-wrap gap-1.5">
+        {chips.map((chip) => {
+          const Icon = chip.icon;
+          const isActive =
+            activeFilter === chip.id ||
+            (chip.id === 'heavy_5mb' && activeFilter === 'heavy') ||
+            (chip.id === 'ancient_1yr' && activeFilter === 'ancient');
+          return (
+            <button
+              key={chip.id}
+              onClick={() => onSelectFilter(chip.id)}
+              className={`tnum flex items-center gap-1.5 border px-2.5 py-1 text-[11px] font-semibold transition ${
+                isActive
+                  ? 'border-ink bg-ink text-paper'
+                  : 'border-linen bg-sheet text-ink-soft hover:border-ink-mute hover:text-ink'
+              }`}
+            >
+              <Icon className="h-3 w-3" />
+              <span>{chip.label}</span>
+              <span className={isActive ? 'text-signal' : 'text-ink-mute'}>{chip.count.toLocaleString()}</span>
+              {chip.meta && <span className="font-normal text-ink-mute">· {chip.meta}</span>}
+            </button>
+          );
+        })}
+      </div>
+    </section>
   );
 }

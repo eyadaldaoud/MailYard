@@ -16,10 +16,7 @@ export interface EmailCategoryDefinition {
   shortLabel: string;
   description: string;
   iconName: string;
-  color: string;
-  badgeBg: string;
-  badgeBorder: string;
-  glowColor: string;
+  dot: string;
 }
 
 export const EMAIL_CATEGORIES: EmailCategoryDefinition[] = [
@@ -29,10 +26,7 @@ export const EMAIL_CATEGORIES: EmailCategoryDefinition[] = [
     shortLabel: 'All',
     description: 'Every email in your scanned inbox',
     iconName: 'Inbox',
-    color: 'text-indigo-400',
-    badgeBg: 'bg-indigo-500/10 hover:bg-indigo-500/20',
-    badgeBorder: 'border-indigo-500/30',
-    glowColor: 'rgba(99, 102, 241, 0.25)',
+    dot: 'bg-ink',
   },
   {
     id: 'promotions',
@@ -40,10 +34,7 @@ export const EMAIL_CATEGORIES: EmailCategoryDefinition[] = [
     shortLabel: 'Promotions',
     description: 'Marketing, sales, discount offers & shop promos',
     iconName: 'Tag',
-    color: 'text-emerald-400',
-    badgeBg: 'bg-emerald-500/10 hover:bg-emerald-500/20',
-    badgeBorder: 'border-emerald-500/30',
-    glowColor: 'rgba(16, 185, 129, 0.25)',
+    dot: 'bg-trash',
   },
   {
     id: 'social',
@@ -51,10 +42,7 @@ export const EMAIL_CATEGORIES: EmailCategoryDefinition[] = [
     shortLabel: 'Social',
     description: 'LinkedIn, Twitter/X, Reddit, YouTube, Discord',
     iconName: 'Users',
-    color: 'text-sky-400',
-    badgeBg: 'bg-sky-500/10 hover:bg-sky-500/20',
-    badgeBorder: 'border-sky-500/30',
-    glowColor: 'rgba(14, 165, 233, 0.25)',
+    dot: 'bg-unload',
   },
   {
     id: 'updates',
@@ -62,10 +50,7 @@ export const EMAIL_CATEGORIES: EmailCategoryDefinition[] = [
     shortLabel: 'Updates',
     description: 'Security codes, terms changes, service alerts',
     iconName: 'BellRing',
-    color: 'text-amber-400',
-    badgeBg: 'bg-amber-500/10 hover:bg-amber-500/20',
-    badgeBorder: 'border-amber-500/30',
-    glowColor: 'rgba(245, 158, 11, 0.25)',
+    dot: 'bg-warn',
   },
   {
     id: 'newsletters',
@@ -73,10 +58,7 @@ export const EMAIL_CATEGORIES: EmailCategoryDefinition[] = [
     shortLabel: 'Newsletters',
     description: 'Substack, digests, blogs, publications',
     iconName: 'Newspaper',
-    color: 'text-purple-400',
-    badgeBg: 'bg-purple-500/10 hover:bg-purple-500/20',
-    badgeBorder: 'border-purple-500/30',
-    glowColor: 'rgba(168, 85, 247, 0.25)',
+    dot: 'bg-unload',
   },
   {
     id: 'finance',
@@ -84,10 +66,7 @@ export const EMAIL_CATEGORIES: EmailCategoryDefinition[] = [
     shortLabel: 'Finance',
     description: 'Invoices, orders, subscriptions, payment receipts',
     iconName: 'Receipt',
-    color: 'text-teal-400',
-    badgeBg: 'bg-teal-500/10 hover:bg-teal-500/20',
-    badgeBorder: 'border-teal-500/30',
-    glowColor: 'rgba(20, 184, 166, 0.25)',
+    dot: 'bg-ink',
   },
   {
     id: 'dev_work',
@@ -95,10 +74,7 @@ export const EMAIL_CATEGORIES: EmailCategoryDefinition[] = [
     shortLabel: 'Dev / Work',
     description: 'GitHub, Vercel, AWS, Slack, Jira, Notion',
     iconName: 'Code2',
-    color: 'text-cyan-400',
-    badgeBg: 'bg-cyan-500/10 hover:bg-cyan-500/20',
-    badgeBorder: 'border-cyan-500/30',
-    glowColor: 'rgba(6, 182, 212, 0.25)',
+    dot: 'bg-keep',
   },
   {
     id: 'personal',
@@ -106,10 +82,7 @@ export const EMAIL_CATEGORIES: EmailCategoryDefinition[] = [
     shortLabel: 'Personal',
     description: 'Direct human emails and personal conversations',
     iconName: 'UserCheck',
-    color: 'text-pink-400',
-    badgeBg: 'bg-pink-500/10 hover:bg-pink-500/20',
-    badgeBorder: 'border-pink-500/30',
-    glowColor: 'rgba(236, 72, 153, 0.25)',
+    dot: 'bg-keep',
   },
 ];
 

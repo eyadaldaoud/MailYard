@@ -5,10 +5,10 @@ import {
   Ban,
   Plus,
   Trash2,
-  CheckCircle2,
-  Database,
-  Filter,
-  Shield,
+  
+  
+  
+  
   Loader2,
   Sparkles,
 } from 'lucide-react';
@@ -55,15 +55,16 @@ export function BlocklistTab({
   return (
     <div className="space-y-6">
       {/* Banner */}
-      <div className="rounded-2xl border border-rose-500/20 bg-gradient-to-r from-rose-950/30 via-slate-900/60 to-purple-950/30 p-5 backdrop-blur-md">
+      <div className="relative overflow-hidden rounded-2xl border border-linen bg-sheet p-5">
+        <span className="stream-band absolute inset-x-0 top-0 h-1" style={{ ['--stream-color' as string]: 'var(--color-trash)' }} aria-hidden />
         <div className="flex items-center gap-3">
-          <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-rose-500/20 border border-rose-500/30 text-rose-400">
+          <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-trash/20 border border-trash/30 text-trash">
             <Ban className="h-6 w-6" />
           </div>
           <div>
-            <h2 className="text-base font-bold text-white">Blocked Senders & Auto-Trash Pipeline</h2>
-            <p className="text-xs text-slate-300 max-w-2xl mt-0.5">
-              Rules stored in Supabase <code className="text-cyan-400 font-mono">blocked_senders</code> table.
+            <h2 className="text-base font-bold text-ink">Blocked Senders & Auto-Trash Pipeline</h2>
+            <p className="text-xs text-ink max-w-2xl mt-0.5">
+              Rules stored in Supabase <code className="text-unload font-mono">blocked_senders</code> table.
               When enabled, emails from these domains are highlighted across your dashboard and queued for automated batch trashing.
             </p>
           </div>
@@ -71,15 +72,15 @@ export function BlocklistTab({
       </div>
 
       {/* Add New Blocked Sender Form */}
-      <div className="rounded-2xl border border-slate-800 bg-slate-900/60 p-5 backdrop-blur-md">
-        <h3 className="text-sm font-bold text-white mb-3 flex items-center gap-2">
-          <Plus className="h-4 w-4 text-indigo-400" />
+      <div className="rounded-2xl border border-linen bg-sheet p-5">
+        <h3 className="text-sm font-bold text-ink mb-3 flex items-center gap-2">
+          <Plus className="h-4 w-4 text-unload" />
           <span>Add Custom Block Rule</span>
         </h3>
 
         <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-4 gap-3">
           <div>
-            <label className="block text-[11px] font-medium text-slate-400 mb-1">
+            <label className="block text-[11px] font-medium text-ink-soft mb-1">
               Sender Domain (e.g. spamdeals.com) *
             </label>
             <input
@@ -88,12 +89,12 @@ export function BlocklistTab({
               value={newDomain}
               onChange={(e) => setNewDomain(e.target.value)}
               placeholder="e.g. promo-newsletter.com"
-              className="w-full rounded-xl border border-slate-700 bg-slate-800 px-3 py-2 text-xs text-white placeholder-slate-500 focus:border-indigo-500 focus:outline-none"
+              className="w-full rounded-xl border border-linen bg-sheet px-3 py-2 text-xs text-ink placeholder-ink-mute focus:border-unload focus:outline-none"
             />
           </div>
 
           <div>
-            <label className="block text-[11px] font-medium text-slate-400 mb-1">
+            <label className="block text-[11px] font-medium text-ink-soft mb-1">
               Specific Sender Email (Optional)
             </label>
             <input
@@ -101,12 +102,12 @@ export function BlocklistTab({
               value={newEmail}
               onChange={(e) => setNewEmail(e.target.value)}
               placeholder="e.g. sales@promo.com"
-              className="w-full rounded-xl border border-slate-700 bg-slate-800 px-3 py-2 text-xs text-white placeholder-slate-500 focus:border-indigo-500 focus:outline-none"
+              className="w-full rounded-xl border border-linen bg-sheet px-3 py-2 text-xs text-ink placeholder-ink-mute focus:border-unload focus:outline-none"
             />
           </div>
 
           <div>
-            <label className="block text-[11px] font-medium text-slate-400 mb-1">
+            <label className="block text-[11px] font-medium text-ink-soft mb-1">
               Reason / Notes
             </label>
             <input
@@ -114,7 +115,7 @@ export function BlocklistTab({
               value={newReason}
               onChange={(e) => setNewReason(e.target.value)}
               placeholder="Reason for blocking"
-              className="w-full rounded-xl border border-slate-700 bg-slate-800 px-3 py-2 text-xs text-white placeholder-slate-500 focus:border-indigo-500 focus:outline-none"
+              className="w-full rounded-xl border border-linen bg-sheet px-3 py-2 text-xs text-ink placeholder-ink-mute focus:border-unload focus:outline-none"
             />
           </div>
 
@@ -122,7 +123,7 @@ export function BlocklistTab({
             <button
               type="submit"
               disabled={isSubmitting || !newDomain.trim()}
-              className="flex items-center justify-center gap-1.5 w-full rounded-xl bg-rose-600 px-4 py-2 text-xs font-bold text-white shadow-md shadow-rose-600/30 hover:bg-rose-500 transition disabled:opacity-50"
+              className="flex items-center justify-center gap-1.5 w-full rounded-xl bg-trash px-4 py-2 text-xs font-bold text-paper shadow-md shadow-trash/20 hover:bg-trash transition disabled:opacity-50"
             >
               {isSubmitting ? (
                 <Loader2 className="h-3.5 w-3.5 animate-spin" />
@@ -136,27 +137,27 @@ export function BlocklistTab({
       </div>
 
       {/* Blocked Senders Table */}
-      <div className="rounded-2xl border border-slate-800 bg-slate-900/60 p-5 backdrop-blur-md">
+      <div className="rounded-2xl border border-linen bg-sheet p-5">
         <div className="flex flex-col gap-1 mb-4 sm:flex-row sm:items-center sm:justify-between">
-          <h3 className="text-sm font-bold text-white">
+          <h3 className="text-sm font-bold text-ink">
             Active Blocked Senders ({blockedSenders.length})
           </h3>
-          <span className="text-xs text-slate-400">
+          <span className="text-xs text-ink-soft">
             Backed by Supabase PostgreSQL
           </span>
         </div>
 
         {blockedSenders.length === 0 ? (
-          <div className="rounded-xl border border-slate-800 bg-slate-900/40 p-8 text-center">
-            <Sparkles className="mx-auto h-6 w-6 text-slate-600 mb-2" />
-            <p className="text-xs text-slate-400">
+          <div className="rounded-xl border border-linen bg-sheet p-8 text-center">
+            <Sparkles className="mx-auto h-6 w-6 text-ink-soft mb-2" />
+            <p className="text-xs text-ink-soft">
               No blocked senders yet. Use the form above or click "Block Sender" on any email or newsletter!
             </p>
           </div>
         ) : (
-          <div className="overflow-x-auto rounded-xl border border-slate-800/60">
-            <table className="min-w-[680px] w-full text-left text-xs text-slate-300">
-              <thead className="border-b border-slate-800 text-[10px] uppercase tracking-wider text-slate-400 bg-slate-950/40">
+          <div className="overflow-x-auto rounded-xl border border-linen">
+            <table className="min-w-[680px] w-full text-left text-xs text-ink">
+              <thead className="border-b border-linen text-[10px] uppercase tracking-wider text-ink-soft bg-sheet">
                 <tr>
                   <th className="py-2.5 px-3">Domain</th>
                   <th className="py-2.5 px-3">Specific Email</th>
@@ -166,24 +167,24 @@ export function BlocklistTab({
                   <th className="py-2.5 px-3 text-right">Action</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-slate-800/60">
+              <tbody className="divide-y divide-linen-2">
                 {blockedSenders.map((item) => (
-                  <tr key={item.id} className="hover:bg-slate-800/40 transition">
-                    <td className="py-3 px-3 font-mono font-bold text-white">
+                  <tr key={item.id} className="hover:bg-linen/50 transition">
+                    <td className="py-3 px-3 font-mono font-bold text-ink">
                       {item.domain}
                     </td>
-                    <td className="py-3 px-3 font-mono text-slate-400">
+                    <td className="py-3 px-3 font-mono text-ink-soft">
                       {item.sender_email || 'Entire Domain'}
                     </td>
-                    <td className="py-3 px-3 text-slate-300">
+                    <td className="py-3 px-3 text-ink">
                       {item.reason || 'Blocked by user'}
                     </td>
                     <td className="py-3 px-3">
-                      <span className="rounded-md border border-emerald-500/30 bg-emerald-500/10 px-2 py-0.5 text-[10px] font-semibold text-emerald-400">
+                      <span className="rounded-md border border-keep/30 bg-keep/10 px-2 py-0.5 text-[10px] font-semibold text-keep">
                         Active
                       </span>
                     </td>
-                    <td className="py-3 px-3 text-slate-400 text-[11px]">
+                    <td className="py-3 px-3 text-ink-soft text-[11px]">
                       {new Date(item.created_at).toLocaleDateString()}
                     </td>
                     <td className="py-3 px-3 text-right">
@@ -191,7 +192,7 @@ export function BlocklistTab({
                         onClick={() => onRemoveBlockedSender(item.id)}
                         disabled={isProcessing}
                         title="Remove from blocklist"
-                        className="rounded-lg p-1.5 text-slate-400 hover:text-rose-400 hover:bg-rose-500/10 transition"
+                        className="rounded-lg p-1.5 text-ink-soft hover:text-trash hover:bg-trash/10 transition"
                       >
                         <Trash2 className="h-3.5 w-3.5" />
                       </button>

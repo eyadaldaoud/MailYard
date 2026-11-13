@@ -6,10 +6,10 @@ import {
   Copy,
   Check,
   ExternalLink,
-  Shield,
-  Database,
-  KeyRound,
-  FileCode,
+  
+  
+  
+  
   Sparkles,
 } from 'lucide-react';
 
@@ -112,17 +112,17 @@ SESSION_SECRET="super-secret-key-at-least-32-characters"`;
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/75 p-4 backdrop-blur-sm animate-in fade-in">
-      <div className="relative w-full max-w-3xl max-h-[90vh] overflow-y-auto rounded-3xl border border-slate-700 bg-[#0d1322] p-6 shadow-2xl">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/75 p-4">
+      <div className="relative w-full max-w-3xl max-h-[90vh] overflow-y-auto rounded-2xl border border-linen bg-sheet p-6 shadow-2xl">
         {/* Header */}
-        <div className="flex items-center justify-between pb-4 border-b border-slate-800">
+        <div className="flex items-center justify-between pb-4 border-b border-linen">
           <div className="flex items-center gap-3">
-            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-tr from-indigo-600 to-cyan-500 text-white">
+            <div className="flex h-10 w-10 items-center justify-center rounded-xl  stream-keep text-paper">
               <Sparkles className="h-5 w-5" />
             </div>
             <div>
-              <h2 className="text-lg font-bold text-white">Integration & Setup Guide</h2>
-              <p className="text-xs text-slate-400">
+              <h2 className="text-lg font-bold text-ink">Integration & Setup Guide</h2>
+              <p className="text-xs text-ink-soft">
                 Connect your real Google Cloud, Supabase, and Have I Been Pwned keys
               </p>
             </div>
@@ -130,7 +130,7 @@ SESSION_SECRET="super-secret-key-at-least-32-characters"`;
 
           <button
             onClick={onClose}
-            className="rounded-xl border border-slate-700 bg-slate-800 p-2 text-slate-400 hover:text-white hover:bg-slate-700 transition"
+            className="rounded-xl border border-linen bg-sheet p-2 text-ink-soft hover:text-ink hover:bg-linen/50 transition"
           >
             <X className="h-4 w-4" />
           </button>
@@ -141,23 +141,23 @@ SESSION_SECRET="super-secret-key-at-least-32-characters"`;
           <div
             className={`rounded-2xl border p-3.5 ${
               oauthConfigured
-                ? 'border-emerald-500/30 bg-emerald-950/20'
-                : 'border-amber-500/30 bg-amber-950/20'
+                ? 'border-keep/30 bg-keep/10'
+                : 'border-warn/40 bg-warn/10'
             }`}
           >
             <div className="flex items-center justify-between mb-1">
-              <span className="text-xs font-bold text-white">Google OAuth</span>
+              <span className="text-xs font-bold text-ink">Google OAuth</span>
               <span
                 className={`rounded-full px-2 py-0.5 text-[10px] font-semibold ${
                   oauthConfigured
-                    ? 'bg-emerald-500/20 text-emerald-300'
-                    : 'bg-amber-500/20 text-amber-300'
+                    ? 'bg-keep/20 text-keep'
+                    : 'bg-warn/10 text-warn'
                 }`}
               >
                 {oauthConfigured ? 'Connected' : 'Demo Active'}
               </span>
             </div>
-            <p className="text-[11px] text-slate-400">
+            <p className="text-[11px] text-ink-soft">
               {oauthConfigured
                 ? 'Valid client credentials detected in .env.local.'
                 : 'Add GOOGLE_CLIENT_ID to .env.local for live Gmail sync.'}
@@ -167,23 +167,23 @@ SESSION_SECRET="super-secret-key-at-least-32-characters"`;
           <div
             className={`rounded-2xl border p-3.5 ${
               dbConfigured
-                ? 'border-emerald-500/30 bg-emerald-950/20'
-                : 'border-indigo-500/30 bg-indigo-950/20'
+                ? 'border-keep/30 bg-keep/10'
+                : 'border-unload bg-unload/10'
             }`}
           >
             <div className="flex items-center justify-between mb-1">
-              <span className="text-xs font-bold text-white">Supabase DB</span>
+              <span className="text-xs font-bold text-ink">Supabase DB</span>
               <span
                 className={`rounded-full px-2 py-0.5 text-[10px] font-semibold ${
                   dbConfigured
-                    ? 'bg-emerald-500/20 text-emerald-300'
-                    : 'bg-indigo-500/20 text-indigo-300'
+                    ? 'bg-keep/20 text-keep'
+                    : 'bg-unload text-paper'
                 }`}
               >
                 {dbConfigured ? 'Connected' : 'Local Fallback'}
               </span>
             </div>
-            <p className="text-[11px] text-slate-400">
+            <p className="text-[11px] text-ink-soft">
               {dbConfigured
                 ? 'PostgreSQL tables and rules active.'
                 : 'Local memory store active. Add Supabase keys to persist.'}
@@ -193,23 +193,23 @@ SESSION_SECRET="super-secret-key-at-least-32-characters"`;
           <div
             className={`rounded-2xl border p-3.5 ${
               hibpConfigured
-                ? 'border-emerald-500/30 bg-emerald-950/20'
-                : 'border-slate-700 bg-slate-800/40'
+                ? 'border-keep/30 bg-keep/10'
+                : 'border-linen bg-sheet'
             }`}
           >
             <div className="flex items-center justify-between mb-1">
-              <span className="text-xs font-bold text-white">HIBP Breach Scanner</span>
+              <span className="text-xs font-bold text-ink">HIBP Breach Scanner</span>
               <span
                 className={`rounded-full px-2 py-0.5 text-[10px] font-semibold ${
                   hibpConfigured
-                    ? 'bg-emerald-500/20 text-emerald-300'
-                    : 'bg-slate-700 text-slate-300'
+                    ? 'bg-keep/20 text-keep'
+                    : 'bg-sheet text-ink'
                 }`}
               >
                 {hibpConfigured ? 'Live API Key' : 'Catalog Mode'}
               </span>
             </div>
-            <p className="text-[11px] text-slate-400">
+            <p className="text-[11px] text-ink-soft">
               {hibpConfigured
                 ? 'Live breach queries verified.'
                 : 'Using verified historical breach catalog.'}
@@ -218,61 +218,61 @@ SESSION_SECRET="super-secret-key-at-least-32-characters"`;
         </div>
 
         {/* Step-by-Step Instructions */}
-        <div className="space-y-6 text-xs text-slate-300">
+        <div className="space-y-6 text-xs text-ink">
           {/* Step 1: Google Cloud Console */}
-          <div className="rounded-2xl border border-slate-800 bg-slate-900/50 p-4">
-            <h3 className="text-sm font-bold text-white mb-2 flex items-center gap-2">
-              <span className="flex h-5 w-5 items-center justify-center rounded-full bg-indigo-600 text-[10px] font-bold text-white">
+          <div className="rounded-2xl border border-linen bg-sheet p-4">
+            <h3 className="text-sm font-bold text-ink mb-2 flex items-center gap-2">
+              <span className="flex h-5 w-5 items-center justify-center rounded-full bg-ink text-[10px] font-bold text-paper">
                 1
               </span>
               <span>Google Cloud OAuth 2.0 Credentials</span>
             </h3>
-            <ol className="list-decimal list-inside space-y-1.5 text-slate-400 pl-1">
+            <ol className="list-decimal list-inside space-y-1.5 text-ink-soft pl-1">
               <li>
                 Visit the{' '}
                 <a
                   href="https://console.cloud.google.com/apis/credentials"
                   target="_blank"
                   rel="noreferrer"
-                  className="text-cyan-400 underline inline-flex items-center gap-1"
+                  className="text-unload underline inline-flex items-center gap-1"
                 >
                   Google Cloud Console <ExternalLink className="h-3 w-3 inline" />
                 </a>{' '}
                 and create a project.
               </li>
               <li>
-                Enable the <strong className="text-white">Gmail API</strong> under "APIs & Services" -&gt; "Library".
+                Enable the <strong className="text-ink">Gmail API</strong> under "APIs & Services" -&gt; "Library".
               </li>
               <li>
-                Create an <strong className="text-white">OAuth 2.0 Client ID</strong> (Application type: "Web application").
+                Create an <strong className="text-ink">OAuth 2.0 Client ID</strong> (Application type: "Web application").
               </li>
               <li>
                 Add Authorized Redirect URI:{' '}
-                <code className="text-indigo-300 font-mono bg-slate-800 px-1 py-0.5 rounded">
+                <code className="text-unload font-mono bg-sheet px-1 py-0.5 rounded">
                   http://localhost:3000/api/auth/callback/google
                 </code>
               </li>
-              <li>Copy Client ID & Client Secret into <code className="text-indigo-300 font-mono">.env.local</code>.</li>
+              <li>Copy Client ID & Client Secret into <code className="text-unload font-mono">.env.local</code>.</li>
             </ol>
           </div>
 
           {/* Step 2: Supabase Schema */}
-          <div className="rounded-2xl border border-slate-800 bg-slate-900/50 p-4">
+          <div className="rounded-2xl border border-linen bg-sheet p-4">
             <div className="flex items-center justify-between mb-2">
-              <h3 className="text-sm font-bold text-white flex items-center gap-2">
-                <span className="flex h-5 w-5 items-center justify-center rounded-full bg-indigo-600 text-[10px] font-bold text-white">
+              <h3 className="text-sm font-bold text-ink flex items-center gap-2">
+                <span className="flex h-5 w-5 items-center justify-center rounded-full bg-ink text-[10px] font-bold text-paper">
                   2
                 </span>
                 <span>Supabase PostgreSQL Schema</span>
               </h3>
               <button
                 onClick={() => copyToClipboard(sqlSchema, 'sql')}
-                className="flex items-center gap-1 rounded-lg border border-slate-700 bg-slate-800 px-2.5 py-1 text-xs text-slate-300 hover:text-white transition"
+                className="flex items-center gap-1 rounded-lg border border-linen bg-sheet px-2.5 py-1 text-xs text-ink hover:text-ink transition"
               >
                 {copiedSql ? (
                   <>
-                    <Check className="h-3.5 w-3.5 text-emerald-400" />
-                    <span className="text-emerald-400">Copied SQL</span>
+                    <Check className="h-3.5 w-3.5 text-keep" />
+                    <span className="text-keep">Copied SQL</span>
                   </>
                 ) : (
                   <>
@@ -282,32 +282,32 @@ SESSION_SECRET="super-secret-key-at-least-32-characters"`;
                 )}
               </button>
             </div>
-            <p className="text-slate-400 mb-2">
+            <p className="text-ink-soft mb-2">
               Create a free Supabase project, open the{' '}
-              <strong className="text-white">SQL Editor</strong>, paste this schema, and click Run.
+              <strong className="text-ink">SQL Editor</strong>, paste this schema, and click Run.
             </p>
-            <pre className="max-h-36 overflow-y-auto rounded-xl bg-slate-950 p-3 font-mono text-[11px] text-slate-400 border border-slate-800">
+            <pre className="max-h-36 overflow-y-auto rounded-xl bg-paper-2 p-3 font-mono text-[11px] text-ink-soft border border-linen">
               {sqlSchema}
             </pre>
           </div>
 
           {/* Step 3: .env.local configuration template */}
-          <div className="rounded-2xl border border-slate-800 bg-slate-900/50 p-4">
+          <div className="rounded-2xl border border-linen bg-sheet p-4">
             <div className="flex items-center justify-between mb-2">
-              <h3 className="text-sm font-bold text-white flex items-center gap-2">
-                <span className="flex h-5 w-5 items-center justify-center rounded-full bg-indigo-600 text-[10px] font-bold text-white">
+              <h3 className="text-sm font-bold text-ink flex items-center gap-2">
+                <span className="flex h-5 w-5 items-center justify-center rounded-full bg-ink text-[10px] font-bold text-paper">
                   3
                 </span>
                 <span>Environment Template (.env.local)</span>
               </h3>
               <button
                 onClick={() => copyToClipboard(envTemplate, 'env')}
-                className="flex items-center gap-1 rounded-lg border border-slate-700 bg-slate-800 px-2.5 py-1 text-xs text-slate-300 hover:text-white transition"
+                className="flex items-center gap-1 rounded-lg border border-linen bg-sheet px-2.5 py-1 text-xs text-ink hover:text-ink transition"
               >
                 {copiedEnv ? (
                   <>
-                    <Check className="h-3.5 w-3.5 text-emerald-400" />
-                    <span className="text-emerald-400">Copied .env</span>
+                    <Check className="h-3.5 w-3.5 text-keep" />
+                    <span className="text-keep">Copied .env</span>
                   </>
                 ) : (
                   <>
@@ -317,7 +317,7 @@ SESSION_SECRET="super-secret-key-at-least-32-characters"`;
                 )}
               </button>
             </div>
-            <pre className="max-h-36 overflow-y-auto rounded-xl bg-slate-950 p-3 font-mono text-[11px] text-slate-400 border border-slate-800">
+            <pre className="max-h-36 overflow-y-auto rounded-xl bg-paper-2 p-3 font-mono text-[11px] text-ink-soft border border-linen">
               {envTemplate}
             </pre>
           </div>
@@ -327,7 +327,7 @@ SESSION_SECRET="super-secret-key-at-least-32-characters"`;
         <div className="mt-6 flex justify-end">
           <button
             onClick={onClose}
-            className="rounded-xl bg-indigo-600 px-5 py-2 text-xs font-bold text-white shadow-md hover:bg-indigo-500 transition"
+            className="rounded-xl bg-ink px-5 py-2 text-xs font-bold text-paper shadow-md transition hover:bg-paper-2 hover:text-ink"
           >
             Done
           </button>

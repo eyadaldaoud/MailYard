@@ -17,7 +17,7 @@ import {
   Sparkles,
   Layers,
   Zap,
-  X,
+  
 } from 'lucide-react';
 import { EmailMetadata, BlockedSenderRecord } from '@/lib/types';
 import { formatBytes } from '@/lib/gmail/parser';
@@ -223,21 +223,16 @@ export function InboxCleanerTab({
     <div className="space-y-4">
       {/* Onboarding Cleaning Wizard Hero Prompt Banner */}
       {emails.length > 0 && onOpenWizard && (
-        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3.5 rounded-2xl border border-indigo-500/30 bg-gradient-to-r from-indigo-950/40 via-purple-950/30 to-slate-900/60 p-4 shadow-xl shadow-indigo-950/20 backdrop-blur-md">
+        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3.5 depot-rail p-4 shadow-sm">
           <div className="flex items-center gap-3">
-            <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-tr from-amber-500 via-rose-500 to-indigo-600 text-white shadow-lg shadow-indigo-600/30 animate-pulse-glow">
-              <Sparkles className="h-5 w-5 text-amber-200" />
+            <div className="flex h-10 w-10 shrink-0 items-center justify-center bg-signal text-ink">
+              <Sparkles className="h-5 w-5" aria-hidden />
             </div>
             <div>
-              <div className="flex items-center gap-2">
-                <h3 className="text-xs sm:text-sm font-bold text-white tracking-wide">
-                  Step-by-Step Cleaning Wizard
-                </h3>
-                <span className="rounded-full bg-indigo-500/20 border border-indigo-500/40 px-2 py-0.2 text-[9px] font-bold text-indigo-300">
-                  NEW
-                </span>
-              </div>
-              <p className="text-[11px] text-slate-300 mt-0.5">
+              <h3 className="text-xs sm:text-sm font-bold text-paper tracking-wide">
+                Step-by-Step Cleaning Wizard
+              </h3>
+              <p className="text-[11px] text-paper/70 mt-0.5">
                 Audit cluttered categories, 1-click unsubscribe, and set auto-delete patterns for future syncs.
               </p>
             </div>
@@ -247,24 +242,22 @@ export function InboxCleanerTab({
             {onOpenAutoRules && (
               <button
                 onClick={onOpenAutoRules}
-                className="flex items-center gap-1.5 rounded-xl border border-amber-500/30 bg-amber-500/10 px-3 py-1.5 text-xs font-semibold text-amber-300 hover:bg-amber-500/20 transition"
+                className="tnum flex items-center gap-1.5 border border-white/25 px-3 py-1.5 text-xs font-semibold text-paper hover:bg-white/10 transition"
                 title="Manage automated sync rules"
               >
-                <Zap className="h-3.5 w-3.5 text-amber-400" />
+                <Zap className="h-3.5 w-3.5 text-signal" aria-hidden />
                 <span>Auto-Rules</span>
                 {autoRulesCount > 0 && (
-                  <span className="rounded-full bg-amber-500/30 px-1.5 py-0.2 text-[9px] font-bold text-amber-200">
-                    {autoRulesCount}
-                  </span>
+                  <span className="tnum text-signal font-bold">{autoRulesCount}</span>
                 )}
               </button>
             )}
 
             <button
               onClick={onOpenWizard}
-              className="flex items-center gap-1.5 rounded-xl bg-gradient-to-r from-indigo-600 via-purple-600 to-cyan-500 px-4 py-1.5 text-xs font-bold text-white shadow-md shadow-indigo-600/30 hover:brightness-110 transition"
+              className="flex items-center gap-1.5 bg-signal px-4 py-1.5 text-xs font-bold text-ink hover:bg-paper-2 transition"
             >
-              <Sparkles className="h-3.5 w-3.5 text-amber-200" />
+              <Sparkles className="h-3.5 w-3.5" aria-hidden />
               <span>Launch Clean Wizard &rarr;</span>
             </button>
           </div>
@@ -289,7 +282,7 @@ export function InboxCleanerTab({
       )}
 
       {/* Controls Bar: Filters & Sub-toggles */}
-      <div className="flex flex-col gap-3 rounded-2xl border border-slate-800 bg-slate-900/60 p-4 backdrop-blur-md">
+      <div className="flex flex-col gap-3 rounded-2xl border border-linen bg-sheet p-4">
         <div className="flex flex-col items-stretch justify-between gap-3 lg:flex-row lg:items-center">
           {/* Main Filter Chips */}
           <div className="flex max-w-full gap-1.5 overflow-x-auto pb-1 scrollbar-none lg:flex-wrap lg:overflow-visible lg:pb-0">
@@ -301,8 +294,8 @@ export function InboxCleanerTab({
               }}
               className={`rounded-lg px-3 py-1.5 text-xs font-semibold transition ${
                 activeFilter === 'all' && selectedCategory === 'all' && !selectedSenderEmail
-                  ? 'bg-indigo-600 text-white shadow-sm shadow-indigo-600/30'
-                  : 'bg-slate-800 text-slate-300 hover:bg-slate-700'
+                  ? 'bg-ink text-paper'
+                  : 'bg-sheet border border-linen text-ink-soft hover:border-ink-mute hover:text-ink'
               }`}
             >
               All ({emails.length})
@@ -312,10 +305,10 @@ export function InboxCleanerTab({
             {onOpenWizard && (
               <button
                 onClick={onOpenWizard}
-                className="flex items-center gap-1.5 rounded-lg border border-indigo-500/40 bg-indigo-500/15 px-3 py-1.5 text-xs font-bold text-indigo-300 hover:bg-indigo-500/25 transition shadow-sm"
+                className="flex items-center gap-1.5 rounded-lg border border-ink bg-ink px-3 py-1.5 text-xs font-bold text-paper hover:bg-trash transition"
                 title="Launch step-by-step cleaning wizard"
               >
-                <Sparkles className="h-3.5 w-3.5 text-amber-300" />
+                <Sparkles className="h-3.5 w-3.5" aria-hidden />
                 <span>Clean Wizard</span>
               </button>
             )}
@@ -325,15 +318,15 @@ export function InboxCleanerTab({
               onClick={() => setShowCategoryWidget(!showCategoryWidget)}
               className={`flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-xs font-semibold transition ${
                 showCategoryWidget || selectedCategory !== 'all' || selectedSenderEmail
-                  ? 'bg-gradient-to-r from-indigo-600 via-purple-600 to-cyan-500 text-white shadow-sm shadow-indigo-600/30'
-                  : 'bg-slate-800 text-slate-300 hover:bg-slate-700'
+                  ? 'bg-unload/15 border border-unload text-unload'
+                  : 'bg-sheet border border-linen text-ink-soft hover:border-ink-mute hover:text-ink'
               }`}
               title="Toggle Category & Sender Explorer Widget"
             >
-              <Layers className="h-3.5 w-3.5 text-cyan-300" />
+              <Layers className="h-3.5 w-3.5 text-unload" />
               <span>Category Matrix</span>
               {(selectedCategory !== 'all' || selectedSenderEmail) && (
-                <span className="rounded-full bg-cyan-400 px-1.5 py-0.2 text-[9px] font-black text-slate-950">
+                <span className="rounded-full bg-unload px-1.5 py-0.2 text-[9px] font-black text-paper">
                   FILTERED
                 </span>
               )}
@@ -343,11 +336,11 @@ export function InboxCleanerTab({
               onClick={() => setActiveFilter('heavy')}
               className={`flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-xs font-semibold transition ${
                 activeFilter === 'heavy' || activeFilter === 'heavy_5mb'
-                  ? 'bg-amber-600 text-white shadow-sm shadow-amber-600/30'
-                  : 'bg-slate-800 text-slate-300 hover:bg-slate-700'
+                  ? 'bg-warn text-paper shadow-sm shadow-warn/30'
+                  : 'bg-sheet border border-transparent text-ink-soft hover:text-ink'
               }`}
             >
-              <HardDrive className="h-3.5 w-3.5 text-amber-400" />
+              <HardDrive className="h-3.5 w-3.5 text-warn" />
               Heavy Files
             </button>
 
@@ -355,11 +348,11 @@ export function InboxCleanerTab({
               onClick={() => setActiveFilter('mass_notifications')}
               className={`flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-xs font-semibold transition ${
                 activeFilter === 'mass_notifications'
-                  ? 'bg-purple-600 text-white shadow-sm shadow-purple-600/30'
-                  : 'bg-slate-800 text-slate-300 hover:bg-slate-700'
+                  ? 'bg-ink text-paper '
+                  : 'bg-sheet border border-transparent text-ink-soft hover:text-ink'
               }`}
             >
-              <BellRing className="h-3.5 w-3.5 text-purple-400" />
+              <BellRing className="h-3.5 w-3.5 text-unload" />
               Mass Notifications
             </button>
 
@@ -367,11 +360,11 @@ export function InboxCleanerTab({
               onClick={() => setActiveFilter('ancient')}
               className={`flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-xs font-semibold transition ${
                 activeFilter === 'ancient' || activeFilter === 'ancient_1yr'
-                  ? 'bg-cyan-600 text-white shadow-sm shadow-cyan-600/30'
-                  : 'bg-slate-800 text-slate-300 hover:bg-slate-700'
+                  ? 'bg-ink text-paper '
+                  : 'bg-sheet border border-transparent text-ink-soft hover:text-ink'
               }`}
             >
-              <History className="h-3.5 w-3.5 text-cyan-400" />
+              <History className="h-3.5 w-3.5 text-unload" />
               Ancient History
             </button>
 
@@ -379,11 +372,11 @@ export function InboxCleanerTab({
               onClick={() => setActiveFilter('blocked')}
               className={`flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-xs font-semibold transition ${
                 activeFilter === 'blocked'
-                  ? 'bg-rose-600 text-white shadow-sm shadow-rose-600/30'
-                  : 'bg-slate-800 text-slate-300 hover:bg-slate-700'
+                  ? 'bg-trash text-paper shadow-sm shadow-trash/20'
+                  : 'bg-sheet border border-transparent text-ink-soft hover:text-ink'
               }`}
             >
-              <Ban className="h-3.5 w-3.5 text-rose-400" />
+              <Ban className="h-3.5 w-3.5 text-trash" />
               Blocked ({emails.filter((e) => blockedDomainSet.has(e.senderDomain.toLowerCase())).length})
             </button>
           </div>
@@ -391,11 +384,11 @@ export function InboxCleanerTab({
           {/* Sub-threshold selectors */}
           <div className="flex flex-wrap items-center gap-2">
             {(activeFilter === 'heavy' || activeFilter === 'heavy_5mb') && (
-              <div className="flex items-center rounded-lg border border-slate-700 bg-slate-800 p-0.5 text-xs font-medium text-slate-300">
+              <div className="flex items-center rounded-lg border border-linen bg-sheet p-0.5 text-xs font-medium text-ink">
                 <button
                   onClick={() => setHeavyFilterSize('5mb')}
                   className={`rounded-md px-2 py-1 ${
-                    heavyFilterSize === '5mb' ? 'bg-amber-600 text-white' : 'text-slate-400 hover:text-white'
+                    heavyFilterSize === '5mb' ? 'bg-warn text-ink' : 'text-ink-soft hover:text-ink'
                   }`}
                 >
                   &gt; 5 MB
@@ -403,7 +396,7 @@ export function InboxCleanerTab({
                 <button
                   onClick={() => setHeavyFilterSize('10mb')}
                   className={`rounded-md px-2 py-1 ${
-                    heavyFilterSize === '10mb' ? 'bg-amber-600 text-white' : 'text-slate-400 hover:text-white'
+                    heavyFilterSize === '10mb' ? 'bg-warn text-ink' : 'text-ink-soft hover:text-ink'
                   }`}
                 >
                   &gt; 10 MB
@@ -412,11 +405,11 @@ export function InboxCleanerTab({
             )}
 
             {(activeFilter === 'ancient' || activeFilter === 'ancient_1yr') && (
-              <div className="flex items-center rounded-lg border border-slate-700 bg-slate-800 p-0.5 text-xs font-medium text-slate-300">
+              <div className="flex items-center rounded-lg border border-linen bg-sheet p-0.5 text-xs font-medium text-ink">
                 <button
                   onClick={() => setAncientFilterYears('1yr')}
                   className={`rounded-md px-2 py-1 ${
-                    ancientFilterYears === '1yr' ? 'bg-cyan-600 text-white' : 'text-slate-400 hover:text-white'
+                    ancientFilterYears === '1yr' ? 'bg-ink text-ink' : 'text-ink-soft hover:text-ink'
                   }`}
                 >
                   &gt; 1 Year
@@ -424,7 +417,7 @@ export function InboxCleanerTab({
                 <button
                   onClick={() => setAncientFilterYears('2yrs')}
                   className={`rounded-md px-2 py-1 ${
-                    ancientFilterYears === '2yrs' ? 'bg-cyan-600 text-white' : 'text-slate-400 hover:text-white'
+                    ancientFilterYears === '2yrs' ? 'bg-ink text-ink' : 'text-ink-soft hover:text-ink'
                   }`}
                 >
                   &gt; 2 Years
@@ -434,15 +427,15 @@ export function InboxCleanerTab({
 
             {/* Scan Depth Selector */}
             {onFetchLimitChange && (
-              <div className="flex items-center rounded-lg border border-slate-700 bg-slate-800 p-0.5 text-xs font-medium text-slate-300">
-                <span className="px-2 text-slate-400 text-[10px] uppercase font-bold">Scan:</span>
+              <div className="flex items-center rounded-lg border border-linen bg-sheet p-0.5 text-xs font-medium text-ink">
+                <span className="px-2 text-ink-soft text-[10px] uppercase font-bold">Scan:</span>
                 {[100, 250, 500].map((limit) => (
                   <button
                     key={limit}
                     onClick={() => onFetchLimitChange(limit)}
                     disabled={isProcessing}
                     className={`rounded-md px-2 py-0.5 font-bold transition ${
-                      fetchLimit === limit ? 'bg-indigo-600 text-white shadow-sm' : 'text-slate-400 hover:text-white'
+                      fetchLimit === limit ? 'bg-ink text-paper shadow-sm' : 'text-ink-soft hover:text-ink'
                     }`}
                   >
                     {limit}
@@ -462,34 +455,34 @@ export function InboxCleanerTab({
                   setSortOrder('desc');
                 }
               }}
-              className="flex items-center gap-1 rounded-lg border border-slate-700 bg-slate-800 px-2.5 py-1 text-xs text-slate-300 hover:bg-slate-700 transition"
+              className="flex items-center gap-1 rounded-lg border border-linen bg-sheet px-2.5 py-1 text-xs text-ink hover:bg-linen/50 transition"
               title="Toggle Sort by Date or Size"
             >
-              <ArrowUpDown className="h-3.5 w-3.5 text-slate-400" />
+              <ArrowUpDown className="h-3.5 w-3.5 text-ink-soft" />
               <span>Sort: {sortField === 'size' ? 'Size' : 'Date'}</span>
             </button>
           </div>
         </div>
 
         {/* Search bar and Quick Selectors */}
-        <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 pt-2 border-t border-slate-800/80">
+        <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 pt-2 border-t border-linen">
           <div className="relative flex-1 max-w-md">
-            <Search className="absolute left-3 top-2.5 h-4 w-4 text-slate-500" />
+            <Search className="absolute left-3 top-2.5 h-4 w-4 text-ink-soft" />
             <input
               type="text"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="Search sender, domain, or subject keywords..."
-              className="w-full rounded-xl border border-slate-700/80 bg-slate-800/80 pl-9 pr-3 py-1.5 text-xs text-white placeholder-slate-500 focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500"
+              className="w-full rounded-xl border border-linen bg-sheet pl-9 pr-3 py-1.5 text-xs text-ink placeholder-ink-mute focus:border-unload focus:outline-none focus:ring-1 focus:ring-unload"
             />
           </div>
 
           {/* Quick Preset Selector Buttons */}
-          <div className="flex flex-wrap items-center gap-1.5 text-[11px] text-slate-400">
+          <div className="flex flex-wrap items-center gap-1.5 text-[11px] text-ink-soft">
             <span>Select:</span>
             <button
               onClick={handleSelectAllVisible}
-              className="rounded-md border border-slate-700 bg-slate-800 px-2 py-1 text-slate-300 hover:bg-slate-700 hover:text-white"
+              className="rounded-md border border-linen bg-sheet px-2 py-1 font-semibold text-ink hover:border-ink transition"
             >
               {selectedIds.size === filteredEmails.length && filteredEmails.length > 0
                 ? 'Deselect All'
@@ -497,19 +490,19 @@ export function InboxCleanerTab({
             </button>
             <button
               onClick={handleSelectOnlyMass}
-              className="rounded-md border border-purple-500/30 bg-purple-500/10 px-2 py-1 text-purple-300 hover:bg-purple-500/20"
+              className="rounded-md border border-unload/40 bg-unload/10 px-2 py-1 font-semibold text-unload hover:border-unload transition"
             >
               All Notifications
             </button>
             <button
               onClick={handleSelectOnlyHeavy}
-              className="rounded-md border border-amber-500/30 bg-amber-500/10 px-2 py-1 text-amber-300 hover:bg-amber-500/20"
+              className="rounded-md border border-warn/40 bg-warn/10 px-2 py-1 font-semibold text-warn hover:border-warn transition"
             >
               All Heavy (&gt;5MB)
             </button>
             <button
               onClick={handleSelectOnlyAncient}
-              className="rounded-md border border-cyan-500/30 bg-cyan-500/10 px-2 py-1 text-cyan-300 hover:bg-cyan-500/20"
+              className="rounded-md border border-warn/40 bg-warn/10 px-2 py-1 font-semibold text-warn hover:border-warn transition"
             >
               All Ancient (&gt;1yr)
             </button>
@@ -517,15 +510,15 @@ export function InboxCleanerTab({
         </div>
       </div>
 
-      {/* Floating / Sticky Bulk Action Bar */}
+      {/* Weighbridge Ticket: Bulk Action Bar */}
       {selectedIds.size > 0 && (
-        <div className="sticky top-20 z-30 flex flex-col items-stretch gap-3 rounded-xl border border-rose-500/30 bg-rose-950/70 p-3 backdrop-blur-md shadow-xl shadow-rose-950/40 animate-in fade-in slide-in-from-top-2 duration-200 sm:flex-row sm:items-center sm:justify-between">
-          <div className="flex items-center justify-end gap-2">
-            <CheckSquare className="h-4 w-4 text-rose-400" />
-            <span className="text-xs font-semibold text-rose-200">
-              {selectedIds.size} email{selectedIds.size > 1 ? 's' : ''} selected
+        <div className="ticket sticky top-20 z-30 flex flex-col items-stretch gap-3 p-3 shadow-lg shadow-ink/10 slide-in-from-top-2 duration-200 sm:flex-row sm:items-center sm:justify-between">
+          <div className="flex items-center gap-2.5 min-w-0">
+            <CheckSquare className="h-4 w-4 text-keep shrink-0" />
+            <span className="tnum text-xs font-bold text-ink">
+              {selectedIds.size} email{selectedIds.size > 1 ? 's' : ''} on the scale
             </span>
-            <span className="rounded-full bg-rose-900/60 px-2 py-0.5 text-[11px] font-mono text-rose-300">
+            <span className="tnum rounded-full bg-paper-2 px-2 py-0.5 text-[11px] font-mono text-ink-soft">
               ~{selectedSizeFormatted}
             </span>
           </div>
@@ -533,14 +526,14 @@ export function InboxCleanerTab({
           <div className="flex items-center gap-2">
             <button
               onClick={() => setSelectedIds(new Set())}
-              className="rounded-lg border border-slate-700 bg-slate-800/80 px-2.5 py-1 text-xs text-slate-300 hover:bg-slate-700"
+              className="rounded-lg border border-linen bg-sheet px-2.5 py-1 text-xs font-semibold text-ink-soft hover:border-ink hover:text-ink transition"
             >
               Clear
             </button>
             <button
               onClick={() => setShowConfirmModal(true)}
               disabled={isProcessing}
-              className="flex items-center gap-1.5 rounded-lg bg-rose-600 px-3.5 py-1 text-xs font-bold text-white shadow-md shadow-rose-600/30 hover:bg-rose-500 disabled:opacity-50"
+              className="flex items-center gap-1.5 rounded-lg bg-signal px-3.5 py-1 text-xs font-bold text-ink hover:bg-ink hover:text-paper disabled:opacity-50 transition"
             >
               {isProcessing ? (
                 <Loader2 className="h-3.5 w-3.5 animate-spin" />
@@ -556,10 +549,10 @@ export function InboxCleanerTab({
       {/* Email List Items */}
       <div className="space-y-2">
         {filteredEmails.length === 0 ? (
-          <div className="rounded-2xl border border-slate-800 bg-slate-900/40 p-12 text-center">
-            <Sparkles className="mx-auto h-8 w-8 text-slate-600 mb-3" />
-            <h3 className="text-base font-semibold text-white">No matching emails found</h3>
-            <p className="text-xs text-slate-400 mt-1 max-w-sm mx-auto">
+          <div className="rounded-2xl border border-linen bg-sheet p-12 text-center">
+            <Sparkles className="mx-auto h-8 w-8 text-ink-soft mb-3" />
+            <h3 className="text-base font-semibold text-ink">No matching emails found</h3>
+            <p className="text-xs text-ink-soft mt-1 max-w-sm mx-auto">
               Your inbox is clean according to this filter, or try adjusting your search keywords.
             </p>
           </div>
@@ -572,41 +565,46 @@ export function InboxCleanerTab({
             return (
               <div
                 key={item.id}
-                className={`group flex items-start sm:items-center justify-between gap-3 rounded-xl border p-3 transition-all ${
+                className={`group relative flex items-start sm:items-center justify-between gap-3 rounded-xl border p-3 transition-all ${
                   isRemoving ? 'animate-row-exit' : ''
                 } ${
                   isSelected
-                    ? 'border-indigo-500/60 bg-indigo-950/20 shadow-sm shadow-indigo-500/10'
+                    ? 'border-unload bg-unload/10 shadow-sm'
                     : isBlocked
-                    ? 'border-rose-900/40 bg-rose-950/10'
-                    : 'border-slate-800/80 bg-slate-900/40 hover:bg-slate-800/50 hover:border-slate-700'
+                    ? 'border-trash/40 bg-trash/10'
+                    : 'border-linen bg-sheet hover:border-ink-mute'
                 }`}
               >
+                {isRemoving && (
+                  <span className="stamp text-trash pointer-events-none absolute left-1/2 top-1/2 z-10 -translate-x-1/2 -translate-y-1/2 bg-sheet/85 text-[10px]">
+                    Sorted out
+                  </span>
+                )}
                 {/* Left: Checkbox + Sender Avatar + Metadata */}
                 <div className="flex items-start sm:items-center gap-3 min-w-0 flex-1">
                   {/* Select Checkbox */}
                   <button
                     onClick={() => handleToggleSelect(item.id)}
-                    className="mt-1 sm:mt-0 text-slate-400 hover:text-white transition"
+                    className="mt-1 sm:mt-0 text-ink-soft hover:text-ink transition"
                     title={isSelected ? 'Deselect' : 'Select'}
                   >
                     {isSelected ? (
-                      <CheckSquare className="h-4 w-4 text-indigo-400" />
+                      <CheckSquare className="h-4 w-4 text-unload" />
                     ) : (
-                      <Square className="h-4 w-4 text-slate-600 hover:text-slate-400" />
+                      <Square className="h-4 w-4 text-ink-soft hover:text-ink-soft" />
                     )}
                   </button>
 
                   {/* Sender Avatar Initials */}
                   <div
-                    className={`hidden sm:flex h-8 w-8 shrink-0 items-center justify-center rounded-lg text-xs font-bold text-white shadow-sm ${
+                    className={`hidden sm:flex h-8 w-8 shrink-0 items-center justify-center rounded-lg text-xs font-bold text-ink shadow-sm ${
                       item.isHeavy5MB
-                        ? 'bg-amber-600/80'
+                        ? 'bg-warn'
                         : item.isMassNotification
-                        ? 'bg-purple-600/80'
+                        ? 'bg-ink/80'
                         : isBlocked
-                        ? 'bg-rose-700/80'
-                        : 'bg-indigo-600/80'
+                        ? 'bg-trash/80'
+                        : 'bg-ink/80'
                     }`}
                   >
                     {item.senderName.slice(0, 1).toUpperCase() || 'M'}
@@ -620,12 +618,12 @@ export function InboxCleanerTab({
                           setSelectedSenderEmail(item.senderEmail);
                           setShowCategoryWidget(true);
                         }}
-                        className="text-xs font-bold text-slate-200 hover:text-cyan-300 transition truncate max-w-[200px] text-left"
+                        className="text-xs font-bold text-ink hover:text-unload transition truncate max-w-[200px] text-left"
                         title="Filter to this sender"
                       >
                         {item.senderName}
                       </button>
-                      <span className="text-[10px] text-slate-400 font-mono">
+                      <span className="text-[10px] text-ink-soft font-mono">
                         @{item.senderDomain}
                       </span>
 
@@ -640,9 +638,10 @@ export function InboxCleanerTab({
                               setSelectedCategory(cat);
                               setShowCategoryWidget(true);
                             }}
-                            className={`rounded-md border px-1.5 py-0.2 text-[9px] font-semibold transition hover:opacity-80 ${catDef.badgeBorder} ${catDef.color} bg-slate-800/80`}
+                            className="inline-flex items-center gap-1 rounded-md border border-linen px-1.5 py-0.2 text-[9px] font-semibold text-ink transition hover:border-ink bg-sheet"
                             title={`Filter to ${catDef.label}`}
                           >
+                            <span className={`h-1.5 w-1.5 rounded-[2px] ${catDef.dot}`} aria-hidden />
                             {catDef.shortLabel}
                           </button>
                         );
@@ -650,44 +649,44 @@ export function InboxCleanerTab({
 
                       {/* Status Badges */}
                       {item.isHeavy10MB ? (
-                        <span className="rounded-md border border-rose-500/30 bg-rose-500/15 px-1.5 py-0.2 text-[9px] font-semibold text-rose-300">
+                        <span className="rounded-md border border-trash/30 bg-trash/15 px-1.5 py-0.2 text-[9px] font-semibold text-trash">
                           {item.sizeFormatted} Heavy
                         </span>
                       ) : item.isHeavy5MB ? (
-                        <span className="rounded-md border border-amber-500/30 bg-amber-500/15 px-1.5 py-0.2 text-[9px] font-semibold text-amber-300">
+                        <span className="rounded-md border border-warn/40 bg-warn/10 px-1.5 py-0.2 text-[9px] font-semibold text-warn">
                           {item.sizeFormatted}
                         </span>
                       ) : null}
 
                       {item.isMassNotification && (
-                        <span className="rounded-md border border-purple-500/30 bg-purple-500/15 px-1.5 py-0.2 text-[9px] font-semibold text-purple-300">
+                        <span className="rounded-md border border-unload/40 bg-unload/10 px-1.5 py-0.2 text-[9px] font-semibold text-unload">
                           Mass Alert
                         </span>
                       )}
 
                       {item.isAncient2Years ? (
-                        <span className="rounded-md border border-cyan-500/30 bg-cyan-500/15 px-1.5 py-0.2 text-[9px] font-semibold text-cyan-300">
+                        <span className="rounded-md border border-unload/40 bg-unload/10 px-1.5 py-0.2 text-[9px] font-semibold text-unload">
                           &gt;2 Years Old
                         </span>
                       ) : item.isAncient1Year ? (
-                        <span className="rounded-md border border-blue-500/30 bg-blue-500/15 px-1.5 py-0.2 text-[9px] font-semibold text-blue-300">
+                        <span className="rounded-md border border-unload/40 bg-unload/10 px-1.5 py-0.2 text-[9px] font-semibold text-unload">
                           &gt;1 Year Old
                         </span>
                       ) : null}
 
                       {isBlocked && (
-                        <span className="rounded-md border border-rose-500/30 bg-rose-500/20 px-1.5 py-0.2 text-[9px] font-semibold text-rose-400">
+                        <span className="rounded-md border border-trash/30 bg-trash/20 px-1.5 py-0.2 text-[9px] font-semibold text-trash">
                           Domain Blocked
                         </span>
                       )}
                     </div>
 
-                    <p className="text-xs font-medium text-slate-300 truncate">
+                    <p className="text-xs font-medium text-ink truncate">
                       {item.subject}
                     </p>
 
                     {item.snippet && (
-                      <p className="text-[11px] text-slate-500 truncate max-w-2xl mt-0.5">
+                      <p className="text-[11px] text-ink-soft truncate max-w-2xl mt-0.5">
                         {item.snippet}
                       </p>
                     )}
@@ -701,18 +700,18 @@ export function InboxCleanerTab({
                     {/* Size badge — always shown */}
                     <div className={`flex items-center gap-1 rounded-md px-1.5 py-0.5 text-[10px] font-mono font-semibold ${
                       item.isHeavy10MB
-                        ? 'bg-rose-500/15 text-rose-300 border border-rose-500/25'
+                        ? 'bg-trash/15 text-trash border border-trash/25'
                         : item.isHeavy5MB
-                        ? 'bg-amber-500/15 text-amber-300 border border-amber-500/25'
+                        ? 'bg-warn/10 text-warn border border-warn/25'
                         : item.sizeBytes > 1024 * 1024
-                        ? 'bg-slate-700/60 text-slate-300 border border-slate-700/40'
-                        : 'bg-slate-800/50 text-slate-500 border border-slate-800'
+                        ? 'bg-sheet text-ink border border-linen'
+                        : 'bg-sheet text-ink-soft border border-linen'
                     }`}>
                       <HardDrive className="h-2.5 w-2.5" />
                       <span>{item.sizeFormatted}</span>
                     </div>
                     {/* Date */}
-                    <span className="text-[10px] text-slate-500 tabular-nums">
+                    <span className="text-[10px] text-ink-soft tabular-nums">
                       {new Date(item.date).toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: '2-digit' })}
                     </span>
                   </div>
@@ -723,7 +722,7 @@ export function InboxCleanerTab({
                       onClick={() => onUnsubscribe(item)}
                       disabled={isProcessing}
                       title="1-Click Unsubscribe"
-                      className="hidden md:flex items-center gap-1 rounded-lg border border-emerald-500/30 bg-emerald-500/10 px-2 py-1 text-[11px] font-medium text-emerald-400 hover:bg-emerald-500/20 transition disabled:opacity-50"
+                      className="hidden md:flex items-center gap-1 rounded-lg border border-keep/30 bg-keep/10 px-2 py-1 text-[11px] font-medium text-keep hover:bg-keep/20 transition disabled:opacity-50"
                     >
                       <ShieldCheck className="h-3 w-3" />
                       <span>Unsub</span>
@@ -736,7 +735,7 @@ export function InboxCleanerTab({
                       onClick={() => onBlockSender(item.senderDomain, item.senderEmail)}
                       disabled={isProcessing}
                       title="Block sender domain"
-                      className="hidden lg:flex items-center gap-1 rounded-lg border border-slate-700 bg-slate-800 px-2 py-1 text-[11px] text-slate-400 hover:text-rose-400 hover:border-rose-500/30 transition disabled:opacity-50"
+                      className="hidden lg:flex items-center gap-1 rounded-lg border border-linen bg-sheet px-2 py-1 text-[11px] text-ink-soft hover:text-trash hover:border-trash/30 transition disabled:opacity-50"
                     >
                       <Ban className="h-3 w-3" />
                       <span>Block</span>
@@ -748,7 +747,7 @@ export function InboxCleanerTab({
                     onClick={() => handleTrashSingle(item.id)}
                     disabled={isProcessing || isRemoving}
                     title="Trash this email"
-                    className="flex h-7 w-7 items-center justify-center rounded-lg border border-slate-700 bg-slate-800/80 text-slate-400 hover:border-rose-500/40 hover:bg-rose-500/10 hover:text-rose-400 transition disabled:opacity-50"
+                    className="flex h-7 w-7 items-center justify-center rounded-lg border border-linen bg-sheet text-ink-soft hover:border-trash/40 hover:bg-trash/10 hover:text-trash transition disabled:opacity-50"
                   >
                     <Trash2 className="h-3.5 w-3.5" />
                   </button>
@@ -765,12 +764,12 @@ export function InboxCleanerTab({
           <button
             onClick={onLoadMore}
             disabled={isLoadingMore}
-            className="flex items-center gap-2 rounded-2xl border border-indigo-500/40 bg-indigo-950/40 hover:bg-indigo-900/60 px-6 py-2.5 text-xs font-bold text-indigo-200 shadow-lg shadow-indigo-950/40 transition disabled:opacity-50"
+            className="flex items-center gap-2 rounded-2xl border border-unload bg-unload/10 hover:bg-unload/10 px-6 py-2.5 text-xs font-bold text-unload shadow-sm transition disabled:opacity-50"
           >
             {isLoadingMore ? (
-              <Loader2 className="h-4 w-4 animate-spin text-cyan-400" />
+              <Loader2 className="h-4 w-4 animate-spin text-unload" />
             ) : (
-              <Sparkles className="h-4 w-4 text-cyan-400" />
+              <Sparkles className="h-4 w-4 text-unload" />
             )}
             <span>Load Next Batch (+100 Emails)</span>
           </button>
@@ -779,40 +778,40 @@ export function InboxCleanerTab({
 
       {/* Confirmation Modal for Batch Trash */}
       {showConfirmModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 p-4 backdrop-blur-sm animate-in fade-in">
-          <div className="w-full max-w-md rounded-2xl border border-slate-700 bg-slate-900 p-6 shadow-2xl">
-            <div className="flex items-center gap-3 text-rose-400 mb-3">
-              <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-rose-500/10 border border-rose-500/30">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 p-4">
+          <div className="w-full max-w-md rounded-2xl border border-linen bg-sheet p-6 shadow-2xl">
+            <div className="flex items-center gap-3 text-trash mb-3">
+              <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-trash/10 border border-trash/30">
                 <AlertTriangle className="h-5 w-5" />
               </div>
               <div>
-                <h3 className="text-base font-bold text-white">Trash Selected Emails</h3>
-                <p className="text-xs text-slate-400">Confirmation required</p>
+                <h3 className="text-base font-bold text-ink">Trash Selected Emails</h3>
+                <p className="text-xs text-ink-soft">Confirmation required</p>
               </div>
             </div>
 
-            <p className="text-xs text-slate-300 leading-relaxed">
+            <p className="text-xs text-ink leading-relaxed">
               Are you sure you want to move{' '}
-              <span className="font-bold text-white">{selectedIds.size} emails</span> (~
-              <span className="font-bold text-amber-300">{selectedSizeFormatted}</span>) to the
+              <span className="font-bold text-ink">{selectedIds.size} emails</span> (~
+              <span className="font-bold text-warn">{selectedSizeFormatted}</span>) to the
               Gmail Trash?
             </p>
 
-            <p className="text-[11px] text-slate-400 mt-2 bg-slate-800/60 p-2.5 rounded-lg border border-slate-800">
+            <p className="text-[11px] text-ink-soft mt-2 bg-sheet p-2.5 rounded-lg border border-linen">
               Note: Messages will be moved to your Gmail Trash folder immediately. You can still restore them within 30 days directly from Gmail if needed.
             </p>
 
             <div className="mt-6 flex items-center justify-end gap-2">
               <button
                 onClick={() => setShowConfirmModal(false)}
-                className="rounded-xl border border-slate-700 bg-slate-800 px-4 py-2 text-xs font-semibold text-slate-300 hover:bg-slate-700 transition"
+                className="rounded-xl border border-linen bg-sheet px-4 py-2 text-xs font-semibold text-ink hover:bg-sheet transition"
               >
                 Cancel
               </button>
               <button
                 onClick={executeBatchTrash}
                 disabled={isProcessing}
-                className="flex items-center gap-1.5 rounded-xl bg-rose-600 px-4 py-2 text-xs font-bold text-white shadow-lg shadow-rose-600/30 hover:bg-rose-500 transition disabled:opacity-50"
+                className="flex items-center gap-1.5 rounded-xl bg-trash px-4 py-2 text-xs font-bold text-paper shadow-lg shadow-trash/20 hover:bg-trash transition disabled:opacity-50"
               >
                 {isProcessing && <Loader2 className="h-3.5 w-3.5 animate-spin" />}
                 <span>Confirm & Trash</span>

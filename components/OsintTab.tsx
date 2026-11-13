@@ -4,18 +4,18 @@ import React, { useState, useRef, useMemo } from 'react';
 import {
   UploadCloud,
   FileSpreadsheet,
-  AlertTriangle,
+  
   ExternalLink,
   ShieldAlert,
   Search,
   CheckCircle2,
-  Trash2,
-  Database,
+  
+  
   Lock,
-  Layers,
+  
   Sparkles,
   Info,
-  Clock,
+  
   Loader2,
 } from 'lucide-react';
 import { UserAccountRecord, HIBPBreach, DeleteDifficulty } from '@/lib/types';
@@ -153,55 +153,56 @@ export function OsintTab({
   > = {
     easy: {
       label: 'Easy Deletion',
-      badgeClass: 'border-emerald-500/30 bg-emerald-500/10 text-emerald-300',
+      badgeClass: 'border-keep/30 bg-keep/10 text-keep',
     },
     medium: {
       label: 'Medium',
-      badgeClass: 'border-amber-500/30 bg-amber-500/10 text-amber-300',
+      badgeClass: 'border-warn/40 bg-warn/10 text-warn',
     },
     hard: {
       label: 'Hard',
-      badgeClass: 'border-orange-500/30 bg-orange-500/10 text-orange-300',
+      badgeClass: 'border-warn bg-warn text-paper',
     },
     impossible: {
       label: 'Impossible',
-      badgeClass: 'border-rose-500/30 bg-rose-500/10 text-rose-300',
+      badgeClass: 'border-trash/30 bg-trash/10 text-trash',
     },
     unknown: {
       label: 'Standard',
-      badgeClass: 'border-slate-700 bg-slate-800 text-slate-400',
+      badgeClass: 'border-linen bg-sheet text-ink-soft',
     },
   };
 
   return (
     <div className="space-y-6">
       {/* OSINT Header Banner */}
-      <div className="rounded-2xl border border-indigo-500/20 bg-gradient-to-r from-purple-950/30 via-slate-900/60 to-indigo-950/30 p-5 backdrop-blur-md">
+      <div className="relative overflow-hidden rounded-2xl border border-linen bg-sheet p-5">
+        <span className="stream-band absolute inset-x-0 top-0 h-1" style={{ ['--stream-color' as string]: 'var(--color-unload)' }} aria-hidden />
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
           <div className="flex items-center gap-3">
-            <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-purple-600/20 border border-purple-500/30 text-purple-400">
+            <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-unload/15 border border-unload/40 text-unload">
               <ShieldAlert className="h-6 w-6" />
             </div>
             <div>
-              <h2 className="text-base font-bold text-white">Digital Footprint & Account Discovery</h2>
-              <p className="text-xs text-slate-300 max-w-xl mt-0.5">
+              <h2 className="text-base font-bold text-ink">Digital Footprint & Account Discovery</h2>
+              <p className="text-xs text-ink max-w-xl mt-0.5">
                 Audit online accounts via Google Chrome exported password archives and Have I Been Pwned breach
-                intelligence. Cross-referenced with the <strong className="text-cyan-400">JustDelete.me</strong> directory
+                intelligence. Cross-referenced with the <strong className="text-unload">JustDelete.me</strong> directory
                 for instant 1-click account erasure links.
               </p>
             </div>
           </div>
 
           <div className="flex items-center gap-2">
-            <div className="rounded-xl border border-slate-700 bg-slate-800/80 px-3 py-2 text-center">
-              <div className="text-sm font-bold text-white">{accounts.length}</div>
-              <div className="text-[10px] text-slate-400">Tracked Accounts</div>
+            <div className="rounded-xl border border-linen bg-sheet px-3 py-2 text-center">
+              <div className="text-sm font-bold text-ink">{accounts.length}</div>
+              <div className="text-[10px] text-ink-soft">Tracked Accounts</div>
             </div>
-            <div className="rounded-xl border border-slate-700 bg-slate-800/80 px-3 py-2 text-center">
-              <div className="text-sm font-bold text-emerald-400">
+            <div className="rounded-xl border border-linen bg-sheet px-3 py-2 text-center">
+              <div className="text-sm font-bold text-keep">
                 {accounts.filter((a) => a.delete_difficulty === 'easy').length}
               </div>
-              <div className="text-[10px] text-slate-400">Easy Erasure</div>
+              <div className="text-[10px] text-ink-soft">Easy Erasure</div>
             </div>
           </div>
         </div>
@@ -210,19 +211,19 @@ export function OsintTab({
       {/* Two Column Grid: HIBP Scanner (Left) & Chrome Passwords CSV Upload (Right) */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
         {/* Module 3A: Have I Been Pwned Integration */}
-        <div className="rounded-2xl border border-slate-800 bg-slate-900/60 p-5 backdrop-blur-md flex flex-col justify-between">
+        <div className="rounded-2xl border border-linen bg-sheet p-5 flex flex-col justify-between">
           <div>
             <div className="flex items-center justify-between gap-2 mb-3">
               <div className="flex items-center gap-2">
-                <ShieldAlert className="h-5 w-5 text-rose-400" />
-                <h3 className="text-sm font-bold text-white">Have I Been Pwned Breach Scanner</h3>
+                <ShieldAlert className="h-5 w-5 text-trash" />
+                <h3 className="text-sm font-bold text-ink">Have I Been Pwned Breach Scanner</h3>
               </div>
-              <span className="rounded-md border border-rose-500/30 bg-rose-500/10 px-2 py-0.5 text-[10px] font-semibold text-rose-300">
+              <span className="rounded-md border border-trash/30 bg-trash/10 px-2 py-0.5 text-[10px] font-semibold text-trash">
                 HIBP API v3
               </span>
             </div>
 
-            <p className="text-xs text-slate-400 mb-4">
+            <p className="text-xs text-ink-soft mb-4">
               Query the Have I Been Pwned database to identify compromised accounts, historical leaks, and exposed plaintext credentials.
             </p>
 
@@ -233,13 +234,13 @@ export function OsintTab({
                   value={hibpQueryEmail}
                   onChange={(e) => setHibpQueryEmail(e.target.value)}
                   placeholder="Enter email to check breaches..."
-                  className="w-full rounded-xl border border-slate-700 bg-slate-800/80 px-3 py-2 text-xs text-white placeholder-slate-500 focus:border-indigo-500 focus:outline-none"
+                  className="w-full rounded-xl border border-linen bg-sheet px-3 py-2 text-xs text-ink placeholder-ink-mute focus:border-unload focus:outline-none"
                 />
               </div>
               <button
                 onClick={() => handleCheckHIBP()}
                 disabled={isSearchingBreaches}
-                className="flex items-center gap-1.5 rounded-xl bg-indigo-600 px-4 py-2 text-xs font-semibold text-white shadow-sm hover:bg-indigo-500 transition disabled:opacity-50"
+                className="flex items-center gap-1.5 rounded-xl bg-ink px-4 py-2 text-xs font-semibold text-paper shadow-sm hover:bg-depot transition disabled:opacity-50"
               >
                 {isSearchingBreaches ? (
                   <Loader2 className="h-3.5 w-3.5 animate-spin" />
@@ -251,8 +252,8 @@ export function OsintTab({
             </div>
 
             {breachStatus && (
-              <div className="rounded-xl border border-slate-800 bg-slate-800/60 p-2.5 text-xs text-slate-300 flex items-center gap-2 mb-3">
-                <Info className="h-4 w-4 text-cyan-400 shrink-0" />
+              <div className="rounded-xl border border-linen bg-sheet p-2.5 text-xs text-ink flex items-center gap-2 mb-3">
+                <Info className="h-4 w-4 text-unload shrink-0" />
                 <span>{breachStatus}</span>
               </div>
             )}
@@ -261,28 +262,28 @@ export function OsintTab({
           {/* Breaches List */}
           {breaches.length > 0 && (
             <div className="mt-2 space-y-2 max-h-56 overflow-y-auto pr-1">
-              <div className="text-[11px] font-semibold text-slate-400 uppercase tracking-wider">
+              <div className="text-[11px] font-semibold text-ink-soft uppercase tracking-wider">
                 Exposed in {breaches.length} Data Breaches:
               </div>
               {breaches.map((b) => (
                 <div
                   key={b.Name}
-                  className="rounded-xl border border-rose-900/40 bg-rose-950/20 p-3 text-xs"
+                  className="rounded-xl border border-trash/40 bg-trash/20 p-3 text-xs"
                 >
                   <div className="flex items-center justify-between mb-1">
-                    <span className="font-bold text-rose-200">{b.Title}</span>
-                    <span className="text-[10px] text-slate-400 font-mono">
+                    <span className="font-bold text-trash">{b.Title}</span>
+                    <span className="text-[10px] text-ink-soft font-mono">
                       {b.BreachDate} • {(b.PwnCount / 1000000).toFixed(1)}M accounts
                     </span>
                   </div>
-                  <p className="text-[11px] text-slate-300 line-clamp-2 mb-2">
+                  <p className="text-[11px] text-ink line-clamp-2 mb-2">
                     {b.Description.replace(/<[^>]*>/g, '')}
                   </p>
                   <div className="flex flex-wrap gap-1">
                     {b.DataClasses.map((item) => (
                       <span
                         key={item}
-                        className="rounded-md border border-slate-700 bg-slate-800 px-1.5 py-0.5 text-[9px] text-slate-300"
+                        className="rounded-md border border-linen bg-sheet px-1.5 py-0.5 text-[9px] text-ink"
                       >
                         {item}
                       </span>
@@ -295,26 +296,26 @@ export function OsintTab({
         </div>
 
         {/* Module 3B: Local Password Scanner (Google Chrome Passwords CSV) */}
-        <div className="rounded-2xl border border-slate-800 bg-slate-900/60 p-5 backdrop-blur-md flex flex-col justify-between">
+        <div className="rounded-2xl border border-linen bg-sheet p-5 flex flex-col justify-between">
           <div>
             <div className="flex items-center justify-between gap-2 mb-3">
               <div className="flex items-center gap-2">
-                <FileSpreadsheet className="h-5 w-5 text-cyan-400" />
-                <h3 className="text-sm font-bold text-white">Local Password Scanner</h3>
+                <FileSpreadsheet className="h-5 w-5 text-unload" />
+                <h3 className="text-sm font-bold text-ink">Local Password Scanner</h3>
               </div>
-              <span className="rounded-md border border-cyan-500/30 bg-cyan-500/10 px-2 py-0.5 text-[10px] font-semibold text-cyan-300">
+              <span className="rounded-md border border-unload bg-unload px-2 py-0.5 text-[10px] font-semibold text-paper">
                 Chrome CSV
               </span>
             </div>
 
-            <p className="text-xs text-slate-400 mb-3">
-              Upload your exported Google Chrome <code className="text-cyan-300">passwords.csv</code> to automatically
+            <p className="text-xs text-ink-soft mb-3">
+              Upload your exported Google Chrome <code className="text-unload">passwords.csv</code> to automatically
               extract all online accounts you've ever registered.
             </p>
 
             {/* Zero Knowledge Privacy Notice */}
-            <div className="flex items-center gap-2 rounded-xl border border-emerald-500/20 bg-emerald-500/10 p-2.5 text-[11px] text-emerald-300 mb-4">
-              <Lock className="h-3.5 w-3.5 shrink-0 text-emerald-400" />
+            <div className="flex items-center gap-2 rounded-xl border border-keep/20 bg-keep/10 p-2.5 text-[11px] text-keep mb-4">
+              <Lock className="h-3.5 w-3.5 shrink-0 text-keep" />
               <span>
                 <strong>100% Zero-Knowledge:</strong> Passwords are completely discarded in your browser memory and never uploaded or stored.
               </span>
@@ -331,8 +332,8 @@ export function OsintTab({
               onClick={() => fileInputRef.current?.click()}
               className={`flex flex-col items-center justify-center rounded-2xl border-2 border-dashed p-6 text-center cursor-pointer transition ${
                 isDragging
-                  ? 'border-cyan-400 bg-cyan-950/20'
-                  : 'border-slate-700 bg-slate-800/40 hover:border-slate-600 hover:bg-slate-800/70'
+                  ? 'border-unload bg-unload/10'
+                  : 'border-linen bg-sheet hover:border-linen hover:bg-linen/50'
               }`}
             >
               <input
@@ -346,11 +347,11 @@ export function OsintTab({
                   }
                 }}
               />
-              <UploadCloud className="h-8 w-8 text-cyan-400 mb-2" />
-              <div className="text-xs font-bold text-white">
+              <UploadCloud className="h-8 w-8 text-unload mb-2" />
+              <div className="text-xs font-bold text-ink">
                 Drop your Google Chrome passwords .csv here
               </div>
-              <p className="text-[10px] text-slate-400 mt-1">
+              <p className="text-[10px] text-ink-soft mt-1">
                 Exported from chrome://password-manager/settings
               </p>
             </div>
@@ -358,14 +359,14 @@ export function OsintTab({
 
           {/* CSV Scan Stats */}
           {csvStats && (
-            <div className="mt-3 flex items-center justify-between rounded-xl border border-slate-700 bg-slate-800/80 p-3 text-xs">
+            <div className="mt-3 flex items-center justify-between rounded-xl border border-linen bg-sheet p-3 text-xs">
               <div>
-                <span className="font-semibold text-white">{csvStats.fileName}</span>
-                <p className="text-[10px] text-slate-400">
+                <span className="font-semibold text-ink">{csvStats.fileName}</span>
+                <p className="text-[10px] text-ink-soft">
                   {csvStats.totalRows} entries parsed • {csvStats.uniqueDomains} unique domains
                 </p>
               </div>
-              <span className="flex items-center gap-1 text-emerald-400 font-medium">
+              <span className="flex items-center gap-1 text-keep font-medium">
                 <CheckCircle2 className="h-4 w-4" />
                 <span>Aggregated</span>
               </span>
@@ -375,13 +376,13 @@ export function OsintTab({
       </div>
 
       {/* Module 3C: Aggregation & JustDelete.me Directory Cross-Reference */}
-      <div className="rounded-2xl border border-slate-800 bg-slate-900/60 p-5 backdrop-blur-md">
+      <div className="rounded-2xl border border-linen bg-sheet p-5">
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 mb-4">
           <div>
-            <h3 className="text-sm font-bold text-white">
+            <h3 className="text-sm font-bold text-ink">
               Discovered Online Accounts ({filteredAccounts.length})
             </h3>
-            <p className="text-xs text-slate-400">
+            <p className="text-xs text-ink-soft">
               Cross-referenced with JustDelete.me directory for direct deletion links and difficulty ratings.
             </p>
           </div>
@@ -389,20 +390,20 @@ export function OsintTab({
           {/* Filters Bar */}
           <div className="flex flex-wrap items-center gap-2">
             <div className="relative">
-              <Search className="absolute left-2.5 top-2 h-3.5 w-3.5 text-slate-500" />
+              <Search className="absolute left-2.5 top-2 h-3.5 w-3.5 text-ink-soft" />
               <input
                 type="text"
                 value={searchFilter}
                 onChange={(e) => setSearchFilter(e.target.value)}
                 placeholder="Filter by domain or username..."
-                className="rounded-lg border border-slate-700 bg-slate-800 pl-8 pr-2.5 py-1 text-xs text-white placeholder-slate-500 focus:border-indigo-500 focus:outline-none"
+                className="rounded-lg border border-linen bg-sheet pl-8 pr-2.5 py-1 text-xs text-ink placeholder-ink-mute focus:border-unload focus:outline-none"
               />
             </div>
 
             <select
               value={difficultyFilter}
               onChange={(e) => setDifficultyFilter(e.target.value)}
-              className="rounded-lg border border-slate-700 bg-slate-800 px-2 py-1 text-xs text-slate-300 focus:outline-none"
+              className="rounded-lg border border-linen bg-sheet px-2 py-1 text-xs text-ink focus:outline-none"
             >
               <option value="all">All Difficulties</option>
               <option value="easy">Easy</option>
@@ -414,7 +415,7 @@ export function OsintTab({
             <select
               value={statusFilter}
               onChange={(e) => setStatusFilter(e.target.value)}
-              className="rounded-lg border border-slate-700 bg-slate-800 px-2 py-1 text-xs text-slate-300 focus:outline-none"
+              className="rounded-lg border border-linen bg-sheet px-2 py-1 text-xs text-ink focus:outline-none"
             >
               <option value="all">All Statuses</option>
               <option value="active">Active</option>
@@ -427,15 +428,15 @@ export function OsintTab({
         {/* Accounts Table */}
         <div className="overflow-x-auto">
           {filteredAccounts.length === 0 ? (
-            <div className="rounded-xl border border-slate-800 bg-slate-900/40 p-8 text-center">
-              <Sparkles className="mx-auto h-6 w-6 text-slate-600 mb-2" />
-              <p className="text-xs text-slate-400">
+            <div className="rounded-xl border border-linen bg-sheet p-8 text-center">
+              <Sparkles className="mx-auto h-6 w-6 text-ink-soft mb-2" />
+              <p className="text-xs text-ink-soft">
                 No accounts found. Upload a Chrome passwords CSV above or run a scan to populate discovered accounts!
               </p>
             </div>
           ) : (
-            <table className="w-full text-left text-xs text-slate-300">
-              <thead className="border-b border-slate-800 text-[10px] uppercase tracking-wider text-slate-400 bg-slate-950/40">
+            <table className="w-full text-left text-xs text-ink">
+              <thead className="border-b border-linen text-[10px] uppercase tracking-wider text-ink-soft bg-sheet">
                 <tr>
                   <th className="py-2.5 px-3">Service / Domain</th>
                   <th className="py-2.5 px-3">Username / Identifier</th>
@@ -444,23 +445,23 @@ export function OsintTab({
                   <th className="py-2.5 px-3 text-right">Actions</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-slate-800/60">
+              <tbody className="divide-y divide-linen-2">
                 {filteredAccounts.map((account) => {
                   const badge = difficultyBadges[account.delete_difficulty] || difficultyBadges.unknown;
                   return (
                     <tr
                       key={account.id}
-                      className="hover:bg-slate-800/40 transition group"
+                      className="hover:bg-linen/50 transition group"
                     >
                       <td className="py-3 px-3">
-                        <div className="font-bold text-white">{account.domain}</div>
+                        <div className="font-bold text-ink">{account.domain}</div>
                         {account.notes && (
-                          <div className="text-[10px] text-slate-400 max-w-xs truncate">
+                          <div className="text-[10px] text-ink-soft max-w-xs truncate">
                             {account.notes}
                           </div>
                         )}
                       </td>
-                      <td className="py-3 px-3 font-mono text-[11px] text-slate-400">
+                      <td className="py-3 px-3 font-mono text-[11px] text-ink-soft">
                         {account.username || '—'}
                       </td>
                       <td className="py-3 px-3">
@@ -479,7 +480,7 @@ export function OsintTab({
                               e.target.value as UserAccountRecord['status']
                             )
                           }
-                          className="rounded-md border border-slate-700 bg-slate-800 px-2 py-1 text-[11px] text-slate-200 focus:outline-none"
+                          className="rounded-md border border-linen bg-sheet px-2 py-1 text-[11px] text-ink focus:outline-none"
                         >
                           <option value="active">Active</option>
                           <option value="pending_deletion">Pending Deletion</option>
@@ -493,13 +494,13 @@ export function OsintTab({
                             href={account.delete_url}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="inline-flex items-center gap-1 rounded-lg bg-indigo-600/90 px-2.5 py-1 text-[11px] font-semibold text-white hover:bg-indigo-500 shadow-sm transition"
+                            className="inline-flex items-center gap-1 rounded-lg bg-ink/90 px-2.5 py-1 text-[11px] font-semibold text-paper hover:bg-ink shadow-sm transition"
                           >
                             <span>Delete Account</span>
                             <ExternalLink className="h-3 w-3" />
                           </a>
                         ) : (
-                          <span className="text-[11px] text-slate-500">No URL</span>
+                          <span className="text-[11px] text-ink-soft">No URL</span>
                         )}
                       </td>
                     </tr>

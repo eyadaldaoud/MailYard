@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useEffect, useRef } from 'react';
-import { CheckCircle2, Loader2, Wifi, FileSearch, X } from 'lucide-react';
+import { CheckCircle2, Loader2, X, MailOpen, Inbox } from 'lucide-react';
 
 export type FetchPhase = 'listing' | 'metadata' | 'done' | 'error' | 'demo' | 'idle';
 
@@ -17,79 +17,28 @@ interface FetchProgressProps {
   onDismiss?: () => void;
 }
 
-const PHASE_CONFIG: Record<
-  FetchPhase,
-  { label: string; emoji: string; color: string; bgColor: string; borderColor: string }
-> = {
-  idle: {
-    label: 'Idle',
-    emoji: '💤',
-    color: 'text-slate-400',
-    bgColor: 'bg-slate-900/80',
-    borderColor: 'border-slate-700/60',
-  },
-  listing: {
-    label: 'Listing IDs',
-    emoji: '📡',
-    color: 'text-cyan-300',
-    bgColor: 'bg-slate-900/90',
-    borderColor: 'border-cyan-500/40',
-  },
-  metadata: {
-    label: 'Reading metadata',
-    emoji: '📬',
-    color: 'text-indigo-300',
-    bgColor: 'bg-slate-900/90',
-    borderColor: 'border-indigo-500/40',
-  },
-  done: {
-    label: 'Complete',
-    emoji: '✅',
-    color: 'text-emerald-300',
-    bgColor: 'bg-emerald-950/60',
-    borderColor: 'border-emerald-500/40',
-  },
-  error: {
-    label: 'Error',
-    emoji: '⚠️',
-    color: 'text-rose-300',
-    bgColor: 'bg-rose-950/60',
-    borderColor: 'border-rose-500/40',
-  },
-  demo: {
-    label: 'Demo mode',
-    emoji: '🎭',
-    color: 'text-amber-300',
-    bgColor: 'bg-amber-950/60',
-    borderColor: 'border-amber-500/40',
-  },
-};
-
-// Animated email emoji parade — shown while metadata is being fetched
-function EmailParade({ count }: { count: number }) {
-  const emojis = ['📧', '📨', '📩', '📬', '📭', '📮', '💌', '📝'];
+// Parcels entering the weighbridge — drawn mail glyphs, not emoji
+function ParcelParade({ count }: { count: number }) {
   const visibleCount = Math.min(Math.ceil(count / 20), 8);
   return (
-    <div className="flex items-center gap-1 h-5 overflow-hidden">
-      {emojis.slice(0, Math.max(1, visibleCount)).map((emoji, i) => (
-        <span
+    <div className="flex items-center gap-1 h-5 overflow-hidden" aria-hidden>
+      {Array.from({ length: Math.max(1, visibleCount) }).map((_, i) => (
+        <MailOpen
           key={i}
-          className="text-sm animate-bounce"
+          className="h-3.5 w-3.5 text-unload animate-parcel-float"
           style={{
             animationDelay: `${i * 120}ms`,
             animationDuration: '1s',
-            opacity: i < visibleCount ? 1 : 0.2,
+            opacity: 1 - i * 0.08,
           }}
-        >
-          {emoji}
-        </span>
+        />
       ))}
     </div>
   );
 }
 
-// Segmented progress bar like App Store download
-function SegmentedBar({ value, max }: { value: number; max: number }) {
+// Segmented weigh-in bar
+function SegmentedBar({ value, max, tone }: { value: number; max: number; tone: string }) {
   const pct = max > 0 ? Math.min((value / max) * 100, 100) : 0;
   const segments = 20;
   const filledSegments = Math.round((pct / 100) * segments);
@@ -98,20 +47,11 @@ function SegmentedBar({ value, max }: { value: number; max: number }) {
     <div className="flex items-center gap-0.5">
       {Array.from({ length: segments }).map((_, i) => {
         const filled = i < filledSegments;
-        const isActive = i === filledSegments - 1;
         return (
           <div
             key={i}
-            className={`h-1.5 flex-1 rounded-full transition-all duration-300 ${
-              filled
-                ? isActive
-                  ? 'bg-cyan-400 shadow-[0_0_6px_rgba(34,211,238,0.8)]'
-                  : 'bg-indigo-500'
-                : 'bg-slate-700/60'
-            }`}
-            style={{
-              transitionDelay: `${i * 15}ms`,
-            }}
+            className={`h-1.5 flex-1 transition-all ${filled ? tone : 'bg-paper-2'}`}
+            style={{ transitionDelay: `${i * 15}ms` }}
           />
         );
       })}
@@ -128,79 +68,65 @@ export function FetchProgress({ progress, onDismiss }: FetchProgressProps) {
 
   if (!progress || progress.phase === 'idle') return null;
 
-  const config = PHASE_CONFIG[progress.phase];
   const pct = progress.target > 0 ? Math.min((progress.fetched / progress.target) * 100, 100) : 0;
   const isDone = progress.phase === 'done' || progress.phase === 'demo' || progress.phase === 'error';
   const isActive = progress.phase === 'listing' || progress.phase === 'metadata';
 
+  const tone =
+    progress.phase === 'done' ? 'bg-keep' : progress.phase === 'error' ? 'bg-trash' : progress.phase === 'demo' ? 'bg-signal' : 'bg-unload';
+  const toneText =
+    progress.phase === 'done' ? 'text-keep' : progress.phase === 'error' ? 'text-trash' : progress.phase === 'demo' ? 'text-warn' : 'text-unload';
+
   return (
     <div
-      className={`fixed bottom-6 left-1/2 -translate-x-1/2 z-50 w-full max-w-md px-4 
-        animate-in slide-in-from-bottom-4 duration-300`}
+      className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 w-full max-w-md px-4"
       role="status"
       aria-live="polite"
     >
-      <div
-        className={`rounded-2xl border ${config.borderColor} ${config.bgColor} 
-          backdrop-blur-xl shadow-2xl shadow-black/60 overflow-hidden`}
-      >
-        {/* Animated glow border on top */}
-        {isActive && (
-          <div className="h-[2px] w-full bg-gradient-to-r from-transparent via-indigo-500 to-cyan-400 animate-pulse" />
-        )}
-        {isDone && progress.phase === 'done' && (
-          <div className="h-[2px] w-full bg-gradient-to-r from-emerald-500 to-teal-400" />
-        )}
-
+      <div className="ticket shadow-lg overflow-hidden">
         <div className="px-4 py-3.5 space-y-3">
           {/* Header row */}
           <div className="flex items-center justify-between gap-3">
             <div className="flex items-center gap-2.5">
-              {isActive ? (
-                <div className="relative flex items-center justify-center h-7 w-7 rounded-lg bg-indigo-600/30 border border-indigo-500/40">
-                  <Loader2 className="h-3.5 w-3.5 text-indigo-300 animate-spin" />
-                </div>
-              ) : progress.phase === 'done' ? (
-                <div className="flex items-center justify-center h-7 w-7 rounded-lg bg-emerald-600/30 border border-emerald-500/40">
-                  <CheckCircle2 className="h-3.5 w-3.5 text-emerald-300" />
-                </div>
-              ) : progress.phase === 'error' ? (
-                <div className="flex items-center justify-center h-7 w-7 rounded-lg bg-rose-600/30 border border-rose-500/40">
-                  <span className="text-sm">⚠️</span>
-                </div>
-              ) : (
-                <div className="flex items-center justify-center h-7 w-7 rounded-lg bg-amber-600/30 border border-amber-500/40">
-                  <span className="text-sm">🎭</span>
-                </div>
-              )}
+              <div className={`flex items-center justify-center h-7 w-7 border ${toneText}`} style={{ borderColor: 'currentColor' }}>
+                {isActive ? (
+                  <Loader2 className={`h-3.5 w-3.5 animate-spin ${toneText}`} />
+                ) : progress.phase === 'done' ? (
+                  <CheckCircle2 className={`h-3.5 w-3.5 ${toneText}`} />
+                ) : progress.phase === 'error' ? (
+                  <X className={`h-3.5 w-3.5 ${toneText}`} />
+                ) : (
+                  <Inbox className={`h-3.5 w-3.5 ${toneText}`} />
+                )}
+              </div>
 
               <div>
-                <p className={`text-xs font-bold tracking-wide ${config.color}`}>
+                <p className={`text-xs font-bold tracking-wide ${toneText}`}>
                   {isActive
                     ? progress.phase === 'listing'
-                      ? '📡 Contacting Gmail API...'
-                      : '📬 Fetching your emails'
+                      ? 'Contacting Gmail — listing IDs'
+                      : 'Weighing in your mail'
                     : progress.phase === 'done'
-                    ? '✅ Inbox loaded!'
+                    ? 'Weigh-in complete'
                     : progress.phase === 'demo'
-                    ? '🎭 Demo data loaded'
-                    : '⚠️ Fetch error'}
+                    ? 'Demo depot loaded'
+                    : 'Weigh-in failed'}
                 </p>
-                <p className="text-[11px] text-slate-400 mt-0.5 truncate max-w-[260px]">
+                <p className="text-[11px] text-ink-soft mt-0.5 truncate max-w-[260px]">
                   {progress.message}
                 </p>
               </div>
             </div>
 
             <div className="flex items-center gap-2 shrink-0">
-              {/* Live counter badge */}
+              {/* Live counter */}
               {progress.target > 0 && (
-                <div className="flex items-center gap-1 rounded-lg bg-slate-800/80 border border-slate-700/60 px-2 py-1">
-                  <span className="text-[11px] font-bold text-white tabular-nums">
+                <div className="tnum flex items-center gap-1 border border-linen px-2 py-1">
+                  <span className="text-[11px] font-bold text-ink">
                     {progress.fetched.toLocaleString()}
                   </span>
-                  <span className="text-[10px] text-slate-500">/</span>
-                  <span className="text-[11px] text-slate-400 tabular-nums">
+                  <span className="text-[10px] text-ink-mute">/</span>
+                  <span className="text-[11px] text-ink-soft">
                     {progress.target.toLocaleString()}
                   </span>
                 </div>
@@ -209,7 +135,8 @@ export function FetchProgress({ progress, onDismiss }: FetchProgressProps) {
               {isDone && onDismiss && (
                 <button
                   onClick={onDismiss}
-                  className="p-1 rounded-lg hover:bg-slate-800 text-slate-500 hover:text-slate-300 transition"
+                  className="p-1 text-ink-mute hover:text-ink transition"
+                  aria-label="Dismiss"
                 >
                   <X className="h-3.5 w-3.5" />
                 </button>
@@ -217,25 +144,13 @@ export function FetchProgress({ progress, onDismiss }: FetchProgressProps) {
             </div>
           </div>
 
-          {/* Progress bar + parade */}
+          {/* Weigh-in bar */}
           {!isDone && progress.target > 0 && (
             <div className="space-y-2">
-              <SegmentedBar value={progress.fetched} max={progress.target} />
+              <SegmentedBar value={progress.fetched} max={progress.target} tone={tone} />
               <div className="flex items-center justify-between">
-                <EmailParade count={progress.fetched} />
-                <div className="flex items-center gap-1.5 text-[10px] text-slate-500">
-                  {progress.phase === 'listing' ? (
-                    <>
-                      <Wifi className="h-3 w-3 text-cyan-500 animate-pulse" />
-                      <span>Fetching IDs</span>
-                    </>
-                  ) : (
-                    <>
-                      <FileSearch className="h-3 w-3 text-indigo-400" />
-                      <span>{Math.round(pct)}% complete</span>
-                    </>
-                  )}
-                </div>
+                <ParcelParade count={progress.fetched} />
+                <div className="tnum text-[10px] text-ink-mute">{Math.round(pct)}% complete</div>
               </div>
             </div>
           )}
@@ -243,9 +158,9 @@ export function FetchProgress({ progress, onDismiss }: FetchProgressProps) {
           {/* Done: filled bar */}
           {isDone && progress.phase === 'done' && (
             <div>
-              <div className="h-1.5 w-full rounded-full bg-emerald-500/80 shadow-[0_0_8px_rgba(16,185,129,0.5)]" />
-              <p className="text-[10px] text-emerald-400/70 mt-1.5 text-center">
-                All done — {progress.fetched} emails ready to analyze
+              <div className="h-1.5 w-full bg-keep" />
+              <p className="tnum text-[10px] text-keep mt-1.5 text-center">
+                All done — {progress.fetched.toLocaleString()} emails ready to sort
               </p>
             </div>
           )}

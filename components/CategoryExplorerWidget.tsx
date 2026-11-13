@@ -166,43 +166,43 @@ export function CategoryExplorerWidget({
   const activeCategoryDef = EMAIL_CATEGORIES.find((c) => c.id === selectedCategory) || EMAIL_CATEGORIES[0];
   const activeSender = selectedSenderEmail ? sendersList.find((s) => s.senderEmail === selectedSenderEmail) : null;
 
-  // Generate consistent vibrant color initials for avatars
+  // Assign a consistent depot stream color per sender for initials avatars
   const getAvatarGradient = (str: string) => {
-    const gradients = [
-      'from-indigo-500 to-purple-600',
-      'from-emerald-500 to-teal-600',
-      'from-rose-500 to-pink-600',
-      'from-amber-500 to-orange-600',
-      'from-cyan-500 to-blue-600',
-      'from-fuchsia-500 to-pink-600',
-      'from-blue-600 to-indigo-700',
+    const colors = [
+      'bg-unload',
+      'bg-keep',
+      'bg-trash',
+      'bg-warn',
+      'bg-ink',
+      'bg-unload',
+      'bg-keep',
     ];
     let hash = 0;
     for (let i = 0; i < str.length; i++) {
       hash = str.charCodeAt(i) + ((hash << 5) - hash);
     }
-    const index = Math.abs(hash) % gradients.length;
-    return gradients[index];
+    const index = Math.abs(hash) % colors.length;
+    return colors[index];
   };
 
   return (
-    <div className="rounded-2xl border border-slate-800 bg-slate-900/60 backdrop-blur-xl shadow-xl transition-all duration-300">
+    <div className="rounded-2xl border border-linen bg-sheet shadow-xl transition-all duration-300">
       {/* Top Banner Header */}
-      <div className="flex flex-wrap items-center justify-between gap-3 border-b border-slate-800/80 px-4 py-3 bg-slate-950/40">
+      <div className="flex flex-wrap items-center justify-between gap-3 border-b border-linen px-4 py-3 bg-sheet">
         <div className="flex items-center gap-2.5">
-          <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-gradient-to-tr from-indigo-500 to-cyan-400 text-white shadow-sm shadow-indigo-500/20">
+          <div className="flex h-7 w-7 items-center justify-center rounded-lg  stream-unload text-paper shadow-sm">
             <Layers className="h-4 w-4" />
           </div>
           <div>
             <div className="flex items-center gap-2">
-              <span className="text-xs font-bold text-white tracking-wide">
+              <span className="text-xs font-bold text-ink tracking-wide">
                 Category & Sender Matrix
               </span>
-              <span className="rounded-full bg-indigo-500/10 border border-indigo-500/20 px-2 py-0.2 text-[10px] font-bold text-indigo-300">
+              <span className="rounded-full bg-unload border border-unload px-2 py-0.2 text-[10px] font-bold text-paper">
                 Live Filter
               </span>
             </div>
-            <p className="text-[11px] text-slate-400">
+            <p className="text-[11px] text-ink-soft">
               Filter your inbox by intelligent categories and top high-volume senders
             </p>
           </div>
@@ -216,23 +216,23 @@ export function CategoryExplorerWidget({
                 onSelectCategory('all');
                 onSelectSenderEmail(null);
               }}
-              className="flex items-center gap-1 rounded-lg border border-slate-700 bg-slate-800/80 px-2.5 py-1 text-xs font-medium text-slate-300 hover:bg-slate-700 hover:text-white transition"
+              className="flex items-center gap-1 rounded-lg border border-linen bg-sheet px-2.5 py-1 text-xs font-medium text-ink hover:bg-linen/50 hover:text-ink transition"
               title="Reset all category and sender filters"
             >
-              <X className="h-3.5 w-3.5 text-rose-400" />
+              <X className="h-3.5 w-3.5 text-trash" />
               <span>Clear Filter</span>
             </button>
           )}
 
           <button
             onClick={() => setIsExpanded(!isExpanded)}
-            className="flex items-center gap-1 rounded-lg border border-slate-700/80 bg-slate-800/60 px-2.5 py-1 text-xs font-medium text-slate-300 hover:bg-slate-700 hover:text-white transition"
+            className="flex items-center gap-1 rounded-lg border border-linen bg-sheet px-2.5 py-1 text-xs font-medium text-ink hover:bg-linen/50 hover:text-ink transition"
           >
             <span>{isExpanded ? 'Collapse' : 'Expand Matrix'}</span>
             {isExpanded ? (
-              <ChevronUp className="h-3.5 w-3.5 text-slate-400" />
+              <ChevronUp className="h-3.5 w-3.5 text-ink-soft" />
             ) : (
-              <ChevronDown className="h-3.5 w-3.5 text-slate-400" />
+              <ChevronDown className="h-3.5 w-3.5 text-ink-soft" />
             )}
           </button>
         </div>
@@ -240,21 +240,21 @@ export function CategoryExplorerWidget({
 
       {/* Active Filter Pill Bar + Bulk Action Bar */}
       {(selectedCategory !== 'all' || selectedSenderEmail || (selectedEmailIds && selectedEmailIds.size > 0)) && (
-        <div className="border-b border-indigo-900/40 bg-indigo-950/30">
+        <div className="border-b border-unload bg-unload/10">
           {/* Filter pills row */}
           {(selectedCategory !== 'all' || selectedSenderEmail) && (
             <div className="flex flex-wrap items-center gap-2 px-4 pt-2.5 pb-1.5 text-xs">
-              <span className="text-slate-400 font-medium">Filtering by:</span>
+              <span className="text-ink-soft font-medium">Filtering by:</span>
 
               {selectedCategory !== 'all' && (
-                <span className="inline-flex items-center gap-1.5 rounded-lg bg-indigo-500/20 border border-indigo-500/40 px-2.5 py-0.5 font-semibold text-indigo-200">
+                <span className="inline-flex items-center gap-1.5 rounded-lg bg-unload border border-unload px-2.5 py-0.5 font-semibold text-paper">
                   <span>{activeCategoryDef.label}</span>
-                  <span className="text-[10px] text-indigo-300 font-mono">
+                  <span className="text-[10px] text-unload font-mono">
                     ({categoryEmails.length})
                   </span>
                   <button
                     onClick={() => onSelectCategory('all')}
-                    className="hover:text-white ml-0.5"
+                    className="hover:text-ink ml-0.5"
                     title="Remove category filter"
                   >
                     <X className="h-3 w-3" />
@@ -263,16 +263,16 @@ export function CategoryExplorerWidget({
               )}
 
               {selectedSenderEmail && (
-                <span className="inline-flex items-center gap-1.5 rounded-lg bg-cyan-500/20 border border-cyan-500/40 px-2.5 py-0.5 font-semibold text-cyan-200">
+                <span className="inline-flex items-center gap-1.5 rounded-lg bg-unload border border-unload px-2.5 py-0.5 font-semibold text-paper">
                   <span className="truncate max-w-[200px]">
                     Sender: {activeSender?.senderName || selectedSenderEmail}
                   </span>
-                  <span className="text-[10px] text-cyan-300 font-mono">
+                  <span className="text-[10px] text-unload font-mono">
                     ({activeSender?.count || 0})
                   </span>
                   <button
                     onClick={() => onSelectSenderEmail(null)}
-                    className="hover:text-white ml-0.5"
+                    className="hover:text-ink ml-0.5"
                     title="Remove sender filter"
                   >
                     <X className="h-3 w-3" />
@@ -285,7 +285,7 @@ export function CategoryExplorerWidget({
           {/* Bulk Action Buttons Bar */}
           <div className="flex flex-wrap items-center gap-2 px-4 pb-2.5 pt-1">
             {/* Scope label */}
-            <span className="text-[10px] text-slate-500 font-medium uppercase tracking-wider shrink-0">
+            <span className="text-[10px] text-ink-soft font-medium uppercase tracking-wider shrink-0">
               {selectedSenderEmail
                 ? `${activeSender?.count ?? 0} emails from sender:`
                 : selectedCategory !== 'all'
@@ -297,7 +297,7 @@ export function CategoryExplorerWidget({
             {selectedEmailIds && selectedEmailIds.size > 0 && onBatchTrashSelected && (
               <button
                 onClick={onBatchTrashSelected}
-                className="flex items-center gap-1.5 rounded-lg border border-rose-500/30 bg-rose-500/15 px-2.5 py-1 text-xs font-semibold text-rose-300 hover:bg-rose-500/25 hover:border-rose-400/50 transition shadow-sm"
+                className="flex items-center gap-1.5 rounded-lg border border-trash/30 bg-trash/15 px-2.5 py-1 text-xs font-semibold text-trash hover:bg-trash/25 hover:border-trash/50 transition shadow-sm"
                 title={`Move ${selectedEmailIds.size} selected emails to Trash`}
               >
                 <Trash2 className="h-3.5 w-3.5 shrink-0" />
@@ -335,16 +335,15 @@ export function CategoryExplorerWidget({
                     }
                   }}
                   disabled={bulkCombinedLoading || bulkTrashLoading}
-                  className="flex items-center gap-1.5 rounded-lg border border-violet-500/40 bg-gradient-to-r from-emerald-500/20 via-violet-600/20 to-rose-500/20 px-2.5 py-1 text-xs font-bold text-violet-200 hover:from-emerald-500/30 hover:to-rose-500/30 hover:border-violet-400/60 transition shadow-sm disabled:opacity-50"
+                  className="flex items-center gap-1.5 rounded-lg border border-unload bg-unload px-2.5 py-1 text-xs font-bold text-paper transition shadow-sm disabled:opacity-50"
                   title={`Unsubscribe from ${targetEmails.length} sender(s) AND move all ${targetIds.length} emails to Trash`}
                 >
                   {bulkCombinedLoading ? (
-                    <Loader2 className="h-3.5 w-3.5 animate-spin shrink-0 text-violet-300" />
+                    <Loader2 className="h-3.5 w-3.5 animate-spin shrink-0 text-paper" />
                   ) : (
                     <span className="flex items-center gap-0.5">
-                      <ShieldCheck className="h-3.5 w-3.5 shrink-0 text-emerald-400" />
-                      <span className="text-slate-400">+</span>
-                      <Trash2 className="h-3.5 w-3.5 shrink-0 text-rose-400" />
+                      <ShieldCheck className="h-3.5 w-3.5 shrink-0 text-paper" />
+                      <Trash2 className="h-3.5 w-3.5 shrink-0 text-paper" />
                     </span>
                   )}
                   <span>
@@ -368,7 +367,7 @@ export function CategoryExplorerWidget({
                     try { await onBatchTrash(targetIds); } finally { setBulkTrashLoading(false); }
                   }}
                   disabled={bulkTrashLoading || bulkCombinedLoading}
-                  className="flex items-center gap-1.5 rounded-lg border border-rose-600/40 bg-rose-600/20 px-2.5 py-1 text-xs font-semibold text-rose-200 hover:bg-rose-600/30 hover:border-rose-500/60 transition shadow-sm disabled:opacity-50"
+                  className="flex items-center gap-1.5 rounded-lg border border-trash/40 bg-trash/20 px-2.5 py-1 text-xs font-semibold text-trash hover:bg-trash/30 hover:border-trash/60 transition shadow-sm disabled:opacity-50"
                   title={`Immediately move all ${targetIds.length} emails to Trash without unsubscribing`}
                 >
                   {bulkTrashLoading
@@ -411,7 +410,7 @@ export function CategoryExplorerWidget({
                     }
                   }}
                   disabled={bulkUnsubLoading}
-                  className="flex items-center gap-1.5 rounded-lg border border-emerald-500/30 bg-emerald-500/15 px-2.5 py-1 text-xs font-semibold text-emerald-300 hover:bg-emerald-500/25 hover:border-emerald-400/50 transition shadow-sm disabled:opacity-50"
+                  className="flex items-center gap-1.5 rounded-lg border border-keep/30 bg-keep/15 px-2.5 py-1 text-xs font-semibold text-keep hover:bg-keep/25 hover:border-keep/50 transition shadow-sm disabled:opacity-50"
                   title={`Send unsubscribe to all ${targetEmails.length} senders in this view`}
                 >
                   {bulkUnsubLoading
@@ -435,10 +434,10 @@ export function CategoryExplorerWidget({
           {/* Categories Grid / Cards Carousel */}
           <div>
             <div className="flex items-center justify-between mb-2">
-              <span className="text-[11px] font-bold uppercase tracking-wider text-slate-400">
+              <span className="text-[11px] font-bold uppercase tracking-wider text-ink-soft">
                 Select Category
               </span>
-              <span className="text-[11px] text-slate-500">
+              <span className="text-[11px] text-ink-soft">
                 {emails.length} total messages scanned
               </span>
             </div>
@@ -461,28 +460,28 @@ export function CategoryExplorerWidget({
                     }}
                     className={`group relative flex flex-col text-left p-2.5 rounded-xl border transition-all duration-200 ${
                       isSelected
-                        ? 'bg-slate-800/90 border-indigo-400/80 shadow-md shadow-indigo-500/10 ring-1 ring-indigo-400/50'
-                        : 'bg-slate-900/40 border-slate-800 hover:bg-slate-800/50 hover:border-slate-700'
+                        ? 'bg-sheet border-unload shadow-sm ring-1 ring-unload/50'
+                        : 'bg-sheet border-linen hover:bg-linen/50 hover:border-linen'
                     }`}
                   >
                     {/* Glowing active indicator dot */}
                     {isSelected && (
-                      <span className="absolute top-2 right-2 h-2 w-2 rounded-full bg-cyan-400 animate-pulse shadow-sm shadow-cyan-400" />
+                      <span className="absolute top-2 right-2 h-2 w-2 rounded-full bg-unload animate-pulse shadow-sm shadow-unload" />
                     )}
 
                     <div className="flex items-center gap-2 mb-1.5">
                       <div
                         className={`flex h-6 w-6 items-center justify-center rounded-lg border transition ${
                           isSelected
-                            ? 'bg-indigo-500/20 border-indigo-400/50 text-indigo-300'
-                            : 'bg-slate-800/60 border-slate-700/60 text-slate-400 group-hover:text-slate-200'
+                            ? 'bg-unload border-unload text-paper'
+                            : 'bg-sheet border-linen text-ink-soft group-hover:text-ink'
                         }`}
                       >
                         <IconComponent className="h-3.5 w-3.5" />
                       </div>
                       <span
                         className={`text-xs font-bold truncate ${
-                          isSelected ? 'text-white' : 'text-slate-300 group-hover:text-white'
+                          isSelected ? 'text-ink' : 'text-ink group-hover:text-ink'
                         }`}
                       >
                         {cat.shortLabel}
@@ -492,12 +491,12 @@ export function CategoryExplorerWidget({
                     <div className="flex items-baseline justify-between mt-auto">
                       <span
                         className={`text-sm font-black tracking-tight ${
-                          isSelected ? 'text-cyan-300' : 'text-slate-200'
+                          isSelected ? 'text-unload' : 'text-ink'
                         }`}
                       >
                         {count.toLocaleString()}
                       </span>
-                      <span className="text-[10px] text-slate-500 font-mono truncate">
+                      <span className="text-[10px] text-ink-soft font-mono truncate">
                         {sizeFormatted}
                       </span>
                     </div>
@@ -508,34 +507,34 @@ export function CategoryExplorerWidget({
           </div>
 
           {/* Senders Drill-Down Panel */}
-          <div className="rounded-xl border border-slate-800/90 bg-slate-950/40 p-3.5">
+          <div className="rounded-xl border border-linen bg-sheet p-3.5">
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 mb-3">
               <div className="flex items-center gap-2">
-                <span className="text-xs font-bold text-slate-200">
+                <span className="text-xs font-bold text-ink">
                   Top Senders in{' '}
-                  <span className="text-indigo-400">
+                  <span className="text-unload">
                     {selectedCategory === 'all' ? 'All Categories' : activeCategoryDef.label}
                   </span>
                 </span>
-                <span className="rounded-full bg-slate-800 px-2 py-0.5 text-[10px] font-semibold text-slate-400">
+                <span className="rounded-full bg-sheet px-2 py-0.5 text-[10px] font-semibold text-ink-soft">
                   {sendersList.length} senders
                 </span>
               </div>
 
               {/* Senders Search Bar */}
               <div className="relative min-w-[200px] sm:w-64">
-                <Search className="absolute left-2.5 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-slate-500" />
+                <Search className="absolute left-2.5 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-ink-soft" />
                 <input
                   type="text"
                   value={senderSearch}
                   onChange={(e) => setSenderSearch(e.target.value)}
                   placeholder="Filter senders..."
-                  className="w-full rounded-lg border border-slate-800 bg-slate-900/90 pl-8 pr-3 py-1 text-xs text-white placeholder-slate-500 focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500 transition"
+                  className="w-full rounded-lg border border-linen bg-sheet pl-8 pr-3 py-1 text-xs text-ink placeholder-ink-mute focus:border-unload focus:outline-none focus:ring-1 focus:ring-unload transition"
                 />
                 {senderSearch && (
                   <button
                     onClick={() => setSenderSearch('')}
-                    className="absolute right-2 top-1/2 -translate-y-1/2 text-slate-500 hover:text-white"
+                    className="absolute right-2 top-1/2 -translate-y-1/2 text-ink-soft hover:text-ink"
                   >
                     <X className="h-3 w-3" />
                   </button>
@@ -545,11 +544,11 @@ export function CategoryExplorerWidget({
 
             {/* Senders Cards / Pills List */}
             {sendersList.length === 0 ? (
-              <div className="py-6 text-center text-xs text-slate-500">
+              <div className="py-6 text-center text-xs text-ink-soft">
                 No emails found in this category.
               </div>
             ) : filteredSenders.length === 0 ? (
-              <div className="py-6 text-center text-xs text-slate-500">
+              <div className="py-6 text-center text-xs text-ink-soft">
                 No senders match &ldquo;{senderSearch}&rdquo;.
               </div>
             ) : (
@@ -565,8 +564,8 @@ export function CategoryExplorerWidget({
                         key={sender.senderEmail}
                         className={`group relative flex flex-col justify-between p-2.5 rounded-xl border transition-all duration-150 ${
                           isSelected
-                            ? 'bg-indigo-950/40 border-cyan-400/80 shadow-md shadow-cyan-500/10 ring-1 ring-cyan-400/40'
-                            : 'bg-slate-900/50 border-slate-800/80 hover:bg-slate-800/60 hover:border-slate-700'
+                            ? 'bg-unload/10 border-unload shadow-sm ring-1 ring-unload/40'
+                            : 'bg-sheet border-linen hover:bg-linen/50 hover:border-linen'
                         }`}
                       >
                         <div className="flex items-start justify-between gap-2">
@@ -579,7 +578,7 @@ export function CategoryExplorerWidget({
                           >
                             {/* Avatar */}
                             <div
-                              className={`flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-gradient-to-tr ${gradient} text-[11px] font-bold text-white shadow-sm`}
+                              className={`flex h-7 w-7 shrink-0 items-center justify-center rounded-lg ${gradient} text-[11px] font-bold text-paper shadow-sm`}
                             >
                               {(sender.senderName || sender.senderEmail)
                                 .charAt(0)
@@ -588,10 +587,10 @@ export function CategoryExplorerWidget({
 
                             {/* Name & Domain */}
                             <div className="min-w-0 flex-1">
-                              <p className="text-xs font-semibold text-slate-200 group-hover:text-white truncate">
+                              <p className="text-xs font-semibold text-ink group-hover:text-ink truncate">
                                 {sender.senderName}
                               </p>
-                              <p className="text-[10px] text-slate-400 font-mono truncate">
+                              <p className="text-[10px] text-ink-soft font-mono truncate">
                                 @{sender.senderDomain}
                               </p>
                             </div>
@@ -599,20 +598,20 @@ export function CategoryExplorerWidget({
 
                           {/* Compact filter indicator */}
                           {isSelected && (
-                            <span className="shrink-0 h-2 w-2 rounded-full bg-cyan-400 animate-pulse" />
+                            <span className="shrink-0 h-2 w-2 rounded-full bg-unload animate-pulse" />
                           )}
                         </div>
 
                         {/* Bottom action row — stats + labeled action buttons */}
-                        <div className="mt-2 pt-2 border-t border-slate-800/50 space-y-1.5">
+                        <div className="mt-2 pt-2 border-t border-linen space-y-1.5">
                           {/* Stats line */}
                           <button
                             onClick={() => onSelectSenderEmail(isSelected ? null : sender.senderEmail)}
-                            className="flex items-center gap-1 text-[10px] text-slate-400 hover:text-cyan-300 transition w-full"
+                            className="flex items-center gap-1 text-[10px] text-ink-soft hover:text-unload transition w-full"
                           >
-                            <span className="font-bold text-slate-200">{sender.count}</span>
+                            <span className="font-bold text-ink">{sender.count}</span>
                             <span>{sender.count === 1 ? 'email' : 'emails'}</span>
-                            <span className="text-slate-600">·</span>
+                            <span className="text-ink-soft">·</span>
                             <span className="font-mono">{formatBytes(sender.totalSizeBytes)}</span>
                           </button>
 
@@ -622,7 +621,7 @@ export function CategoryExplorerWidget({
                             {onSelectAllFromSender && (
                               <button
                                 onClick={(e) => { e.stopPropagation(); onSelectAllFromSender(sender.emailIds); }}
-                                className="flex items-center gap-1 rounded-md border border-indigo-500/25 bg-indigo-500/10 px-2 py-0.5 text-[10px] font-semibold text-indigo-300 hover:bg-indigo-500/20 hover:border-indigo-400/40 transition"
+                                className="flex items-center gap-1 rounded-md border border-unload bg-unload px-2 py-0.5 text-[10px] font-semibold text-paper hover:bg-unload hover:border-unload transition"
                                 title={`Select all ${sender.count} emails from ${sender.senderName} for bulk trash`}
                               >
                                 <CheckSquare className="h-3 w-3 shrink-0" />
@@ -652,12 +651,12 @@ export function CategoryExplorerWidget({
                                     }
                                   }}
                                   disabled={isLoading}
-                                  className="flex items-center gap-1 rounded-md border border-violet-500/40 bg-gradient-to-r from-emerald-500/15 to-rose-500/15 px-2 py-0.5 text-[10px] font-bold text-violet-200 hover:from-emerald-500/25 hover:to-rose-500/25 hover:border-violet-400/60 transition disabled:opacity-40 shadow-sm"
+                                  className="flex items-center gap-1 rounded-md border border-unload bg-unload px-2 py-0.5 text-[10px] font-bold text-paper transition disabled:opacity-40"
                                   title={`Unsubscribe from ${sender.senderDomain} AND move all ${sender.count} emails to Trash`}
                                 >
                                   {isLoading
-                                    ? <span className="h-3 w-3 border border-violet-400 border-t-transparent rounded-full animate-spin shrink-0" />
-                                    : <span className="flex items-center gap-0.5"><ShieldCheck className="h-3 w-3 shrink-0 text-emerald-400" /><span className="text-slate-400">+</span><Trash2 className="h-3 w-3 shrink-0 text-rose-400" /></span>}
+                                    ? <span className="h-3 w-3 border border-paper border-t-transparent rounded-full animate-spin shrink-0" />
+                                    : <span className="flex items-center gap-0.5"><ShieldCheck className="h-3 w-3 shrink-0 text-paper" /><Trash2 className="h-3 w-3 shrink-0 text-paper" /></span>}
                                   <span>{isLoading ? 'Working…' : `Unsub & Trash all ${sender.count}`}</span>
                                 </button>
                               );
@@ -675,7 +674,7 @@ export function CategoryExplorerWidget({
                                     try { await onBatchTrash(sender.emailIds); } finally { setBlockLoading(null); }
                                   }}
                                   disabled={isLoading}
-                                  className="flex items-center gap-1 rounded-md border border-rose-600/30 bg-rose-600/15 px-2 py-0.5 text-[10px] font-semibold text-rose-300 hover:bg-rose-600/25 hover:border-rose-500/50 transition disabled:opacity-40"
+                                  className="flex items-center gap-1 rounded-md border border-trash/30 bg-trash/15 px-2 py-0.5 text-[10px] font-semibold text-trash hover:bg-trash/25 hover:border-trash/50 transition disabled:opacity-40"
                                   title={
                                     sender.hasUnsubscribe
                                       ? `Move all ${sender.count} emails from ${sender.senderName} to Trash without unsubscribing`
@@ -683,7 +682,7 @@ export function CategoryExplorerWidget({
                                   }
                                 >
                                   {isLoading
-                                    ? <span className="h-3 w-3 border border-rose-400 border-t-transparent rounded-full animate-spin shrink-0" />
+                                    ? <span className="h-3 w-3 border border-trash border-t-transparent rounded-full animate-spin shrink-0" />
                                     : <Trash2 className="h-3 w-3 shrink-0" />}
                                   <span>{isLoading ? 'Trashing…' : `Trash all ${sender.count}`}</span>
                                 </button>
@@ -704,11 +703,11 @@ export function CategoryExplorerWidget({
                                     try { await onUnsubscribe(unsubEmail); } finally { setUnsubLoading(null); }
                                   }}
                                   disabled={isLoading}
-                                  className="flex items-center gap-1 rounded-md border border-emerald-500/25 bg-emerald-500/10 px-2 py-0.5 text-[10px] font-semibold text-emerald-300 hover:bg-emerald-500/20 hover:border-emerald-400/40 transition disabled:opacity-40"
+                                  className="flex items-center gap-1 rounded-md border border-keep/25 bg-keep/10 px-2 py-0.5 text-[10px] font-semibold text-keep hover:bg-keep/20 hover:border-keep/40 transition disabled:opacity-40"
                                   title={`Send unsubscribe request to ${sender.senderDomain} (keep emails in inbox)`}
                                 >
                                   {isLoading
-                                    ? <span className="h-3 w-3 border border-emerald-400 border-t-transparent rounded-full animate-spin shrink-0" />
+                                    ? <span className="h-3 w-3 border border-keep border-t-transparent rounded-full animate-spin shrink-0" />
                                     : <ShieldCheck className="h-3 w-3 shrink-0" />}
                                   <span>{isLoading ? 'Unsubbing…' : 'Unsubscribe'}</span>
                                 </button>
@@ -724,11 +723,11 @@ export function CategoryExplorerWidget({
                                   try { await onBlockSender(sender.senderDomain, sender.senderEmail); } finally { setBlockLoading(null); }
                                 }}
                                 disabled={blockLoading === sender.senderEmail}
-                                className="flex items-center gap-1 rounded-md border border-amber-500/25 bg-amber-500/10 px-2 py-0.5 text-[10px] font-semibold text-amber-300 hover:bg-amber-500/20 hover:border-amber-400/40 transition disabled:opacity-40"
+                                className="flex items-center gap-1 rounded-md border border-warn bg-warn px-2 py-0.5 text-[10px] font-semibold text-paper hover:bg-warn hover:border-warn transition disabled:opacity-40"
                                 title={`Block all future emails from @${sender.senderDomain}`}
                               >
                                 {blockLoading === sender.senderEmail
-                                  ? <span className="h-3 w-3 border border-amber-400 border-t-transparent rounded-full animate-spin shrink-0" />
+                                  ? <span className="h-3 w-3 border border-warn border-t-transparent rounded-full animate-spin shrink-0" />
                                   : <Ban className="h-3 w-3 shrink-0" />}
                                 <span>{blockLoading === sender.senderEmail ? 'Blocking…' : 'Block domain'}</span>
                               </button>
@@ -736,7 +735,7 @@ export function CategoryExplorerWidget({
 
                             {/* Blocked status indicator */}
                             {isBlocked && (
-                              <span className="flex items-center gap-1 rounded-md border border-rose-500/25 bg-rose-500/10 px-2 py-0.5 text-[10px] font-semibold text-rose-400">
+                              <span className="flex items-center gap-1 rounded-md border border-trash/25 bg-trash/10 px-2 py-0.5 text-[10px] font-semibold text-trash">
                                 <Ban className="h-3 w-3 shrink-0" />
                                 <span>Domain blocked</span>
                               </span>
@@ -753,7 +752,7 @@ export function CategoryExplorerWidget({
                   <div className="text-center pt-1">
                     <button
                       onClick={() => setShowAllSenders(!showAllSenders)}
-                      className="inline-flex items-center gap-1 rounded-lg border border-slate-800 bg-slate-900/60 px-3 py-1 text-xs font-semibold text-indigo-400 hover:bg-slate-800 hover:text-indigo-300 transition"
+                      className="inline-flex items-center gap-1 rounded-lg border border-linen bg-sheet px-3 py-1 text-xs font-semibold text-unload hover:bg-linen/50 hover:text-unload transition"
                     >
                       <span>
                         {showAllSenders

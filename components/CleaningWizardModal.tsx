@@ -22,7 +22,7 @@ import {
   Check,
   Mail,
   SlidersHorizontal,
-  HardDrive,
+  
   RefreshCw,
   Info,
 } from 'lucide-react';
@@ -407,29 +407,29 @@ export function CleaningWizardModal({
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-slate-950/80 backdrop-blur-md animate-in fade-in duration-200">
-      <div className="relative flex flex-col w-full max-w-3xl max-h-[90vh] overflow-hidden rounded-2xl border border-indigo-500/30 bg-[#0c1220] shadow-2xl shadow-indigo-950/60">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-ink/60 backdrop-blur-sm">
+      <div className="relative flex flex-col w-full max-w-3xl max-h-[90vh] overflow-hidden rounded-2xl border border-unload bg-paper shadow-sm">
         {/* Glow Header Accent Bar */}
-        <div className="h-1.5 w-full bg-gradient-to-r from-indigo-500 via-purple-500 to-cyan-400" />
+        <div className="h-1.5 w-full stream-signal" />
 
         {/* Modal Header */}
-        <div className="flex items-center justify-between border-b border-slate-800/80 px-6 py-4 bg-slate-900/60">
+        <div className="flex items-center justify-between border-b border-linen px-6 py-4 bg-sheet">
           <div className="flex items-center gap-3">
-            <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-tr from-indigo-600 to-cyan-500 text-white shadow-md shadow-indigo-600/30">
+            <div className="flex h-9 w-9 items-center justify-center rounded-xl  stream-signal text-ink shadow-md">
               <Sparkles className="h-4 w-4" />
             </div>
             <div>
               <div className="flex items-center gap-2">
-                <h2 className="text-sm font-bold text-white tracking-wide">
+                <h2 className="text-sm font-bold text-ink tracking-wide">
                   Inbox Cleaning Wizard
                 </h2>
                 {phase !== 'success' && (
-                  <span className="rounded-full bg-indigo-500/20 border border-indigo-500/30 px-2 py-0.5 text-[10px] font-semibold text-indigo-300">
+                  <span className="rounded-full bg-unload border border-unload px-2 py-0.5 text-[10px] font-semibold text-paper">
                     Step {currentStepNumber} of {totalStepsCount}
                   </span>
                 )}
               </div>
-              <p className="text-xs text-slate-400 mt-0.5">
+              <p className="text-xs text-ink-soft mt-0.5">
                 Review your categories, choose what to clean, and set auto-delete rules.
               </p>
             </div>
@@ -438,7 +438,7 @@ export function CleaningWizardModal({
           <button
             onClick={onClose}
             disabled={isExecuting}
-            className="rounded-lg p-1.5 text-slate-400 hover:bg-slate-800 hover:text-white transition disabled:opacity-40"
+            className="rounded-lg p-1.5 text-ink-soft hover:bg-linen/50 hover:text-ink transition disabled:opacity-40"
           >
             <X className="h-4 w-4" />
           </button>
@@ -446,8 +446,8 @@ export function CleaningWizardModal({
 
         {/* Progress Bar (capped at 100%, never glitches or overshoots) */}
         {phase !== 'success' && (
-          <div className="px-6 py-2.5 border-b border-slate-800/50 bg-slate-950/40">
-            <div className="flex items-center justify-between text-xs font-medium text-slate-400 mb-1.5">
+          <div className="px-6 py-2.5 border-b border-linen bg-sheet">
+            <div className="flex items-center justify-between text-xs font-medium text-ink-soft mb-1.5">
               <span>
                 {phase === 'intro'
                   ? 'Overview & Scan'
@@ -455,11 +455,11 @@ export function CleaningWizardModal({
                   ? 'Review & Confirm'
                   : `${activeCategoryDef?.label || 'Category'} (${currentCategoryIndex + 1}/${frozenCategories.length})`}
               </span>
-              <span className="font-mono text-cyan-300 font-bold">{progressPercent}%</span>
+              <span className="font-mono text-unload font-bold">{progressPercent}%</span>
             </div>
-            <div className="h-1.5 w-full rounded-full bg-slate-800 overflow-hidden">
+            <div className="h-1.5 w-full rounded-full bg-sheet overflow-hidden">
               <div
-                className="h-full bg-gradient-to-r from-indigo-500 to-cyan-400 transition-all duration-300"
+                className="h-full bg-ink transition-all duration-300"
                 style={{ width: `${progressPercent}%` }}
               />
             </div>
@@ -471,20 +471,21 @@ export function CleaningWizardModal({
           {/* PHASE 1: INTRO & INBOX SCAN */}
           {phase === 'intro' && (
             <div className="space-y-6">
-              <div className="rounded-2xl border border-indigo-500/20 bg-gradient-to-br from-indigo-950/30 via-slate-900/60 to-purple-950/20 p-5 text-center">
-                <div className="inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-indigo-600/20 border border-indigo-500/30 text-indigo-400 mb-3 shadow-lg shadow-indigo-600/20">
+              <div className="relative overflow-hidden rounded-2xl border border-linen bg-sheet p-5 text-center">
+                <span className="stream-band absolute inset-x-0 top-0 h-1" style={{ ['--stream-color' as string]: 'var(--color-keep)' }} aria-hidden />
+                <div className="inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-keep/15 border border-keep/40 text-keep mb-3">
                   <Mail className="h-6 w-6" />
                 </div>
-                <h3 className="text-base font-bold text-white">Let&apos;s clean up your inbox</h3>
-                <p className="text-xs text-slate-300 max-w-md mx-auto mt-1.5 leading-relaxed">
-                  We found <span className="font-bold text-white">{snapshotEmails.length}</span> emails across{' '}
-                  <span className="font-bold text-cyan-300">{frozenCategories.length} categories</span>. You have full control — nothing is deleted until you select it and confirm.
+                <h3 className="text-base font-bold text-ink">Let&apos;s clean up your inbox</h3>
+                <p className="text-xs text-ink max-w-md mx-auto mt-1.5 leading-relaxed">
+                  We found <span className="font-bold text-ink">{snapshotEmails.length}</span> emails across{' '}
+                  <span className="font-bold text-unload">{frozenCategories.length} categories</span>. You have full control — nothing is deleted until you select it and confirm.
                 </p>
               </div>
 
               {/* Informational Notice about Safe Defaults */}
-              <div className="flex items-center gap-2.5 rounded-xl border border-blue-500/25 bg-blue-500/10 p-3 text-xs text-blue-200">
-                <Info className="h-4 w-4 shrink-0 text-blue-400" />
+              <div className="flex items-center gap-2.5 rounded-xl border border-unload/40 bg-unload/10 p-3 text-xs text-ink">
+                <Info className="h-4 w-4 shrink-0 text-unload" />
                 <span>
                   All senders start in <strong>Keep</strong> mode by default. You choose exactly which senders to unsubscribe from or trash.
                 </span>
@@ -492,7 +493,7 @@ export function CleaningWizardModal({
 
               {/* Categories list */}
               <div className="space-y-2.5">
-                <h4 className="text-xs font-bold text-slate-300 uppercase tracking-wider">
+                <h4 className="text-xs font-bold text-ink uppercase tracking-wider">
                   Categories ready for review:
                 </h4>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
@@ -504,20 +505,21 @@ export function CleaningWizardModal({
                     return (
                       <div
                         key={catId}
-                        className="flex items-center justify-between rounded-xl border border-slate-800 bg-slate-900/40 p-3.5"
+                        className="flex items-center justify-between rounded-xl border border-linen bg-sheet p-3.5"
                       >
                         <div className="flex items-center gap-2.5">
                           <span
-                            className={`rounded-lg border px-2.5 py-1 text-xs font-bold ${catDef.badgeBorder} ${catDef.color} bg-slate-800`}
+                            className="inline-flex items-center gap-1.5 rounded-lg border border-linen px-2.5 py-1 text-xs font-bold text-ink bg-sheet"
                           >
+                            <span className={`h-2 w-2 rounded-[2px] ${catDef.dot}`} aria-hidden />
                             {catDef.shortLabel}
                           </span>
                           <div>
-                            <p className="text-xs font-semibold text-slate-200">{catDef.label}</p>
-                            <p className="text-[11px] text-slate-400">{senders} top senders</p>
+                            <p className="text-xs font-semibold text-ink">{catDef.label}</p>
+                            <p className="text-[11px] text-ink-soft">{senders} top senders</p>
                           </div>
                         </div>
-                        <span className="text-xs font-bold text-white font-mono">{count} emails</span>
+                        <span className="text-xs font-bold text-ink font-mono">{count} emails</span>
                       </div>
                     );
                   })}
@@ -530,32 +532,33 @@ export function CleaningWizardModal({
           {phase === 'category' && activeCategoryDef && (
             <div className="space-y-5">
               {/* Category Header Banner with Spacious Layout */}
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 rounded-2xl border border-slate-800 bg-slate-900/60 p-4">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 rounded-2xl border border-linen bg-sheet p-4">
                 <div>
                   <div className="flex items-center gap-2.5">
                     <span
-                      className={`rounded-xl border px-3 py-1 text-xs font-bold ${activeCategoryDef.badgeBorder} ${activeCategoryDef.color} bg-slate-800`}
+                      className="inline-flex items-center gap-1.5 rounded-xl border border-linen px-3 py-1 text-xs font-bold text-ink bg-sheet"
                     >
+                      <span className={`h-2 w-2 rounded-[2px] ${activeCategoryDef.dot}`} aria-hidden />
                       {activeCategoryDef.label}
                     </span>
-                    <span className="text-xs text-slate-400">
+                    <span className="text-xs text-ink-soft">
                       {categorizedEmails.get(activeCategoryId)?.length || 0} emails · {activeCategorySenders.length} senders
                     </span>
                   </div>
-                  <p className="text-xs text-slate-300 mt-1">{activeCategoryDef.description}</p>
+                  <p className="text-xs text-ink mt-1">{activeCategoryDef.description}</p>
                 </div>
 
                 {/* Clear Quick Actions */}
                 <div className="flex items-center gap-2 shrink-0">
                   <button
                     onClick={selectAllCategoryToClean}
-                    className="rounded-lg border border-violet-500/40 bg-violet-500/15 px-3 py-1.5 text-xs font-bold text-violet-200 hover:bg-violet-500/25 transition"
+                    className="rounded-lg border border-unload bg-unload px-3 py-1.5 text-xs font-bold text-paper hover:bg-unload transition"
                   >
                     Select All to Clean
                   </button>
                   <button
                     onClick={resetAllCategoryToKeep}
-                    className="rounded-lg border border-slate-700 bg-slate-800 px-3 py-1.5 text-xs font-semibold text-slate-400 hover:text-white transition"
+                    className="rounded-lg border border-linen bg-sheet px-3 py-1.5 text-xs font-semibold text-ink-soft hover:text-ink transition"
                   >
                     Keep All
                   </button>
@@ -578,10 +581,10 @@ export function CleaningWizardModal({
                       key={sender.senderEmail}
                       className={`rounded-xl border p-4 transition-all space-y-3 ${
                         decision.action === 'unsub_and_trash'
-                          ? 'border-violet-500/40 bg-violet-950/20 shadow-sm shadow-violet-950/30'
+                          ? 'border-unload bg-unload/10 shadow-sm'
                           : decision.action === 'trash_only'
-                          ? 'border-rose-500/40 bg-rose-950/20 shadow-sm shadow-rose-950/30'
-                          : 'border-slate-800/80 bg-slate-900/40'
+                          ? 'border-trash/40 bg-trash/20 shadow-sm'
+                          : 'border-linen bg-sheet'
                       }`}
                     >
                       {/* Top Row: Sender Info + Segmented Action Buttons */}
@@ -589,35 +592,35 @@ export function CleaningWizardModal({
                         {/* Sender details */}
                         <div className="min-w-0 flex-1">
                           <div className="flex items-center gap-2">
-                            <span className="text-sm font-bold text-white truncate max-w-[220px]">
+                            <span className="text-sm font-bold text-ink truncate max-w-[220px]">
                               {sender.senderName}
                             </span>
-                            <span className="text-xs text-slate-400 font-mono">
+                            <span className="text-xs text-ink-soft font-mono">
                               @{sender.senderDomain}
                             </span>
                             {sender.hasUnsubscribe && (
-                              <span className="rounded-full bg-emerald-500/15 border border-emerald-500/30 px-2 py-0.5 text-[10px] font-bold text-emerald-400 flex items-center gap-1">
+                              <span className="rounded-full bg-keep/15 border border-keep/30 px-2 py-0.5 text-[10px] font-bold text-keep flex items-center gap-1">
                                 <ShieldCheck className="h-3 w-3" />
                                 1-Click Unsub
                               </span>
                             )}
                           </div>
-                          <div className="flex items-center gap-2 mt-1 text-xs text-slate-400">
-                            <span className="font-semibold text-slate-200">{sender.count} emails</span>
+                          <div className="flex items-center gap-2 mt-1 text-xs text-ink-soft">
+                            <span className="font-semibold text-ink">{sender.count} emails</span>
                             <span>·</span>
-                            <span className="font-mono text-cyan-300">{formatBytes(sender.totalSizeBytes)}</span>
+                            <span className="font-mono text-unload">{formatBytes(sender.totalSizeBytes)}</span>
                           </div>
                         </div>
 
                         {/* Action Choices Segmented Control */}
-                        <div className="flex items-center rounded-xl border border-slate-700 bg-slate-800/80 p-1 gap-1 shrink-0">
+                        <div className="flex items-center rounded-xl border border-linen bg-sheet p-1 gap-1 shrink-0">
                           {/* Keep button */}
                           <button
                             onClick={() => setSenderAction(sender.senderEmail, 'keep')}
                             className={`rounded-lg px-3 py-1.5 text-xs font-semibold transition ${
                               decision.action === 'keep'
-                                ? 'bg-slate-700 text-white shadow-sm'
-                                : 'text-slate-400 hover:text-slate-200'
+                                ? 'bg-sheet text-ink shadow-sm'
+                                : 'text-ink-soft hover:text-ink'
                             }`}
                           >
                             Keep
@@ -628,8 +631,8 @@ export function CleaningWizardModal({
                             onClick={() => setSenderAction(sender.senderEmail, 'trash_only')}
                             className={`flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-xs font-semibold transition ${
                               decision.action === 'trash_only'
-                                ? 'bg-rose-600 text-white shadow-md shadow-rose-600/30'
-                                : 'text-rose-300 hover:bg-rose-500/15'
+                                ? 'bg-trash text-paper shadow-md shadow-trash/20'
+                                : 'text-trash hover:bg-trash/15'
                             }`}
                           >
                             <Trash2 className="h-3 w-3" />
@@ -642,13 +645,13 @@ export function CleaningWizardModal({
                               onClick={() => setSenderAction(sender.senderEmail, 'unsub_and_trash')}
                               className={`flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-xs font-bold transition ${
                                 decision.action === 'unsub_and_trash'
-                                  ? 'bg-violet-600 text-white shadow-md shadow-violet-600/30'
-                                  : 'text-violet-300 hover:bg-violet-500/15'
+                                  ? 'bg-ink text-paper shadow-md'
+                                  : 'text-unload hover:bg-unload/15'
                               }`}
                             >
-                              <ShieldCheck className="h-3 w-3 text-emerald-400" />
+                              <ShieldCheck className="h-3 w-3 text-keep" />
                               <span>+</span>
-                              <Trash2 className="h-3 w-3 text-rose-400" />
+                              <Trash2 className="h-3 w-3 text-trash" />
                               <span>Unsub &amp; Trash</span>
                             </button>
                           )}
@@ -657,20 +660,20 @@ export function CleaningWizardModal({
 
                       {/* Bottom Row: Auto-Delete Future Emails Toggle (only shown when user chose to clean) */}
                       {isCleaning && (
-                        <div className="pt-2.5 border-t border-slate-800/60 flex items-center justify-between">
+                        <div className="pt-2.5 border-t border-linen flex items-center justify-between">
                           <label className="flex items-center gap-2 cursor-pointer">
                             <input
                               type="checkbox"
                               checked={decision.autoDeleteFuture}
                               onChange={() => toggleAutoDelete(sender.senderEmail)}
-                              className="rounded border-slate-700 text-indigo-500 focus:ring-indigo-500 h-4 w-4 bg-slate-800"
+                              className="rounded border-linen text-unload focus:ring-unload h-4 w-4 bg-sheet"
                             />
-                            <span className="text-xs text-slate-300 flex items-center gap-1.5">
-                              <Zap className="h-3.5 w-3.5 text-amber-400" />
+                            <span className="text-xs text-ink flex items-center gap-1.5">
+                              <Zap className="h-3.5 w-3.5 text-warn" />
                               <span>Auto-delete future emails from this sender on sync</span>
                             </span>
                           </label>
-                          <span className="text-[11px] text-slate-500 font-mono">
+                          <span className="text-[11px] text-ink-soft font-mono">
                             @{sender.senderDomain}
                           </span>
                         </div>
@@ -685,61 +688,62 @@ export function CleaningWizardModal({
           {/* PHASE 3: REVIEW & CONFIRMATION */}
           {phase === 'review' && (
             <div className="space-y-6">
-              <div className="rounded-2xl border border-indigo-500/30 bg-gradient-to-r from-indigo-950/30 via-slate-900/60 to-purple-950/30 p-5">
-                <h3 className="text-base font-bold text-white flex items-center gap-2">
-                  <SlidersHorizontal className="h-5 w-5 text-indigo-400" />
+              <div className="relative overflow-hidden rounded-2xl border border-linen bg-sheet p-5">
+                <span className="stream-band absolute inset-x-0 top-0 h-1" style={{ ['--stream-color' as string]: 'var(--color-unload)' }} aria-hidden />
+                <h3 className="text-base font-bold text-ink flex items-center gap-2">
+                  <SlidersHorizontal className="h-5 w-5 text-unload" />
                   <span>Review Your Cleanup Plan</span>
                 </h3>
-                <p className="text-xs text-slate-300 mt-1">
+                <p className="text-xs text-ink mt-1">
                   Nothing has been deleted yet. Check the summary below and click execute when you are ready.
                 </p>
               </div>
 
               {/* Review metrics */}
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-                <div className="rounded-xl border border-rose-500/30 bg-rose-950/20 p-4 text-center">
-                  <div className="text-2xl font-bold text-rose-300">{toTrashEmailsCount}</div>
-                  <div className="text-xs text-slate-400 mt-0.5">Emails to Trash</div>
+                <div className="rounded-xl border border-trash/30 bg-trash/20 p-4 text-center">
+                  <div className="text-2xl font-bold text-trash">{toTrashEmailsCount}</div>
+                  <div className="text-xs text-ink-soft mt-0.5">Emails to Trash</div>
                 </div>
-                <div className="rounded-xl border border-cyan-500/30 bg-cyan-950/20 p-4 text-center">
-                  <div className="text-2xl font-bold text-cyan-300 font-mono">
+                <div className="rounded-xl border border-unload bg-unload/10 p-4 text-center">
+                  <div className="text-2xl font-bold text-unload font-mono">
                     {formatBytes(estimatedSavedBytes)}
                   </div>
-                  <div className="text-xs text-slate-400 mt-0.5">Space Saved</div>
+                  <div className="text-xs text-ink-soft mt-0.5">Space Saved</div>
                 </div>
-                <div className="rounded-xl border border-emerald-500/30 bg-emerald-950/20 p-4 text-center">
-                  <div className="text-2xl font-bold text-emerald-300">{toUnsubSendersCount}</div>
-                  <div className="text-xs text-slate-400 mt-0.5">Unsubscribes</div>
+                <div className="rounded-xl border border-keep/30 bg-keep/20 p-4 text-center">
+                  <div className="text-2xl font-bold text-keep">{toUnsubSendersCount}</div>
+                  <div className="text-xs text-ink-soft mt-0.5">Unsubscribes</div>
                 </div>
-                <div className="rounded-xl border border-amber-500/30 bg-amber-950/20 p-4 text-center">
-                  <div className="text-2xl font-bold text-amber-300">{toAutoDeleteRules.length}</div>
-                  <div className="text-xs text-slate-400 mt-0.5">Auto-Clean Rules</div>
+                <div className="rounded-xl border border-warn bg-warn p-4 text-center">
+                  <div className="text-2xl font-bold text-warn">{toAutoDeleteRules.length}</div>
+                  <div className="text-xs text-ink-soft mt-0.5">Auto-Clean Rules</div>
                 </div>
               </div>
 
               {toTrashEmailsCount === 0 && toUnsubSendersCount === 0 && (
-                <div className="rounded-xl border border-slate-700 bg-slate-800/40 p-5 text-center text-xs text-slate-400">
+                <div className="rounded-xl border border-linen bg-sheet p-5 text-center text-xs text-ink-soft">
                   You have not selected any emails to trash or senders to unsubscribe from. You can go back to previous steps to choose senders, or close the wizard.
                 </div>
               )}
 
               {/* Auto-delete rules preview */}
               {toAutoDeleteRules.length > 0 && (
-                <div className="rounded-xl border border-slate-800 bg-slate-900/50 p-4 space-y-2">
-                  <div className="flex items-center gap-2 text-xs font-bold text-amber-300">
+                <div className="rounded-xl border border-linen bg-sheet p-4 space-y-2">
+                  <div className="flex items-center gap-2 text-xs font-bold text-warn">
                     <Zap className="h-4 w-4" />
                     <span>Auto-Delete Rules to Register ({toAutoDeleteRules.length})</span>
                   </div>
-                  <p className="text-xs text-slate-400">
+                  <p className="text-xs text-ink-soft">
                     On future syncs, MailCleaner will automatically move incoming emails from these senders to Trash:
                   </p>
                   <div className="flex flex-wrap gap-1.5 max-h-32 overflow-y-auto pt-1">
                     {toAutoDeleteRules.map((r) => (
                       <span
                         key={r.senderEmail}
-                        className="inline-flex items-center gap-1 rounded-lg border border-amber-500/30 bg-amber-500/10 px-2.5 py-1 text-xs font-mono text-amber-200"
+                        className="inline-flex items-center gap-1 rounded-lg border border-warn bg-warn px-2.5 py-1 text-xs font-mono text-paper"
                       >
-                        <Zap className="h-3 w-3 text-amber-400" />
+                        <Zap className="h-3 w-3 text-warn" />
                         {r.senderEmail}
                       </span>
                     ))}
@@ -749,19 +753,19 @@ export function CleaningWizardModal({
 
               {/* Live progress indicator during execution */}
               {isExecuting && (
-                <div className="rounded-xl border border-indigo-500/40 bg-indigo-950/30 p-4 space-y-2.5 animate-in fade-in">
-                  <div className="flex items-center justify-between text-xs text-white">
+                <div className="rounded-xl border border-unload bg-unload/10 p-4 space-y-2.5">
+                  <div className="flex items-center justify-between text-xs text-ink">
                     <span className="font-semibold flex items-center gap-2">
-                      <RefreshCw className="h-4 w-4 animate-spin text-cyan-400" />
+                      <RefreshCw className="h-4 w-4 animate-spin text-unload" />
                       {executingStatus}
                     </span>
-                    <span className="font-mono text-slate-400">
+                    <span className="font-mono text-ink-soft">
                       {executionProgress.current} / {executionProgress.total}
                     </span>
                   </div>
-                  <div className="h-2 w-full rounded-full bg-slate-800 overflow-hidden">
+                  <div className="h-2 w-full rounded-full bg-sheet overflow-hidden">
                     <div
-                      className="h-full bg-gradient-to-r from-indigo-500 via-purple-500 to-cyan-400 transition-all duration-300"
+                      className="h-full bg-trash transition-all duration-300"
                       style={{
                         width: `${
                           executionProgress.total > 0
@@ -780,28 +784,28 @@ export function CleaningWizardModal({
           {phase === 'success' && (
             <div className="text-center py-8 space-y-6">
               <div className="relative inline-flex items-center justify-center">
-                <div className="h-20 w-20 rounded-full bg-emerald-500/20 border-2 border-emerald-400 flex items-center justify-center text-emerald-400 shadow-2xl shadow-emerald-500/30 animate-pulse-glow">
+                <div className="h-20 w-20 rounded-full bg-keep/20 border-2 border-keep flex items-center justify-center text-keep shadow-sm">
                   <CheckCircle2 className="h-10 w-10" />
                 </div>
               </div>
 
               <div>
-                <h3 className="text-xl font-bold text-white tracking-wide">
+                <h3 className="text-xl font-bold text-ink tracking-wide">
                   Inbox Cleaned &amp; Automated!
                 </h3>
-                <p className="text-xs text-slate-300 max-w-md mx-auto mt-1.5 leading-relaxed">
-                  Successfully cleaned <span className="font-bold text-white">{toTrashEmailsCount} emails</span> and freed{' '}
-                  <span className="font-mono font-bold text-cyan-300">{formatBytes(estimatedSavedBytes)}</span> of space.
+                <p className="text-xs text-ink max-w-md mx-auto mt-1.5 leading-relaxed">
+                  Successfully cleaned <span className="font-bold text-ink">{toTrashEmailsCount} emails</span> and freed{' '}
+                  <span className="font-mono font-bold text-unload">{formatBytes(estimatedSavedBytes)}</span> of space.
                 </p>
               </div>
 
               {toAutoDeleteRules.length > 0 && (
-                <div className="inline-block rounded-xl border border-amber-500/30 bg-amber-500/10 px-5 py-3 text-xs text-amber-200">
+                <div className="inline-block rounded-xl border border-warn bg-warn px-5 py-3 text-xs text-paper">
                   <p className="font-semibold flex items-center justify-center gap-2">
-                    <Zap className="h-4 w-4 text-amber-400" />
+                    <Zap className="h-4 w-4 text-warn" />
                     <span>{toAutoDeleteRules.length} Auto-Delete sync rules are now active!</span>
                   </p>
-                  <p className="text-[11px] text-amber-300/80 mt-1">
+                  <p className="text-[11px] text-warn/80 mt-1">
                     Whenever you sync new batches of emails, these senders will be moved to Trash automatically.
                   </p>
                 </div>
@@ -811,14 +815,14 @@ export function CleaningWizardModal({
         </div>
 
         {/* Modal Footer Controls */}
-        <div className="flex items-center justify-between border-t border-slate-800/80 px-6 py-4 bg-slate-900/80">
+        <div className="flex items-center justify-between border-t border-linen px-6 py-4 bg-sheet">
           {phase !== 'success' ? (
             <>
               {/* Back button */}
               <button
                 onClick={handleBack}
                 disabled={phase === 'intro' || isExecuting}
-                className="flex items-center gap-1.5 rounded-xl border border-slate-700 bg-slate-800 px-3.5 py-2 text-xs font-semibold text-slate-300 hover:bg-slate-700 hover:text-white transition disabled:opacity-30 disabled:pointer-events-none"
+                className="flex items-center gap-1.5 rounded-xl border border-linen bg-sheet px-3.5 py-2 text-xs font-semibold text-ink hover:bg-linen/50 hover:text-ink transition disabled:opacity-30 disabled:pointer-events-none"
               >
                 <ChevronLeft className="h-4 w-4" />
                 <span>Back</span>
@@ -829,19 +833,19 @@ export function CleaningWizardModal({
                 <button
                   onClick={handleExecuteCleanup}
                   disabled={isExecuting || (toTrashEmailsCount === 0 && toUnsubSendersCount === 0)}
-                  className="flex items-center gap-2 rounded-xl bg-gradient-to-r from-emerald-600 via-indigo-600 to-cyan-600 px-5 py-2.5 text-xs font-bold text-white shadow-lg shadow-indigo-600/30 hover:brightness-110 transition disabled:opacity-50"
+                  className="flex items-center gap-2 rounded-xl bg-keep px-5 py-2.5 text-xs font-bold text-paper shadow-lg shadow-keep/20 hover:bg-ink transition disabled:opacity-50"
                 >
                   {isExecuting ? (
                     <RefreshCw className="h-4 w-4 animate-spin" />
                   ) : (
-                    <Zap className="h-4 w-4 text-amber-300" />
+                    <Zap className="h-4 w-4 text-warn" />
                   )}
                   <span>{isExecuting ? 'Cleaning…' : `Execute Cleanup (${toTrashEmailsCount} emails)`}</span>
                 </button>
               ) : (
                 <button
                   onClick={handleNext}
-                  className="flex items-center gap-1.5 rounded-xl bg-indigo-600 px-4 py-2 text-xs font-bold text-white shadow-md shadow-indigo-600/30 hover:bg-indigo-500 transition"
+                  className="flex items-center gap-1.5 rounded-xl bg-ink px-4 py-2 text-xs font-bold text-paper shadow-md hover:bg-depot transition"
                 >
                   <span>{phase === 'intro' ? 'Start Guided Clean' : 'Next Category'}</span>
                   <ChevronRight className="h-4 w-4" />
@@ -856,15 +860,15 @@ export function CleaningWizardModal({
                     onRefreshInbox();
                     onClose();
                   }}
-                  className="flex items-center gap-1.5 rounded-xl border border-slate-700 bg-slate-800 px-4 py-2 text-xs font-semibold text-slate-200 hover:bg-slate-700 transition"
+                  className="flex items-center gap-1.5 rounded-xl border border-linen bg-sheet px-4 py-2 text-xs font-semibold text-ink hover:bg-linen/50 transition"
                 >
-                  <RefreshCw className="h-3.5 w-3.5 text-cyan-400" />
+                  <RefreshCw className="h-3.5 w-3.5 text-unload" />
                   <span>Refresh Inbox</span>
                 </button>
               )}
               <button
                 onClick={onClose}
-                className="flex items-center gap-1.5 rounded-xl bg-gradient-to-r from-indigo-600 to-cyan-600 px-5 py-2 text-xs font-bold text-white shadow-md shadow-indigo-600/30 hover:brightness-110 transition"
+                className="flex items-center gap-1.5 rounded-xl border border-linen bg-sheet px-5 py-2 text-xs font-bold text-ink hover:border-ink transition"
               >
                 <Check className="h-4 w-4" />
                 <span>Done</span>

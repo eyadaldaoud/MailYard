@@ -2,16 +2,16 @@
 
 import React, { useState } from 'react';
 import {
-  Shield,
-  Mail,
-  Database,
-  KeyRound,
   RefreshCw,
   LogOut,
   Sparkles,
   HelpCircle,
   ChevronDown,
-  Zap,
+  ArrowRightLeft,
+  Box,
+  Footprints,
+  Ban,
+  Settings2,
 } from 'lucide-react';
 import { AuthSession } from '@/lib/types';
 
@@ -47,42 +47,34 @@ export function Navbar({
   onFetchLimitChange,
   emailCount,
   onOpenWizard,
-  onOpenAutoRules,
-  autoRulesCount = 0,
 }: NavbarProps) {
   const [limitOpen, setLimitOpen] = useState(false);
 
   const tabs = [
-    { id: 'setup' as const, label: 'Setup Guide', icon: Sparkles, comingSoon: false },
-    { id: 'cleaner' as const, label: 'Cleaner', icon: Mail, comingSoon: false },
-    { id: 'unsubscriber' as const, label: 'Unsubscribe', icon: Shield, comingSoon: false },
-    { id: 'osint' as const, label: 'Digital Footprint', icon: KeyRound, comingSoon: true },
-    { id: 'blocklist' as const, label: 'Blocklist', icon: Database, comingSoon: false },
+    { id: 'setup' as const, label: 'Setup', icon: Settings2, comingSoon: false },
+    { id: 'cleaner' as const, label: 'Cleaner', icon: Box, comingSoon: false },
+    { id: 'unsubscriber' as const, label: 'Unsubscribe', icon: ArrowRightLeft, comingSoon: false },
+    { id: 'osint' as const, label: 'Footprint', icon: Footprints, comingSoon: false },
+    { id: 'blocklist' as const, label: 'Blocklist', icon: Ban, comingSoon: false },
   ];
 
   return (
-    <header className="sticky top-0 z-40 bg-[#090d16]/90 backdrop-blur-xl border-b border-slate-800/80 shadow-lg shadow-black/30">
-      {/* Top ambient highlight line */}
-      <div className="h-[2px] w-full bg-gradient-to-r from-transparent via-indigo-500/80 to-cyan-400/80" />
-
+    <header className="sticky top-0 z-40 border-b border-black/40 depot-rail shadow-[0_1px_0_rgba(255,255,255,0.04)_inset]">
       <div className="mx-auto max-w-7xl px-3 sm:px-6 lg:px-8">
         <div className="flex min-h-14 items-center justify-between gap-2 py-2 md:h-14 md:py-0 md:gap-3">
 
           {/* Left: Brand */}
           <div className="flex items-center gap-2.5 shrink-0">
-            <div className="flex h-8 w-8 items-center justify-center rounded-xl bg-gradient-to-tr from-indigo-600 via-indigo-500 to-cyan-400 text-white shadow-md shadow-indigo-600/20">
-              <Mail className="h-4 w-4" />
+            <div className="flex h-8 w-8 items-center justify-center rounded-sm bg-signal text-ink">
+              <Box className="h-4 w-4" strokeWidth={2.5} />
             </div>
-            <span className="text-sm font-bold tracking-tight text-white">
-              Mail<span className="text-cyan-400">Cleaner</span>
-            </span>
-            <span className="hidden lg:inline rounded-md border border-indigo-500/30 bg-indigo-500/10 px-1.5 py-0.5 text-[9px] font-bold tracking-wider text-indigo-300 uppercase">
-              SECURITY
+            <span className="hidden sm:block text-sm font-bold tracking-tight text-paper lowercase whitespace-nowrap">
+              mail<span className="text-signal">cleaner</span>
             </span>
           </div>
 
           {/* Center: Navigation Tabs */}
-          <nav className="hidden md:flex items-center gap-0.5 rounded-xl border border-slate-800/80 bg-slate-950/60 p-1">
+          <nav className="hidden md:flex items-center gap-1">
             {tabs.map((tab) => {
               const Icon = tab.icon;
               const isActive = activeTab === tab.id;
@@ -93,21 +85,16 @@ export function Navbar({
                   onClick={() => !disabled && setActiveTab(tab.id)}
                   disabled={disabled}
                   title={disabled ? 'Coming Soon' : tab.label}
-                  className={`relative flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-xs font-semibold transition-all ${
+                  className={`flex items-center gap-1.5 rounded-md px-3 py-1.5 text-xs font-semibold whitespace-nowrap transition-colors ${
                     disabled
-                      ? 'cursor-not-allowed text-slate-600 opacity-60'
+                      ? 'cursor-not-allowed text-ink-mute opacity-60'
                       : isActive
-                      ? 'bg-indigo-600 text-white shadow-sm shadow-indigo-600/30'
-                      : 'text-slate-400 hover:text-slate-200 hover:bg-slate-900/60'
+                      ? 'bg-paper text-ink'
+                      : 'text-paper/70 hover:text-paper hover:bg-white/10'
                   }`}
                 >
-                  <Icon className={`h-3.5 w-3.5 ${isActive && !disabled ? 'text-cyan-300' : 'text-slate-500'}`} />
+                  <Icon className="h-3.5 w-3.5" />
                   <span>{tab.label}</span>
-                  {disabled && (
-                    <span className="ml-0.5 rounded-md bg-slate-700/80 px-1 py-0.5 text-[8px] font-bold tracking-wider text-slate-400 uppercase">
-                      Soon
-                    </span>
-                  )}
                 </button>
               );
             })}
@@ -116,35 +103,34 @@ export function Navbar({
           {/* Right: Actions */}
           <div className="flex items-center gap-1.5 sm:gap-2 shrink-0">
 
-            {/* Fetch Limit Selector */}
+            {/* Scan gauge */}
             <div className="relative hidden sm:block">
               <button
                 onClick={() => setLimitOpen((v) => !v)}
-                className="flex items-center gap-1 rounded-lg border border-slate-700 bg-slate-900/70 hover:bg-slate-800 px-2.5 py-1.5 text-xs font-medium text-slate-300 transition"
-                title="Set how many emails to scan"
+                className="tnum flex items-center gap-1.5 rounded-md border border-white/15 px-2.5 py-1.5 font-mono text-[11px] font-bold text-paper hover:bg-white/10 transition"
+                title={`Scanning the ${fetchLimit.toLocaleString()} most recent emails`}
               >
-                <span className="text-cyan-400 font-bold">{emailCount}</span>
-                <span className="text-slate-500">/</span>
-                <span>{fetchLimit}</span>
-                <ChevronDown className="h-3 w-3 text-slate-500 ml-0.5" />
+                <span className="text-paper/50 font-medium">{emailCount.toLocaleString()}</span>
+                <span className="text-paper/30">/ {fetchLimit.toLocaleString()}</span>
+                <ChevronDown className="h-3 w-3 text-paper/50" />
               </button>
               {limitOpen && (
-                <div className="absolute right-0 top-full mt-1.5 w-36 rounded-xl border border-slate-700 bg-slate-900 shadow-xl shadow-black/50 overflow-hidden z-50">
-                  <p className="px-3 py-2 text-[10px] font-bold text-slate-500 uppercase tracking-wider border-b border-slate-800">
+                <div className="absolute right-0 top-full mt-1.5 w-36 sheet shadow-lg overflow-hidden z-50">
+                  <p className="px-3 py-2 text-[10px] font-bold text-ink-soft uppercase tracking-[0.18em] border-b border-linen-2">
                     Emails to scan
                   </p>
                   {FETCH_LIMIT_OPTIONS.map((opt) => (
                     <button
                       key={opt}
                       onClick={() => { onFetchLimitChange(opt); setLimitOpen(false); }}
-                      className={`flex w-full items-center justify-between px-3 py-2 text-xs transition ${
+                      className={`tnum flex w-full items-center justify-between px-3 py-2 text-xs transition ${
                         fetchLimit === opt
-                          ? 'bg-indigo-600/20 text-indigo-300 font-semibold'
-                          : 'text-slate-300 hover:bg-slate-800'
+                          ? 'bg-paper-2 text-ink font-semibold'
+                          : 'text-ink-soft hover:bg-paper-2'
                       }`}
                     >
-                      <span>{opt} emails</span>
-                      {fetchLimit === opt && <span className="h-1.5 w-1.5 rounded-full bg-indigo-400" />}
+                      <span>{opt.toLocaleString()} emails</span>
+                      {fetchLimit === opt && <span className="h-2 w-2 bg-keep" />}
                     </button>
                   ))}
                 </div>
@@ -155,37 +141,40 @@ export function Navbar({
             {onOpenWizard && (
               <button
                 onClick={onOpenWizard}
-                className="hidden sm:flex items-center gap-1.5 rounded-lg border border-indigo-500/40 bg-gradient-to-r from-amber-500/20 via-rose-500/20 to-indigo-600/30 px-2.5 py-1.5 text-xs font-bold text-white shadow-sm shadow-indigo-600/20 hover:brightness-110 transition"
+                className="hidden sm:flex items-center gap-1.5 rounded-md border border-paper/20 bg-transparent px-3 py-1.5 text-xs font-bold whitespace-nowrap text-paper hover:bg-paper hover:text-ink transition"
                 title="Launch step-by-step cleaning wizard"
               >
-                <Sparkles className="h-3.5 w-3.5 text-amber-300 animate-pulse" />
-                <span className="hidden sm:inline">Clean Wizard</span>
+                <Sparkles className="h-3.5 w-3.5" />
+                Clean Wizard
               </button>
             )}
 
-            {/* Sync Button */}
-            <button
-              onClick={onRefresh}
-              disabled={isRefreshing}
-              title="Refresh inbox"
-              className="flex items-center gap-1.5 rounded-lg border border-slate-700 bg-slate-800/80 hover:bg-slate-700 px-2.5 py-1.5 text-xs font-medium text-slate-200 transition disabled:opacity-50"
-            >
-              <RefreshCw className={`h-3.5 w-3.5 text-cyan-400 ${isRefreshing ? 'animate-spin' : ''}`} />
-              <span className="hidden sm:inline">Sync</span>
-            </button>
+            {/* Freight tools: weigh in + guide */}
+            <div className="flex items-center gap-1">
+              <button
+                onClick={onRefresh}
+                disabled={isRefreshing}
+                title="Weigh in — rescan the inbox"
+                aria-label="Weigh in — rescan the inbox"
+                className="flex items-center justify-center rounded-md border border-white/15 p-1.5 text-paper/80 hover:text-paper hover:bg-white/10 transition disabled:opacity-50"
+              >
+                <RefreshCw className={`h-3.5 w-3.5 ${isRefreshing ? 'animate-spin' : ''}`} />
+              </button>
+              <button
+                onClick={onOpenGuide}
+                title="Setup guide"
+                aria-label="Setup guide"
+                className="flex items-center justify-center rounded-md border border-white/15 p-1.5 text-paper/80 hover:text-paper hover:bg-white/10 transition"
+              >
+                <HelpCircle className="h-3.5 w-3.5" />
+              </button>
+            </div>
 
-            {/* Guide Button */}
-            <button
-              onClick={onOpenGuide}
-              className="flex items-center gap-1 rounded-lg border border-slate-800 bg-slate-900/80 hover:bg-slate-800 px-2 py-1.5 text-xs font-medium text-slate-400 hover:text-slate-200 transition"
-              title="Setup Guide"
-            >
-              <HelpCircle className="h-3.5 w-3.5" />
-            </button>
+            <div className="hidden sm:block h-5 border-l border-white/15" aria-hidden />
 
             {/* Account / Connect */}
             {session.isAuthenticated ? (
-              <div className="flex items-center gap-1.5 rounded-lg border border-emerald-500/20 bg-emerald-500/10 px-1.5 sm:pl-2 sm:pr-1.5 py-1 text-xs">
+              <div className="flex items-center gap-1.5 rounded-md border border-keep/40 bg-keep/15 px-1.5 sm:pl-2 sm:pr-1.5 py-1 text-xs">
                 {session.userPicture ? (
                   <img
                     src={session.userPicture}
@@ -193,18 +182,15 @@ export function Navbar({
                     className="h-5 w-5 rounded-full object-cover"
                   />
                 ) : (
-                  <span className="relative flex h-2 w-2">
-                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-                    <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
-                  </span>
+                  <span className="h-2 w-2 bg-keep-bright" />
                 )}
-                <span className="hidden sm:block max-w-[110px] truncate font-medium text-slate-200 text-[11px]">
+                <span className="hidden lg:block max-w-[110px] truncate font-medium text-paper text-[11px]">
                   {session.userName || session.userEmail}
                 </span>
                 <a
                   href="/api/auth/logout"
                   title="Disconnect"
-                  className="p-0.5 text-slate-400 hover:text-rose-400 transition ml-0.5"
+                  className="p-0.5 text-paper/50 hover:text-trash-bright transition ml-0.5"
                 >
                   <LogOut className="h-3.5 w-3.5" />
                 </a>
@@ -213,36 +199,38 @@ export function Navbar({
               <div className="flex items-center gap-1.5">
                 <button
                   onClick={onToggleDemo}
-                  className="flex items-center gap-1.5 rounded-lg border border-amber-500/40 bg-amber-500/15 hover:bg-amber-500/25 px-2.5 py-1.5 text-xs font-semibold text-amber-300 transition"
+                  className="flex items-center gap-1.5 rounded-md border border-white/25 bg-transparent hover:bg-white/10 px-2.5 py-1.5 text-xs font-semibold whitespace-nowrap text-paper/90 transition"
                   title="Exit demo mode"
                 >
-                  <Sparkles className="h-3 w-3 text-amber-400" />
-                  <span className="hidden sm:inline">Demo (Exit)</span>
+                  <span className="hidden lg:inline">Demo depot</span>
+                  <span className="lg:hidden">Demo</span>
+                  <span className="hidden sm:inline text-paper/50">(exit)</span>
                 </button>
                 <a
                   href="/api/auth/google"
-                  className="flex items-center gap-1.5 rounded-lg bg-gradient-to-r from-indigo-600 to-cyan-600 px-3 py-1.5 text-xs font-bold text-white shadow-sm shadow-indigo-600/30 hover:brightness-110 transition"
+                  className="flex items-center gap-1.5 rounded-md bg-paper px-3 py-1.5 text-xs font-bold whitespace-nowrap text-ink hover:bg-paper-2 transition"
                 >
-                  <Mail className="h-3.5 w-3.5 sm:hidden" />
                   <span className="hidden sm:inline">Connect Gmail</span>
+                  <span className="sm:hidden">Connect</span>
                 </a>
               </div>
             ) : (
               <div className="flex items-center gap-1.5">
                 <button
                   onClick={onToggleDemo}
-                  className="flex items-center gap-1 rounded-lg border border-amber-500/30 bg-amber-500/10 px-2.5 py-1.5 text-xs font-semibold text-amber-300 hover:bg-amber-500/20 transition"
+                  className="flex items-center gap-1 rounded-md border border-white/25 bg-transparent px-2.5 py-1.5 text-xs font-semibold whitespace-nowrap text-paper/90 hover:bg-white/10 transition"
                   title="Explore with sample demo data"
                 >
-                  <Sparkles className="h-3 w-3 text-amber-400" />
-                  <span className="hidden sm:inline">Try Demo</span>
+                  <Sparkles className="h-3 w-3" />
+                  <span className="hidden lg:inline">Demo depot</span>
+                  <span className="lg:hidden">Demo</span>
                 </button>
                 <a
                   href="/api/auth/google"
-                  className="flex items-center gap-1.5 rounded-lg bg-gradient-to-r from-indigo-600 to-cyan-600 px-3 py-1.5 text-xs font-bold text-white shadow-sm shadow-indigo-600/30 hover:brightness-110 transition"
+                  className="flex items-center gap-1.5 rounded-md bg-paper px-3 py-1.5 text-xs font-bold whitespace-nowrap text-ink hover:bg-paper-2 transition"
                 >
-                  <Mail className="h-3.5 w-3.5 sm:hidden" />
                   <span className="hidden sm:inline">Connect Gmail</span>
+                  <span className="sm:hidden">Connect</span>
                 </a>
               </div>
             )}
@@ -250,7 +238,7 @@ export function Navbar({
         </div>
 
         {/* Mobile Tabs */}
-        <div className="flex md:hidden -mx-1 overflow-x-auto px-1 py-2 gap-1 border-t border-slate-800/80 scrollbar-none">
+        <div className="flex md:hidden -mx-1 overflow-x-auto px-1 py-2 gap-1 border-t border-white/10 scrollbar-none">
           {tabs.map((tab) => {
             const Icon = tab.icon;
             const isActive = activeTab === tab.id;
@@ -260,21 +248,16 @@ export function Navbar({
                 key={tab.id}
                 onClick={() => !disabled && setActiveTab(tab.id)}
                 disabled={disabled}
-                className={`flex shrink-0 items-center gap-1.5 rounded-lg px-3 py-1.5 text-xs font-medium ${
+                className={`flex shrink-0 items-center gap-1.5 rounded-md px-3 py-1.5 text-xs font-medium whitespace-nowrap ${
                   disabled
-                    ? 'cursor-not-allowed text-slate-600 opacity-50'
+                    ? 'cursor-not-allowed text-ink-mute opacity-50'
                     : isActive
-                    ? 'bg-indigo-600 text-white'
-                    : 'text-slate-400 hover:bg-slate-800'
+                    ? 'bg-paper text-ink'
+                    : 'text-paper/70 hover:bg-white/10'
                 }`}
               >
                 <Icon className="h-3.5 w-3.5" />
                 <span>{tab.label}</span>
-                {disabled && (
-                  <span className="rounded-md bg-slate-700/80 px-1 py-0.5 text-[8px] font-bold tracking-wider text-slate-400 uppercase">
-                    Soon
-                  </span>
-                )}
               </button>
             );
           })}

@@ -1,39 +1,122 @@
 @import "tailwindcss";
 
-:root {
-  --background: #090d16;
-  --foreground: #f1f5f9;
-  --card-bg: rgba(15, 23, 42, 0.75);
-  --card-border: rgba(255, 255, 255, 0.08);
+/* Depot station tokens — warm paper ground, ink chrome, powder-coat streams */
+@theme {
+  --color-paper: #f4f1ea;
+  --color-paper-2: #efe9dc;
+  --color-sheet: #ffffff;
+  --color-linen: #d8d4c9;
+  --color-linen-2: #e7e3d8;
+  --color-ink: #171a17;
+  --color-ink-soft: #5c6157;
+  --color-ink-mute: #8b8f84;
+  --color-trash: #d64524;
+  --color-trash-deep: #b23617;
+  --color-unload: #3557a8;
+  --color-keep: #2e7d4f;
+  --color-keep-bright: #5fb987;
+  --color-trash-bright: #ef6a45;
+  --color-signal: #ffd200;
+  --color-warn: #a1660b;
+  --color-depot: #1c1f1c;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
+  --font-sans: var(--font-archivo);
   --font-mono: var(--font-geist-mono);
 }
 
+html,
 body {
-  background-color: var(--background);
-  color: var(--foreground);
-  font-family: var(--font-geist-sans), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  overflow-x: hidden;
-  min-height: 100vh;
-  background-image: 
-    radial-gradient(circle at 15% 15%, rgba(99, 102, 241, 0.12) 0%, transparent 40%),
-    radial-gradient(circle at 85% 25%, rgba(6, 182, 212, 0.1) 0%, transparent 40%),
-    radial-gradient(circle at 50% 80%, rgba(139, 92, 246, 0.08) 0%, transparent 50%);
-  background-attachment: fixed;
+  height: 100%;
 }
 
-button, a, input, select, textarea {
+body {
+  background-color: var(--color-paper);
+  color: var(--color-ink);
+  font-family: var(--font-archivo), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-feature-settings: "tnum" 1;
+  overflow-x: hidden;
+  min-height: 100vh;
+}
+
+button, a, input, select, textarea, label {
   -webkit-tap-highlight-color: transparent;
 }
 
 :focus-visible {
-  outline: 2px solid rgb(34 211 238);
+  outline: 2px solid var(--color-ink);
   outline-offset: 2px;
+}
+
+::selection {
+  background: var(--color-signal);
+  color: var(--color-ink);
+}
+
+/* Kafka-weight numerals */
+.tnum {
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum" 1;
+}
+
+/* Sheet-white panel on the paper ground */
+.sheet {
+  background: var(--color-sheet);
+  border: 1px solid var(--color-linen);
+}
+
+.sheet-soft {
+  background: #fbf9f4;
+  border: 1px solid var(--color-linen-2);
+}
+
+/* Powder-coat stream band — the top edge of an intake surface */
+.stream-band {
+  height: 10px;
+  background: var(--stream-color, var(--color-ink));
+}
+
+/* Sorting table rows: hairline division, zebra on deep paper */
+.depot-row {
+  border-bottom: 1px solid var(--color-linen-2);
+}
+
+.depot-row:nth-child(even) {
+  background: #f9f7f1;
+}
+
+/* Ink depot chrome (dark header rail) */
+.depot-rail {
+  background: var(--color-depot);
+  color: #f4f1ea;
+}
+
+/* Stamped disposition: cancelled rows keep their mark */
+.stamp {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  border: 1.5px solid currentColor;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  font-weight: 700;
+  transform: rotate(-1.5deg);
+  padding: 0.1rem 0.5rem;
+}
+
+/* Weighbridge ticket strip */
+.ticket {
+  background: var(--color-sheet);
+  border: 1px solid var(--color-linen);
+  border-top: 3px solid var(--color-ink);
+}
+
+/* Signal-yellow dispatch strip — exactly one per screen */
+.dispatch-strip {
+  background: var(--color-ink);
+  color: var(--color-paper);
+  border: 1px solid var(--color-ink);
 }
 
 .scrollbar-none {
@@ -45,57 +128,26 @@ button, a, input, select, textarea {
   display: none;
 }
 
-@media (max-width: 639px) {
-  body {
-    background-attachment: scroll;
-  }
-
-  input, select, textarea {
-    font-size: 16px;
-  }
-}
-
-/* Glassmorphism surfaces */
-.glass-panel {
-  background: rgba(15, 23, 42, 0.7);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-}
-
-.glass-card {
-  background: rgba(30, 41, 59, 0.55);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.07);
-  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.glass-card:hover {
-  background: rgba(30, 41, 59, 0.75);
-  border-color: rgba(99, 102, 241, 0.3);
-}
-
-/* Custom scrollbars */
+/* Custom scrollbars in the depot palette */
 ::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
+  width: 8px;
+  height: 8px;
 }
 
 ::-webkit-scrollbar-track {
-  background: rgba(15, 23, 42, 0.5);
+  background: var(--color-paper-2);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgba(148, 163, 184, 0.25);
-  border-radius: 9999px;
+  background: #c4bfae;
+  border-radius: 0;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(148, 163, 184, 0.45);
+  background: #a8a290;
 }
 
-/* Smooth row deletion animation */
+/* Smooth row removal: the weigh-off */
 @keyframes rowSlideOut {
   0% {
     opacity: 1;
@@ -104,8 +156,8 @@ button, a, input, select, textarea {
   }
   30% {
     opacity: 0.6;
-    background-color: rgba(244, 63, 94, 0.15);
-    border-color: rgba(244, 63, 94, 0.4);
+    background-color: rgba(214, 69, 36, 0.12);
+    border-color: rgba(214, 69, 36, 0.5);
     transform: translateX(14px) scale(0.98);
   }
   100% {
@@ -126,12 +178,29 @@ button, a, input, select, textarea {
   pointer-events: none;
 }
 
-@keyframes pulseGlow {
-  0%, 100% { opacity: 0.4; transform: scale(1); }
-  50% { opacity: 0.8; transform: scale(1.04); }
+/* Weigh-up: the intake count ticks when a dispatch lands */
+@keyframes weighUp {
+  0% { transform: translateY(0); }
+  35% { transform: translateY(-6px); }
+  100% { transform: translateY(0); }
 }
 
-.animate-pulse-glow {
-  animation: pulseGlow 2.5s infinite ease-in-out;
+.animate-weigh-up {
+  animation: weighUp 420ms cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 
+/* Parcels drifting onto the weighbridge — smooth ease, no bounce */
+@keyframes parcelFloat {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-3px); }
+}
+
+.animate-parcel-float {
+  animation: parcelFloat 1s cubic-bezier(0.2, 0.8, 0.2, 1) infinite;
+}
+
+@media (max-width: 639px) {
+  input, select, textarea {
+    font-size: 16px;
+  }
+}

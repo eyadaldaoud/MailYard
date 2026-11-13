@@ -30,7 +30,7 @@ import {
   AlertCircle,
   Info,
   ExternalLink,
-  Sparkles,
+  Box,
 } from 'lucide-react';
 
 export default function DashboardPage() {
@@ -523,7 +523,7 @@ export default function DashboardPage() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-[#090d16] text-slate-100 selection:bg-indigo-500 selection:text-white">
+    <div className="min-h-screen flex flex-col bg-paper text-ink selection:bg-signal selection:text-ink">
       {/* Top Navigation */}
       <Navbar
         session={session}
@@ -554,12 +554,12 @@ export default function DashboardPage() {
         <main className="flex-1 mx-auto w-full max-w-7xl px-3 py-4 space-y-4 sm:px-6 sm:py-6 sm:space-y-6 lg:px-8">
           {/* Demo Mode Notice Banner */}
           {session.isDemoMode && (
-            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 rounded-2xl border border-amber-500/30 bg-amber-950/30 p-4 text-xs backdrop-blur-md shadow-lg shadow-amber-950/20 animate-in fade-in">
+            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 depot-rail p-4 text-xs shadow-sm">
               <div className="flex items-center gap-2.5">
-                <Sparkles className="h-4 w-4 text-amber-400 shrink-0" />
+                <Box className="h-4 w-4 text-paper/70 shrink-0" aria-hidden />
                 <div>
-                  <span className="font-bold text-amber-200">Demo Simulator Active: </span>
-                  <span className="text-amber-100/90">
+                  <span className="font-bold text-paper">Demo depot active: </span>
+                  <span className="text-paper/80">
                     Browsing realistic mock email metadata. Real Gmail inbox is not connected.
                   </span>
                 </div>
@@ -567,13 +567,13 @@ export default function DashboardPage() {
               <div className="flex items-center gap-2 shrink-0">
                 <button
                   onClick={() => setActiveTab('setup')}
-                  className="rounded-xl border border-slate-700 bg-slate-800/80 px-3 py-1.5 text-xs font-semibold text-slate-300 hover:text-white hover:bg-slate-700 transition"
+                  className="border border-white/20 px-3 py-1.5 text-xs font-semibold text-paper hover:bg-white/10 transition"
                 >
                   View Setup Wizard
                 </button>
                 <button
                   onClick={handleExitDemo}
-                  className="rounded-xl border border-amber-500/40 bg-amber-500/20 px-3 py-1.5 text-xs font-bold text-amber-200 hover:bg-amber-500/30 hover:text-white transition"
+                  className="border border-paper/30 bg-transparent px-3 py-1.5 text-xs font-bold text-paper hover:bg-paper hover:text-ink transition"
                 >
                   Exit Demo
                 </button>
@@ -583,12 +583,12 @@ export default function DashboardPage() {
 
           {/* API Notification Banner */}
           {apiNotice && (
-            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 rounded-2xl border border-amber-500/40 bg-amber-950/40 p-4 text-xs backdrop-blur-md shadow-lg shadow-amber-950/30 animate-in fade-in">
+            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sheet p-4 text-xs shadow-sm">
               <div className="flex items-start sm:items-center gap-2.5">
-                <AlertCircle className="h-5 w-5 shrink-0 text-amber-400 mt-0.5 sm:mt-0" />
+                <AlertCircle className="h-5 w-5 shrink-0 text-warn" aria-hidden />
                 <div>
-                  <span className="font-bold text-amber-200">Action Required: </span>
-                  <span className="text-amber-100">{apiNotice.message}</span>
+                  <span className="font-bold text-warn">Action required: </span>
+                  <span className="text-ink">{apiNotice.message}</span>
                 </div>
               </div>
               {apiNotice.link && (
@@ -596,7 +596,7 @@ export default function DashboardPage() {
                   href={apiNotice.link}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="shrink-0 flex items-center gap-1.5 rounded-xl bg-amber-500 px-3.5 py-1.5 text-xs font-bold text-slate-950 hover:bg-amber-400 shadow-md transition"
+                  className="shrink-0 flex items-center gap-1.5 border border-trash bg-trash px-3.5 py-1.5 text-xs font-bold text-paper hover:bg-trash-deep transition"
                 >
                   <span>{apiNotice.linkText || 'Enable Now'}</span>
                   <ExternalLink className="h-3 w-3" />
@@ -615,10 +615,10 @@ export default function DashboardPage() {
 
           {/* Tab Viewport */}
           {isLoading ? (
-            <div className="flex h-64 flex-col items-center justify-center gap-3 rounded-2xl border border-slate-800 bg-slate-900/30">
-              <Loader2 className="h-8 w-8 animate-spin text-indigo-400" />
-              <p className="text-xs font-medium text-slate-400">
-                Analyzing inbox metadata & syncing Supabase database...
+            <div className="flex h-64 flex-col items-center justify-center gap-3 sheet">
+              <Loader2 className="h-8 w-8 animate-spin text-unload" />
+              <p className="tnum text-xs font-medium text-ink-soft">
+                Weighing in inbox metadata & syncing your database...
               </p>
             </div>
           ) : (
@@ -679,13 +679,13 @@ export default function DashboardPage() {
 
       {/* Toast Notification Banner — bottom right */}
       {toast && (
-        <div className="fixed bottom-6 right-6 z-50 flex items-center gap-2.5 rounded-2xl border border-slate-700 bg-slate-900/90 px-4 py-3 text-xs font-semibold text-white shadow-2xl backdrop-blur-md animate-in slide-in-from-bottom-5 duration-200">
+        <div className="fixed bottom-6 right-6 z-50 flex items-center gap-2.5 depot-rail border border-white/10 px-4 py-3 text-xs font-semibold text-paper shadow-lg animate-weigh-up">
           {toast.type === 'success' ? (
-            <CheckCircle2 className="h-4 w-4 text-emerald-400 shrink-0" />
+            <CheckCircle2 className="h-4 w-4 text-keep-bright shrink-0" />
           ) : toast.type === 'error' ? (
-            <AlertCircle className="h-4 w-4 text-rose-400 shrink-0" />
+            <AlertCircle className="h-4 w-4 text-trash-bright shrink-0" />
           ) : (
-            <Info className="h-4 w-4 text-cyan-400 shrink-0" />
+            <Info className="h-4 w-4 text-signal shrink-0" />
           )}
           <span>{toast.message}</span>
         </div>

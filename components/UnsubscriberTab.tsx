@@ -3,15 +3,15 @@
 import React, { useState, useMemo } from 'react';
 import {
   ShieldCheck,
-  ExternalLink,
-  Mail,
+  
+  
   Ban,
   Trash2,
   CheckCircle2,
   Loader2,
   AlertCircle,
   Search,
-  Sparkles,
+  
   Zap,
 } from 'lucide-react';
 import { EmailMetadata, BlockedSenderRecord } from '@/lib/types';
@@ -135,33 +135,34 @@ export function UnsubscriberTab({
   return (
     <div className="space-y-4">
       {/* Overview Banner */}
-      <div className="rounded-2xl border border-indigo-500/20 bg-gradient-to-r from-indigo-950/40 via-slate-900/50 to-cyan-950/30 p-5 backdrop-blur-md">
+      <div className="relative overflow-hidden rounded-2xl border border-linen bg-sheet p-5">
+        <span className="stream-band absolute inset-x-0 top-0 h-1" style={{ ['--stream-color' as string]: 'var(--color-unload)' }} aria-hidden />
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
           <div className="flex items-center gap-3">
-            <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-indigo-600/20 border border-indigo-500/30 text-indigo-400">
+            <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-unload/15 border border-unload/40 text-unload">
               <Zap className="h-6 w-6" />
             </div>
             <div>
-              <h2 className="text-base font-bold text-white">Automated "One-Click" Unsubscriber</h2>
-              <p className="text-xs text-slate-300 max-w-xl mt-0.5">
-                Inspects RFC 2369 & RFC 8058 <code className="text-cyan-400 font-mono">List-Unsubscribe</code> headers.
+              <h2 className="text-base font-bold text-ink">Automated "One-Click" Unsubscriber</h2>
+              <p className="text-xs text-ink max-w-xl mt-0.5">
+                Inspects RFC 2369 & RFC 8058 <code className="text-unload font-mono">List-Unsubscribe</code> headers.
                 Executes background server-side POST/GET or sends silent automated mailto messages directly via Gmail API.
               </p>
             </div>
           </div>
 
           <div className="flex items-center gap-2 self-stretch sm:self-auto">
-            <div className="rounded-xl border border-slate-700 bg-slate-800/80 px-3 py-2 text-center flex-1 sm:flex-initial">
-              <div className="text-sm font-bold text-emerald-400">
+            <div className="rounded-xl border border-linen bg-sheet px-3 py-2 text-center flex-1 sm:flex-initial">
+              <div className="text-sm font-bold text-keep">
                 {subscriptionGroups.filter((g) => g.hasUnsubscribeHeader).length}
               </div>
-              <div className="text-[10px] text-slate-400">Unsubscribable</div>
+              <div className="text-[10px] text-ink-soft">Unsubscribable</div>
             </div>
-            <div className="rounded-xl border border-slate-700 bg-slate-800/80 px-3 py-2 text-center flex-1 sm:flex-initial">
-              <div className="text-sm font-bold text-rose-400">
+            <div className="rounded-xl border border-linen bg-sheet px-3 py-2 text-center flex-1 sm:flex-initial">
+              <div className="text-sm font-bold text-trash">
                 {blockedSenders.length}
               </div>
-              <div className="text-[10px] text-slate-400">Blocked Senders</div>
+              <div className="text-[10px] text-ink-soft">Blocked Senders</div>
             </div>
           </div>
         </div>
@@ -171,14 +172,14 @@ export function UnsubscriberTab({
           <div
             className={`mt-4 flex items-center gap-2 rounded-xl p-3 text-xs font-medium border ${
               statusMessage.isError
-                ? 'border-rose-500/30 bg-rose-500/10 text-rose-300'
-                : 'border-emerald-500/30 bg-emerald-500/10 text-emerald-300'
+                ? 'border-trash/30 bg-trash/10 text-trash'
+                : 'border-keep/30 bg-keep/10 text-keep'
             }`}
           >
             {statusMessage.isError ? (
-              <AlertCircle className="h-4 w-4 shrink-0 text-rose-400" />
+              <AlertCircle className="h-4 w-4 shrink-0 text-trash" />
             ) : (
-              <CheckCircle2 className="h-4 w-4 shrink-0 text-emerald-400" />
+              <CheckCircle2 className="h-4 w-4 shrink-0 text-keep" />
             )}
             <span>
               <strong>{statusMessage.domain}:</strong> {statusMessage.text}
@@ -188,19 +189,19 @@ export function UnsubscriberTab({
       </div>
 
       {/* Search Bar */}
-      <div className="flex flex-col items-stretch justify-between gap-3 rounded-xl border border-slate-800 bg-slate-900/60 p-3 sm:flex-row sm:items-center sm:gap-4">
+      <div className="flex flex-col items-stretch justify-between gap-3 rounded-xl border border-linen bg-sheet p-3 sm:flex-row sm:items-center sm:gap-4">
         <div className="relative flex-1 max-w-md">
-          <Search className="absolute left-3 top-2.5 h-4 w-4 text-slate-500" />
+          <Search className="absolute left-3 top-2.5 h-4 w-4 text-ink-soft" />
           <input
             type="text"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             placeholder="Search subscriptions by domain or sender..."
-            className="w-full rounded-lg border border-slate-700 bg-slate-800/80 pl-9 pr-3 py-1.5 text-xs text-white placeholder-slate-500 focus:border-indigo-500 focus:outline-none"
+            className="w-full rounded-lg border border-linen bg-sheet pl-9 pr-3 py-1.5 text-xs text-ink placeholder-ink-mute focus:border-unload focus:outline-none"
           />
         </div>
-        <div className="text-xs text-slate-400 sm:text-right">
-          Showing <span className="font-semibold text-white">{subscriptionGroups.length}</span> sender domains
+        <div className="text-xs text-ink-soft sm:text-right">
+          Showing <span className="font-semibold text-ink">{subscriptionGroups.length}</span> sender domains
         </div>
       </div>
 
@@ -214,60 +215,62 @@ export function UnsubscriberTab({
           return (
             <div
               key={group.domain}
-              className={`rounded-xl border p-4 transition-all relative overflow-hidden flex flex-col justify-between ${
+              className={`relative overflow-hidden rounded-xl border p-4 transition-all flex flex-col justify-between ${
                 isUnsubscribed
-                  ? 'border-emerald-500/40 bg-emerald-950/15'
+                  ? 'border-keep/40 bg-sheet'
                   : isBlocked
-                  ? 'border-rose-500/30 bg-rose-950/15'
-                  : 'border-slate-800 bg-slate-900/50 hover:border-slate-700 hover:bg-slate-800/40'
+                  ? 'border-trash/40 bg-sheet'
+                  : 'border-linen bg-sheet hover:border-ink-mute'
               }`}
+              style={{ ['--stream-color' as string]: isUnsubscribed ? 'var(--color-keep)' : isBlocked ? 'var(--color-trash)' : 'var(--color-ink)' }}
             >
+              <span className="stream-band absolute inset-x-0 top-0 h-1" aria-hidden />
               <div>
                 {/* Header: Sender info + domain */}
                 <div className="flex items-start justify-between gap-2 mb-2">
                   <div className="min-w-0">
-                    <h3 className="text-sm font-bold text-white truncate">
+                    <h3 className="text-sm font-bold text-ink truncate">
                       {group.senderName}
                     </h3>
-                    <p className="text-xs text-indigo-400 font-mono truncate">
+                    <p className="text-xs text-unload font-mono truncate">
                       @{group.domain}
                     </p>
                   </div>
 
                   <div className="flex items-center gap-1.5 shrink-0">
-                    <span className="rounded-full bg-slate-800 px-2.5 py-0.5 text-[10px] font-semibold text-slate-300">
+                    <span className="rounded-full bg-sheet px-2.5 py-0.5 text-[10px] font-semibold text-ink">
                       {group.emails.length} email{group.emails.length > 1 ? 's' : ''}
                     </span>
                   </div>
                 </div>
 
                 {/* Subtitle / latest email subject */}
-                <p className="text-xs text-slate-400 truncate mb-3">
+                <p className="text-xs text-ink-soft truncate mb-3">
                   Latest: "{group.sampleEmail.subject}"
                 </p>
 
                 {/* Unsubscribe Mechanism Badge */}
                 <div className="flex flex-wrap items-center gap-1.5 mb-4">
                   {group.hasOneClickPost ? (
-                    <span className="rounded-md border border-cyan-500/30 bg-cyan-500/10 px-2 py-0.5 text-[10px] font-semibold text-cyan-300">
+                    <span className="rounded-md border border-unload bg-unload px-2 py-0.5 text-[10px] font-semibold text-paper">
                       RFC 8058 One-Click POST
                     </span>
                   ) : group.hasHttpUrl ? (
-                    <span className="rounded-md border border-blue-500/30 bg-blue-500/10 px-2 py-0.5 text-[10px] font-semibold text-blue-300">
+                    <span className="rounded-md border border-unload bg-unload px-2 py-0.5 text-[10px] font-semibold text-paper">
                       HTTP Unsubscribe Link
                     </span>
                   ) : group.hasMailto ? (
-                    <span className="rounded-md border border-purple-500/30 bg-purple-500/10 px-2 py-0.5 text-[10px] font-semibold text-purple-300">
+                    <span className="rounded-md border border-unload bg-unload px-2 py-0.5 text-[10px] font-semibold text-paper">
                       Silent Gmail Mailto
                     </span>
                   ) : (
-                    <span className="rounded-md border border-slate-700 bg-slate-800 px-2 py-0.5 text-[10px] font-semibold text-slate-400">
+                    <span className="rounded-md border border-linen bg-sheet px-2 py-0.5 text-[10px] font-semibold text-ink-soft">
                       No Unsubscribe Header
                     </span>
                   )}
 
                   {isBlocked && (
-                    <span className="rounded-md border border-rose-500/30 bg-rose-500/20 px-2 py-0.5 text-[10px] font-semibold text-rose-300">
+                    <span className="rounded-md border border-trash/30 bg-trash/20 px-2 py-0.5 text-[10px] font-semibold text-trash">
                       Domain Blocked
                     </span>
                   )}
@@ -275,12 +278,12 @@ export function UnsubscriberTab({
               </div>
 
               {/* Action Buttons */}
-              <div className="flex items-center justify-between gap-2 pt-3 border-t border-slate-800/80">
+              <div className="flex items-center justify-between gap-2 pt-3 border-t border-linen">
                 {/* Trash all emails from sender */}
                 <button
                   onClick={() => handleTrashAllFromGroup(group)}
                   title={`Trash all ${group.emails.length} emails from this sender`}
-                  className="flex items-center gap-1 rounded-lg border border-slate-700 bg-slate-800 px-2.5 py-1.5 text-xs text-slate-300 hover:text-rose-400 hover:border-rose-500/40 transition"
+                  className="flex items-center gap-1 rounded-lg border border-linen bg-sheet px-2.5 py-1.5 text-xs text-ink hover:text-trash hover:border-trash/40 transition"
                 >
                   <Trash2 className="h-3.5 w-3.5" />
                   <span className="hidden sm:inline">Trash All ({group.emails.length})</span>
@@ -294,8 +297,8 @@ export function UnsubscriberTab({
                       disabled={isBusy || isUnsubscribed}
                       className={`flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-xs font-semibold shadow-sm transition ${
                         isUnsubscribed
-                          ? 'bg-emerald-600 text-white cursor-default'
-                          : 'bg-emerald-600/90 text-white hover:bg-emerald-500 shadow-emerald-600/20'
+                          ? 'bg-keep text-paper cursor-default'
+                          : 'bg-keep/90 text-paper hover:bg-keep shadow-keep/20'
                       } disabled:opacity-75`}
                     >
                       {isBusy ? (
@@ -314,13 +317,13 @@ export function UnsubscriberTab({
                     <button
                       onClick={() => onBlockSender(group.domain, group.senderEmail)}
                       title="Block sender domain in Supabase and trash future emails"
-                      className="flex items-center gap-1.5 rounded-lg border border-slate-700 bg-slate-800 px-3 py-1.5 text-xs font-semibold text-slate-300 hover:text-rose-400 hover:border-rose-500/40 transition"
+                      className="flex items-center gap-1.5 rounded-lg border border-linen bg-sheet px-3 py-1.5 text-xs font-semibold text-ink hover:text-trash hover:border-trash/40 transition"
                     >
                       <Ban className="h-3.5 w-3.5" />
                       <span>Block Sender</span>
                     </button>
                   ) : (
-                    <span className="text-[11px] font-medium text-rose-400">
+                    <span className="text-[11px] font-medium text-trash">
                       Blocked & Filtered
                     </span>
                   )}
