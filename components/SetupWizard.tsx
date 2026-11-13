@@ -221,7 +221,7 @@ SESSION_SECRET="mc_sec_${Math.random().toString(36).substring(2, 15)}${Math.rand
               {/* Action buttons */}
               <div className="flex flex-wrap items-center gap-2.5">
                 <a
-                  href="https://github.com/eyadaldaoud/mail-cleaner"
+                  href="https://github.com/eyadaldaoud/MailYard"
                   target="_blank"
                   rel="noreferrer"
                   className="flex items-center gap-1.5 rounded-xl border border-linen bg-sheet hover:bg-linen/50 px-3.5 py-2 text-xs font-semibold text-ink transition"
@@ -452,7 +452,7 @@ SESSION_SECRET="mc_sec_${Math.random().toString(36).substring(2, 15)}${Math.rand
                   <button
                     onClick={() =>
                       copyToClipboard(
-                        `git clone https://github.com/eyadaldaoud/mail-cleaner.git\ncd mail-cleaner\nnpm install\ncp .env.example .env.local`,
+                        `git clone https://github.com/eyadaldaoud/MailYard.git\ncd MailYard\nnpm install\ncp .env.example .env.local`,
                         'clone'
                       )
                     }
@@ -481,9 +481,9 @@ SESSION_SECRET="mc_sec_${Math.random().toString(36).substring(2, 15)}${Math.rand
                   </div>
                   <pre className="text-paper/85 leading-relaxed">
                     <span className="text-paper/45"># 1. Clone the project repository</span>{'\n'}
-                    <span className="text-keep-bright">git clone </span>https://github.com/eyadaldaoud/mail-cleaner.git{'\n\n'}
+                    <span className="text-keep-bright">git clone </span>https://github.com/eyadaldaoud/MailYard.git{'\n\n'}
                     <span className="text-paper/45"># 2. Enter directory & install packages</span>{'\n'}
-                    <span className="text-keep-bright">cd </span>mail-cleaner{'\n'}
+                    <span className="text-keep-bright">cd </span>MailYard{'\n'}
                     <span className="text-keep-bright">npm install</span>{'\n\n'}
                     <span className="text-paper/45"># 3. Create your local environment configuration</span>{'\n'}
                     <span className="text-keep-bright">cp </span>.env.example .env.local

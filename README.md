@@ -32,8 +32,8 @@
 ### 1. Clone & install
 
 ```bash
-git clone https://github.com/your-org/mail-cleaner.git
-cd mail-cleaner
+git clone https://github.com/eyadaldaoud/MailYard.git
+cd MailYard
 npm install
 ```
 
